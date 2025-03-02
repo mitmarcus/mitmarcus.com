@@ -16,19 +16,19 @@ import '@/styles/app.css';
 import { cn } from '@/utils/cn';
 import { getLocalizedUrl } from '@/utils/url';
 
-export const dynamic = 'force-dynamic';
 export const viewport: Viewport = {
 	themeColor: {
 		color: '#060609',
 	},
 };
 
-export const generateMetadata = async ({
+export async function generateMetadata({
 	params,
 }: {
 	params: { locale: Locale };
-}): Promise<Metadata> => {
-	const t = await getTranslations('homePage');
+}): Promise<Metadata> {
+	const { locale } = await params;
+	const t = await getTranslations({ locale, namespace: 'homePage' });
 	const url = getLocalizedUrl({ locale: params.locale });
 
 	return {
@@ -66,7 +66,7 @@ export const generateMetadata = async ({
 		},
 		manifest: '/manifest.json',
 	};
-};
+}
 
 export const generateStaticParams = () => {
 	return locales.map((locale) => ({ locale }));
@@ -74,15 +74,17 @@ export const generateStaticParams = () => {
 
 type RootLayoutProps = {
 	children: React.ReactNode;
-	params: { locale: string };
+	params: Promise<{ locale: string }>;
 };
 
-const RootLayout = ({ children, params: { locale } }: RootLayoutProps) => {
+const RootLayout = async (props: RootLayoutProps) => {
+	const params = await props.params;
+	const { locale } = params;
+	const { children } = props;
+
 	if (!locales.includes(locale as any)) {
 		notFound();
 	}
-
-	unstable_setRequestLocale(locale);
 
 	return (
 		<html

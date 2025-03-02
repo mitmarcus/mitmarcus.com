@@ -1,3 +1,4 @@
+import { use } from "react";
 import { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -15,29 +16,30 @@ export const generateStaticParams = async () => {
 	return allProjects.map(({ slug }) => ({ slug }));
 };
 
-export const generateMetadata = async ({
-	params,
-}: {
-	params: { locale: Locale; slug: string };
-}): Promise<Metadata | undefined> => {
-	const post = getContentWithFallback({
+export const generateMetadata = async (
+    props: {
+        params: Promise<{ locale: Locale; slug: string }>;
+    }
+): Promise<Metadata | undefined> => {
+    const params = await props.params;
+    const post = getContentWithFallback({
 		contentItems: allProjects,
 		slug: params.slug,
 		locale: params.locale,
 	});
 
-	if (!post) {
+    if (!post) {
 		return;
 	}
 
-	const { title, description, slug } = post;
+    const { title, description, slug } = post;
 
-	const url = getLocalizedUrl({
+    const url = getLocalizedUrl({
 		locale: params.locale,
 		slug,
 	});
 
-	return {
+    return {
 		title,
 		description,
 		openGraph: {
@@ -53,27 +55,28 @@ export const generateMetadata = async ({
 };
 
 type ProjectLayoutProps = {
-	params: {
+	params: Promise<{
 		slug: string;
 		locale: Locale;
-	};
+	}>;
 };
 
-const ProjectLayout = ({ params }: ProjectLayoutProps) => {
-	const t = useTranslations('common');
-	const project = getContentWithFallback({
+const ProjectLayout = (props: ProjectLayoutProps) => {
+    const params = use(props.params);
+    const t = useTranslations('common');
+    const project = getContentWithFallback({
 		contentItems: allProjects,
 		slug: params.slug,
 		locale: params.locale,
 	});
 
-	if (!project) {
+    if (!project) {
 		notFound();
 	}
 
-	const { title, imageUrl, demoUrl, repoUrl } = project;
+    const { title, imageUrl, demoUrl, repoUrl } = project;
 
-	return (
+    return (
 		<>
 			<Link
 				variant='block'

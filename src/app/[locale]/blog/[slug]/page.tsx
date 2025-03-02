@@ -1,3 +1,4 @@
+import { use } from "react";
 import { Metadata } from 'next';
 import { useFormatter, useTranslations } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -17,30 +18,31 @@ export const generateStaticParams = async () => {
 	return allPosts.map((post) => ({ slug: post.slug }));
 };
 
-export const generateMetadata = async ({
-	params,
-}: {
-	params: { locale: Locale; slug: string };
-}): Promise<Metadata | undefined> => {
-	const post = getContentWithFallback({
+export const generateMetadata = async (
+    props: {
+        params: Promise<{ locale: Locale; slug: string }>;
+    }
+): Promise<Metadata | undefined> => {
+    const params = await props.params;
+    const post = getContentWithFallback({
 		contentItems: allPosts,
 		slug: params.slug,
 		locale: params.locale,
 	});
 
-	if (!post) {
+    if (!post) {
 		return;
 	}
 
-	const { title, description, publishedAt, slug } = post;
+    const { title, description, publishedAt, slug } = post;
 
-	const url = getLocalizedUrl({
+    const url = getLocalizedUrl({
 		locale: params.locale,
 		pathname: 'blog',
 		slug,
 	});
 
-	return {
+    return {
 		title,
 		description,
 		openGraph: {
@@ -57,35 +59,36 @@ export const generateMetadata = async ({
 };
 
 type BlogPostLayoutProps = {
-	params: {
+	params: Promise<{
 		slug: string;
 		locale: Locale;
-	};
+	}>;
 };
 
-const BlogPostLayout = ({ params }: BlogPostLayoutProps) => {
-	const t = useTranslations('common');
-	const format = useFormatter();
+const BlogPostLayout = (props: BlogPostLayoutProps) => {
+    const params = use(props.params);
+    const t = useTranslations('common');
+    const format = useFormatter();
 
-	const post = getContentWithFallback({
+    const post = getContentWithFallback({
 		contentItems: allPosts,
 		slug: params.slug,
 		locale: params.locale,
 	});
 
-	if (!post) {
+    if (!post) {
 		notFound();
 	}
 
-	const { title, language, publishedAt, slug } = post;
+    const { title, language, publishedAt, slug } = post;
 
-	const date = format.dateTime(new Date(publishedAt), {
+    const date = format.dateTime(new Date(publishedAt), {
 		year: 'numeric',
 		month: 'long',
 		day: 'numeric',
 	});
 
-	return (
+    return (
 		<>
 			<Link
 				variant='block'

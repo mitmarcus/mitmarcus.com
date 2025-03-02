@@ -1,5 +1,7 @@
 import { cn } from '@/utils/cn';
 
+import type { JSX } from "react";
+
 type GradientTextProps = {
 	className?: string;
 	as: keyof JSX.IntrinsicElements;

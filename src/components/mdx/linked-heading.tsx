@@ -1,6 +1,8 @@
 import Link from '@/components/ui/link';
 import { cn } from '@/utils/cn';
 
+import type { JSX } from "react";
+
 type LinkedHeadingProps = {
 	className?: string;
 	as: keyof JSX.IntrinsicElements;

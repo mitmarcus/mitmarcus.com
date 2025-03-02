@@ -29,7 +29,7 @@ $PROJECT_ROOT
     ├── styles/
     ├── types/
     ├── utils/
-    ├── i18n.ts
+    ├── i18n/
     └── middleware.ts
 ```
 
