@@ -29,7 +29,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const { locale } = await params;
 	const t = await getTranslations({ locale, namespace: 'homePage' });
-	const url = getLocalizedUrl({ locale: params.locale });
+	const url = getLocalizedUrl({ locale });
 
 	return {
 		metadataBase: new URL(siteConfig.siteUrl),
@@ -42,7 +42,7 @@ export async function generateMetadata({
 		openGraph: {
 			...siteConfig.openGraph,
 			url,
-			locale: params.locale,
+			locale,
 			description: t('description'),
 		},
 		robots: {
