@@ -1,36 +1,36 @@
 {
 	"common": {
-		"latestPosts": "Seneste indlæg",
-		"placeholder": "Søg efter artikler",
-		"noResults": "Ingen søgeresultater",
-		"viewMore": "se mere",
-		"home": "Hjem",
+		"latestPosts": "Latest Posts",
+		"placeholder": "Search articles",
+		"noResults": "No Search Results",
+		"viewMore": "view more",
+		"home": "Home",
 		"blog": "Blog",
-		"projects": "Projekter",
-		"about": "Om",
-		"noSupport": "Artiklen understøtter ikke det aktuelle sprog.",
-		"backToBlog": "Tilbage til Blog",
-		"backToProjects": "Tilbage til Projekter",
-		"backToHome": "Tilbage til Hjem",
-		"postViews": "<count></count> visninger",
-		"notFound": "Beklager, siden du leder efter findes ikke.",
-		"chooseLanguage": "vælg sprog",
-		"closeMenu": "Luk menu",
-		"openMenu": "Åbn menu",
-		"translations": "Oversættelser"
+		"projects": "Projects",
+		"about": "About",
+		"noSupport": "The article does not support the current language.",
+		"backToBlog": "Back to Blog",
+		"backToProjects": "Back to Projects",
+		"backToHome": "Back to Home",
+		"postViews": "<count></count> views",
+		"notFound": "Sorry, the page you are looking for does not exist.",
+		"chooseLanguage": "chooseLanguage",
+		"closeMenu": "Close menu",
+		"openMenu": "Open Menu",
+		"translations": "Translations"
 	},
 	"homePage": {
-		"description": "👋 Hej, jeg er Marcus, en udvikler baseret i Danmark, der specialiserer sig i React og Next.js.",
-		"subTitle": "Udvikler"
+		"description": "👋 Heya, I'm Marcus, a developer living in Denmark specializing in React and Next.js. I bench 115 kg and use Fedora Linux. (super important I know)",
+		"subTitle": "Developer"
 	},
 	"blogPage": {
-		"description": "Velkommen til min blog! Her vil jeg nedskrive min læringserfaring og viden om softwareudvikling.",
-		"subTitle": "<highlight></highlight> indlæg om kode og mere..."
+		"description": "Welcome to my blog! Here I will record my learning experience and knowledge in software development.",
+		"subTitle": "<highlight></highlight> posts about code and more..."
 	},
 	"projectsPage": {
-		"description": "Fremvisning af mine projekter."
+		"description": "Showcase of my projects."
 	},
 	"aboutPage": {
-		"description": "Om min erhvervserfaring, læringsoptegnelser osv..."
+		"description": "About my work experience, learning record, etc..."
 	}
 }
