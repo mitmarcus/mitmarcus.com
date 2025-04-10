@@ -1,36 +1,36 @@
 {
 	"common": {
-		"latestPosts": "Ultimele postări",
-		"placeholder": "Caută articole",
-		"noResults": "Niciun rezultat de căutare",
-		"viewMore": "vezi mai multe",
-		"home": "Acasă",
+		"latestPosts": "Latest Posts",
+		"placeholder": "Search articles",
+		"noResults": "No Search Results",
+		"viewMore": "view more",
+		"home": "Home",
 		"blog": "Blog",
-		"projects": "Proiecte",
-		"about": "Despre",
-		"noSupport": "Articolul nu suportă limba curentă.",
-		"backToBlog": "Înapoi la Blog",
-		"backToProjects": "Înapoi la Proiecte",
-		"backToHome": "Înapoi acasă",
-		"postViews": "<count></count> vizualizări",
-		"notFound": "Ne pare rău, pagina pe care o căutați nu există.",
-		"chooseLanguage": "alege limba",
-		"closeMenu": "Închide meniul",
-		"openMenu": "Deschide meniul",
-		"translations": "Traduceri"
+		"projects": "Projects",
+		"about": "About",
+		"noSupport": "The article does not support the current language.",
+		"backToBlog": "Back to Blog",
+		"backToProjects": "Back to Projects",
+		"backToHome": "Back to Home",
+		"postViews": "<count></count> views",
+		"notFound": "Sorry, the page you are looking for does not exist.",
+		"chooseLanguage": "chooseLanguage",
+		"closeMenu": "Close menu",
+		"openMenu": "Open Menu",
+		"translations": "Translations"
 	},
 	"homePage": {
-		"description": "👋 Salut, sunt Marcus, un dezvoltator din Danemarca specializat în React și Next.js.",
-		"subTitle": "Dezvoltator"
+		"description": "👋 Heya, I'm Marcus, a developer living in Denmark specializing in React and Next.js. I bench 115 kg and use Fedora Linux. (super important I know)",
+		"subTitle": "Developer"
 	},
 	"blogPage": {
-		"description": "Bine ați venit pe blogul meu! Aici îmi voi înregistra experiențele de învățare și cunoștințele în dezvoltarea software.",
-		"subTitle": "<highlight></highlight> postări despre cod și altele..."
+		"description": "Welcome to my blog! Here I will record my learning experience and knowledge in software development.",
+		"subTitle": "<highlight></highlight> posts about code and more..."
 	},
 	"projectsPage": {
-		"description": "Prezentarea proiectelor mele."
+		"description": "Showcase of my projects."
 	},
 	"aboutPage": {
-		"description": "Despre experiența mea de muncă, înregistrările de învățare, etc..."
+		"description": "About my work experience, learning record, etc..."
 	}
 }
