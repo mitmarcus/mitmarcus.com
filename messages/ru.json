@@ -1,36 +1,36 @@
 {
 	"common": {
-		"latestPosts": "Latest Posts",
-		"placeholder": "Search articles",
-		"noResults": "No Search Results",
-		"viewMore": "view more",
-		"home": "Home",
-		"blog": "Blog",
-		"projects": "Projects",
-		"about": "About",
-		"noSupport": "The article does not support the current language.",
-		"backToBlog": "Back to Blog",
-		"backToProjects": "Back to Projects",
-		"backToHome": "Back to Home",
-		"postViews": "<count></count> views",
-		"notFound": "Sorry, the page you are looking for does not exist.",
-		"chooseLanguage": "chooseLanguage",
-		"closeMenu": "Close menu",
-		"openMenu": "Open Menu",
-		"translations": "Translations"
+		"latestPosts": "Последние публикации",
+		"placeholder": "Поиск статей",
+		"noResults": "Ничего не найдено",
+		"viewMore": "подробнее",
+		"home": "Главная",
+		"blog": "Блог",
+		"projects": "Проекты",
+		"about": "Информация",
+		"noSupport": "Статья не поддерживает текущий язык.",
+		"backToBlog": "Назад к блогу",
+		"backToProjects": "Назад к проектам",
+		"backToHome": "Назад на главную",
+		"postViews": "<count></count> просмотр(-ов)",
+		"notFound": "Извините, страница которую вы ищете, не существует.",
+		"chooseLanguage": "Выбрать язык",
+		"closeMenu": "Закрыть меню",
+		"openMenu": "Открыть меню",
+		"translations": "Переводы"
 	},
 	"homePage": {
-		"description": "👋 Heya, I'm Marcus, a developer living in Denmark specializing in React and Next.js. I bench 115 kg and use Fedora Linux. (super important I know)",
-		"subTitle": "Developer"
+		"description": "👋 Привет, я Маркус, разработчик, живу в Дании, специализируюсь на React и Next.js. Я вешу 115 кг и использую Fedora Linux. (я знаю, что это очень важно)",
+		"subTitle": "Разработчик"
 	},
 	"blogPage": {
-		"description": "Welcome to my blog! Here I will record my learning experience and knowledge in software development.",
-		"subTitle": "<highlight></highlight> posts about code and more..."
+		"description": "Добро пожаловать в мой блог! Здесь я буду описывать свой опыт обучения и знания в области разработки программного обеспечения.",
+		"subTitle": "<highlight></highlight> публикации о коде и многом другом..."
 	},
 	"projectsPage": {
-		"description": "Showcase of my projects."
+		"description": "Демонстрация моих проектов."
 	},
 	"aboutPage": {
-		"description": "About my work experience, learning record, etc..."
+		"description": "О моём опыте работы, учёбе и т.д..."
 	}
 }
