@@ -11,7 +11,7 @@ export const GET = async (req: NextRequest) => {
 
 		// Initialize Octokit with GitHub Auth Token
 		const octokit = new Octokit({
-			auth: process.env.GITHUB_AUTH_TOKEN,
+			//auth: process.env.GITHUB_AUTH_TOKEN,
 		});
 
 		// Check if specific repoName is provided
