@@ -1,10 +1,3 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-@import 'typography.css';
-@import 'rehype.css';
-
 @layer base {
 	:root {
 		--background: 240, 20%, 3%;
@@ -39,26 +32,152 @@
 	}
 
 	* {
-		@apply border-border;
+		border-color: hsl(var(--border));
 	}
 
 	body {
-		@apply bg-background text-foreground;
+		background-color: hsl(var(--background));
+		color: hsl(var(--foreground));
 	}
+}
+
+/* Typography styles */
+.prose {
+	max-width: none;
+	color: hsl(var(--foreground) / 0.8);
+
+	hr {
+		margin: 2em 0;
+		border-color: hsl(var(--border));
+	}
+
+	ul {
+		padding-left: 1em;
+
+		> li {
+			padding: 0.125rem;
+			margin: 0;
+		}
+
+		li::marker {
+			color: hsl(var(--foreground) / 0.2);
+		}
+
+		li > * {
+			margin: 0;
+		}
+	}
+
+	strong {
+		font-weight: bold;
+		color: hsl(var(--foreground));
+	}
+
+	blockquote {
+		background-color: rgb(23, 23, 23);
+		padding: 1rem;
+		color: hsl(var(--foreground));
+		border-color: hsl(var(--primary));
+		border-radius: 0.25rem;
+
+		> p {
+			margin: 0;
+		}
+	}
+
+	:not(pre) > code {
+		background-color: hsl(var(--muted));
+		margin: 0.25rem 0;
+		padding: 0.25rem;
+		border: 1px solid;
+		border-radius: 0.5rem;
+		border-color: hsl(var(--border));
+		color: hsl(var(--foreground));
+	}
+}
+
+/* Rehype styles */
+[data-rehype-pretty-code-figure] {
+	position: relative;
+	margin: 2.5em 0;
+
+	pre {
+		background-color: rgb(23, 23, 23);
+		padding-left: 0;
+		padding-right: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	pre::before {
+		content: attr(data-language);
+		position: absolute;
+		top: -1.5rem;
+		right: 2.5rem;
+		background-color: inherit;
+		padding: 0.75rem;
+		font-weight: bold;
+		border-radius: 0.5rem 0.5rem 0 0;
+	}
+
+	code {
+		counter-reset: line;
+	}
+}
+
+[data-line] {
+	padding-left: 1rem;
+	border-left: 2px solid;
+	border-color: transparent;
+
+	&::before {
+		display: inline-block;
+		width: 1rem;
+		margin-right: 1rem;
+		padding-top: 0.125rem;
+		padding-bottom: 0.125rem;
+		text-align: center;
+		color: hsl(var(--foreground) / 0.6);
+		counter-increment: line;
+		content: counter(line);
+	}
+}
+
+[data-highlighted-line] {
+	background-color: hsl(var(--foreground) / 0.4);
+	border-left-color: rgb(16, 185, 129);
 }
 
 @layer utilities {
 	.layout {
-		@apply mx-auto max-w-3xl px-6;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 48rem;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
 	}
 
 	.animated-cards::before {
-		@apply pointer-events-none absolute select-none rounded-lg opacity-0 transition-opacity duration-300 hover:opacity-100 z-[-1] content-[''] -inset-px;
+		pointer-events: none;
+		position: absolute;
+		user-select: none;
+		border-radius: 0.5rem;
+		opacity: 0;
+		transition-property: opacity;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		transition-duration: 300ms;
+		z-index: -1;
+		content: '';
+		inset: -1px;
 		background: radial-gradient(
 		  400px circle at var(--x) var(--y),
-		  theme('colors.primary.DEFAULT') 25%,
+		  hsl(var(--primary)) 25%,
 		  rgba(255, 255, 255, 0) 50%,
 		  transparent 80%
 		);
+	}
+
+	.animated-cards:hover::before {
+		opacity: 1;
 	}
 }
