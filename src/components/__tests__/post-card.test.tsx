@@ -36,7 +36,7 @@ describe('PostCard', () => {
 	it('should render formatted date', () => {
 		render(<PostCard {...post} />);
 
-		const date = screen.getByText('6月12日');
+		const date = screen.getByText('12. juni');
 
 		expect(date).toBeInTheDocument();
 		expect(date).toHaveAttribute('dateTime', '2024-06-12');
