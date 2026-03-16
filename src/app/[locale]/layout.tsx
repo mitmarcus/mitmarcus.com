@@ -99,6 +99,7 @@ const RootLayout = async (props: RootLayoutProps) => {
 						{children}
 						{/* Vercel */}
 						<Analytics />
+						<SpeedInsights />
 					</main>
 					<Footer />
 					<ScrollToTop />
