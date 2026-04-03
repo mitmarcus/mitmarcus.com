@@ -41,10 +41,10 @@ export default function InstaLayout({ children }: InstaLayoutProps) {
 		>
 			<body className='min-h-screen'>
 				<InstaHeader />
-				<main className='mx-auto max-w-6xl px-4 min-h-[calc(100vh_-_56px_-_64px)]'>
+				<main className='mx-auto max-w-6xl px-6 min-h-[calc(100vh_-_56px_-_64px)]'>
 					{children}
 				</main>
-				<footer className='mx-auto max-w-6xl px-4 py-8 text-center text-sm text-muted-foreground'>
+				<footer className='mx-auto max-w-6xl px-6 pb-12 pt-24 text-center text-sm text-muted-foreground'>
 					<p>
 						Archived from Instagram ·{' '}
 						<a

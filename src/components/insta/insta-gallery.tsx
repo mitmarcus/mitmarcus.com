@@ -46,7 +46,7 @@ export default function InstaGallery({ items }: InstaGalleryProps) {
 	return (
 		<>
 			{/* Tabs */}
-			<div className='mb-8 flex sm:inline-flex rounded-lg border border-border bg-neutral-800/50 p-1'>
+			<div className='mb-8 flex sm:inline-flex rounded-lg border border-border bg-card/50 p-1'>
 				{(['posts', 'stories'] as Tab[]).map((t) => (
 					<button
 						key={t}
@@ -55,12 +55,15 @@ export default function InstaGallery({ items }: InstaGalleryProps) {
 							setLightboxIndex(null);
 						}}
 						className={cn(
-							'flex-1 sm:flex-initial rounded-md px-4 py-1.5 text-sm font-medium capitalize transition-colors',
+							'flex-1 sm:flex-initial rounded-md px-4 py-1.5 text-sm font-medium capitalize transition-all',
 							tab === t
-								? 'bg-neutral-800 text-foreground'
+								? 'bg-card text-foreground shadow-[0_0_12px_-2px_hsl(217,91%,60%,0.4)]'
 								: 'text-foreground/50 hover:text-foreground',
 						)}
 					>
+						{tab === t && (
+							<span className='absolute -bottom-px left-1/2 h-px w-8 -translate-x-1/2 bg-gradient-to-r from-transparent via-primary to-transparent' />
+						)}
 						{t}
 						<span className='ml-1.5 text-xs opacity-50'>
 							{t === 'posts' ? posts.length : stories.length}
@@ -85,7 +88,7 @@ export default function InstaGallery({ items }: InstaGalleryProps) {
 						const offset = stories.indexOf(yearItems[0]);
 						return (
 							<div key={year}>
-								<h2 className='mb-3 text-lg font-semibold text-muted-foreground'>
+								<h2 className='mb-3 text-lg font-bold tracking-tight text-muted-foreground'>
 									{year}
 								</h2>
 								<MediaGrid

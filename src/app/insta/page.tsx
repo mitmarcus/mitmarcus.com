@@ -8,7 +8,7 @@ export default function InstaPage() {
 	const stories = items.filter((i) => i.category === 'stories');
 
 	return (
-		<div className='py-8'>
+		<div className='py-12 animate-fade-in animation-delay-2'>
 			<InstaGallery items={items} />
 		</div>
 	);

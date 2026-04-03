@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import {
 	RiArrowLeftSLine,
 	RiArrowRightSLine,
@@ -83,7 +84,7 @@ export default function MediaLightbox({
 				})
 			: '';
 
-	return (
+	return createPortal(
 		<div
 			className='fixed inset-0 z-[100] flex flex-col bg-black'
 			style={{
@@ -182,6 +183,7 @@ export default function MediaLightbox({
 					/>
 				)}
 			</div>
-		</div>
+		</div>,
+		document.body,
 	);
 }
