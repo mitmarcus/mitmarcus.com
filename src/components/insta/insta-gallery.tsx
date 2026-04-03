@@ -46,7 +46,7 @@ export default function InstaGallery({ items }: InstaGalleryProps) {
 	return (
 		<>
 			{/* Tabs */}
-			<div className='mb-8 flex gap-1 border-b border-border'>
+			<div className='mb-8 flex sm:inline-flex rounded-lg border border-border bg-neutral-800/50 p-1'>
 				{(['posts', 'stories'] as Tab[]).map((t) => (
 					<button
 						key={t}
@@ -55,10 +55,10 @@ export default function InstaGallery({ items }: InstaGalleryProps) {
 							setLightboxIndex(null);
 						}}
 						className={cn(
-							'px-4 py-2 text-sm font-medium capitalize transition-colors border-b-2 -mb-px',
+							'flex-1 sm:flex-initial rounded-md px-4 py-1.5 text-sm font-medium capitalize transition-colors',
 							tab === t
-								? 'border-primary text-foreground'
-								: 'border-transparent text-muted-foreground hover:text-foreground',
+								? 'bg-neutral-800 text-foreground'
+								: 'text-foreground/50 hover:text-foreground',
 						)}
 					>
 						{t}

@@ -23,7 +23,7 @@ export default function InstaHeader() {
 					<Logo className='size-5' />
 				</a>
 				<div className='flex items-center rounded-full border border-border bg-neutral-800 px-3 py-1.5 mr-1'>
-					<span className='text-sm text-foreground/70'>Instagram</span>
+					<span className='text-sm text-foreground/70'>Instagram Archive</span>
 				</div>
 			</div>
 		</header>

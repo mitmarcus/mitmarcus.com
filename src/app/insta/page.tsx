@@ -9,14 +9,6 @@ export default function InstaPage() {
 
 	return (
 		<div className='py-8'>
-			<div className='mb-8'>
-				<h1 className='text-2xl font-bold text-foreground'>
-					Instagram Archive
-				</h1>
-				<p className='mt-1 text-sm text-muted-foreground'>
-					Quality is from the export
-				</p>
-			</div>
 			<InstaGallery items={items} />
 		</div>
 	);
