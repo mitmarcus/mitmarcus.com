@@ -9,7 +9,7 @@
 		"noEmit": true,
 		"esModuleInterop": true,
 		"module": "esnext",
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
@@ -20,15 +20,16 @@
 			}
 		],
 		"types": ["@testing-library/jest-dom"],
-		"baseUrl": ".",
 		"paths": {
-			"@/components/*": ["src/components/*"],
-			"@/hooks/*": ["src/hooks/*"],
-			"@/utils/*": ["src/utils/*"],
-			"@/lib/*": ["src/lib/*"],
-			"@/config/*": ["src/config/*"],
-			"@/providers/*": ["src/providers/*"],
-			"@/styles/*": ["src/styles/*"],
+			"@/components/*": ["./src/components/*"],
+			"@/hooks/*": ["./src/hooks/*"],
+			"@/utils/*": ["./src/utils/*"],
+			"@/lib/*": ["./src/lib/*"],
+			"@/config/*": ["./src/config/*"],
+			"@/providers/*": ["./src/providers/*"],
+			"@/styles/*": ["./src/styles/*"],
+			"@/types/*": ["./src/types/*"],
+			"@/data/*": ["./src/data/*"],
 			"@/content": ["./.velite"]
 		}
 	},
