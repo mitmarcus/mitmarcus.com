@@ -3,6 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Metadata, Viewport } from 'next';
 
 import InstaHeader from '@/components/insta/insta-header';
+import ScrollToTop from '@/components/scroll-to-top';
 import { fontNoto, fontSans } from '@/config/fonts';
 import { siteConfig } from '@/config/site';
 import '@/styles/app.css';
@@ -55,6 +56,7 @@ export default function InstaLayout({ children }: InstaLayoutProps) {
 						</a>
 					</p>
 				</footer>
+				<ScrollToTop />
 				<Analytics />
 				<SpeedInsights />
 			</body>

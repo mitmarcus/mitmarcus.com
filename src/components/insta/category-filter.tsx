@@ -27,14 +27,22 @@ export default function CategoryFilter({
 					key={option.value}
 					onClick={() => onChange(option.value)}
 					className={cn(
-						'rounded-full px-4 py-1.5 text-sm font-medium transition-colors',
+						'group relative rounded-full border px-4 py-1.5 text-sm font-medium transition-colors',
 						selected === option.value
-							? 'bg-primary text-primary-foreground'
-							: 'bg-card text-muted-foreground hover:text-foreground border border-border',
+							? 'border-border bg-neutral-800 text-foreground'
+							: 'border-border bg-transparent text-foreground/60 hover:bg-neutral-800/50 hover:text-foreground',
 					)}
 				>
+					<span
+						className={cn(
+							'absolute -bottom-px left-1/2 h-px w-8 -translate-x-1/2 bg-gradient-to-r from-transparent via-primary to-transparent transition-opacity',
+							selected === option.value
+								? 'opacity-100'
+								: 'opacity-0 group-hover:opacity-40',
+						)}
+					/>
 					{option.label}
-					<span className='ml-1.5 opacity-60'>{option.count}</span>
+					<span className='ml-1.5 opacity-50'>{option.count}</span>
 				</button>
 			))}
 		</div>

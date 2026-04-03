@@ -114,7 +114,7 @@ export default function MediaLightbox({
 				</span>
 				<button
 					onClick={handleClose}
-					className='shrink-0 rounded-full p-2 text-white/70 hover:text-white hover:bg-white/10 transition-colors'
+					className='shrink-0 rounded-full border border-white/10 bg-white/5 p-2 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-white/10 hover:text-white transition-colors'
 					aria-label='Close'
 				>
 					<RiCloseLine className='h-6 w-6' />
@@ -136,7 +136,7 @@ export default function MediaLightbox({
 							e.stopPropagation();
 							goPrev();
 						}}
-						className='absolute left-2 sm:left-4 z-10 rounded-full bg-black/50 p-2.5 sm:p-3 text-white hover:bg-black/80 transition-colors'
+						className='absolute left-2 sm:left-4 z-10 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
 						aria-label='Previous'
 					>
 						<RiArrowLeftSLine className='h-6 w-6 sm:h-7 sm:w-7' />
@@ -150,7 +150,7 @@ export default function MediaLightbox({
 							e.stopPropagation();
 							goNext();
 						}}
-						className='absolute right-2 sm:right-4 z-10 rounded-full bg-black/50 p-2.5 sm:p-3 text-white hover:bg-black/80 transition-colors'
+						className='absolute right-2 sm:right-4 z-10 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
 						aria-label='Next'
 					>
 						<RiArrowRightSLine className='h-6 w-6 sm:h-7 sm:w-7' />
