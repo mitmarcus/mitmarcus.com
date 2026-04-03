@@ -1,3 +1,5 @@
+declare module '*.css';
+
 type Locale = 'en' | 'ro' | 'ru' | 'da' | undefined;
 
 type Views = {
