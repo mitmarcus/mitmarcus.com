@@ -46,7 +46,7 @@ function LazyMediaCell({
 						/>
 					) : (
 						<video
-							src={item.path}
+							src={`${item.path}#t=0.001`}
 							className='h-full w-full object-cover'
 							preload='metadata'
 							muted
