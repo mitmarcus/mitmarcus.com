@@ -1,5 +1,7 @@
 # [Website](https://mitmarcus.com/)
 
+[![Crowdin](https://badges.crowdin.net/mitmarcus/localized.svg)](https://crowdin.com)
+
 ## 🔧 Stack
 
 - **Framework**: [Next](https://nextjs.org/)
@@ -61,8 +63,3 @@ pnpm run dev
 - Edit `messages/*`
 - Create `.env` file similar to `.env.example`.
 - Change `config/site.ts`, `config/giscus.ts`, `app/sitemap.ts` to your own.
-
-## 📝 TODO
-
-- [ ] Make 3D model(use three.js) in Home Page
-- [x] Make analytics
