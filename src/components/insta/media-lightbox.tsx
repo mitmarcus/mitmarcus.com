@@ -86,8 +86,9 @@ export default function MediaLightbox({
 
 	return createPortal(
 		<div
-			className='fixed inset-0 z-[100] flex flex-col bg-black'
+			className='fixed inset-0 z-[100] flex flex-col bg-black isolate'
 			style={{
+				backgroundColor: '#000',
 				paddingTop: 'env(safe-area-inset-top, 0px)',
 				paddingBottom: 'env(safe-area-inset-bottom, 0px)',
 			}}
