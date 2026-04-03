@@ -18,6 +18,11 @@ export const metadata: Metadata = {
 	metadataBase: new URL(siteConfig.instaUrl),
 	title: 'Photos - Marcus Mitelea',
 	description: 'Archived Instagram media',
+	openGraph: {
+		title: 'Photos - Marcus Mitelea',
+		description: 'Archived Instagram media',
+		url: siteConfig.instaUrl,
+	},
 	robots: {
 		index: false,
 		follow: false,
