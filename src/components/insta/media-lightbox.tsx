@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import {
 	RiArrowLeftSLine,
 	RiArrowRightSLine,
@@ -24,6 +24,7 @@ export default function MediaLightbox({
 	onNavigate,
 }: MediaLightboxProps) {
 	const item = items[currentIndex];
+	const touchStartX = useRef<number | null>(null);
 
 	const goPrev = useCallback(() => {
 		if (currentIndex > 0) onNavigate(currentIndex - 1);
@@ -33,9 +34,34 @@ export default function MediaLightbox({
 		if (currentIndex < items.length - 1) onNavigate(currentIndex + 1);
 	}, [currentIndex, items.length, onNavigate]);
 
+	// Route all close actions through history.back() so the browser back button
+	// closes the lightbox instead of leaving the page.
+	const closedRef = useRef(false);
+	const handleClose = useCallback(() => {
+		if (!closedRef.current) {
+			closedRef.current = true;
+			history.back();
+		}
+	}, []);
+
+	// Push a history entry when the lightbox opens; popstate fires on back → close.
+	useEffect(() => {
+		closedRef.current = false;
+		history.pushState({ lightbox: true }, '');
+		const handlePop = () => {
+			closedRef.current = true;
+			onClose();
+		};
+		window.addEventListener('popstate', handlePop);
+		return () => {
+			window.removeEventListener('popstate', handlePop);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	useEffect(() => {
 		const handleKey = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') onClose();
+			if (e.key === 'Escape') handleClose();
 			if (e.key === 'ArrowLeft') goPrev();
 			if (e.key === 'ArrowRight') goNext();
 		};
@@ -45,7 +71,7 @@ export default function MediaLightbox({
 			document.body.style.overflow = '';
 			window.removeEventListener('keydown', handleKey);
 		};
-	}, [onClose, goPrev, goNext]);
+	}, [handleClose, goPrev, goNext]);
 
 	if (!item) return null;
 
@@ -58,19 +84,36 @@ export default function MediaLightbox({
 			: '';
 
 	return (
-		<div className='fixed inset-0 z-[100] flex flex-col bg-black'>
+		<div
+			className='fixed inset-0 z-[100] flex flex-col bg-black'
+			style={{
+				paddingTop: 'env(safe-area-inset-top, 0px)',
+				paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+			}}
+			onTouchStart={(e) => {
+				touchStartX.current = e.touches[0].clientX;
+			}}
+			onTouchEnd={(e) => {
+				if (touchStartX.current === null) return;
+				const dx = e.changedTouches[0].clientX - touchStartX.current;
+				touchStartX.current = null;
+				if (Math.abs(dx) < 50) return;
+				if (dx < 0) goNext();
+				else goPrev();
+			}}
+		>
 			{/* Top bar */}
-			<div className='flex items-center justify-between px-4 py-3 bg-black/60 backdrop-blur-sm shrink-0'>
-				<span className='text-sm text-white/60 capitalize'>
+			<div className='flex items-center gap-3 px-4 py-3 bg-black/60 backdrop-blur-sm shrink-0'>
+				<span className='min-w-0 flex-1 truncate text-sm text-white/60 capitalize'>
 					{item.category.replace('_', ' ')}
 					{dateLabel && <> &middot; {dateLabel}</>}
 				</span>
-				<span className='text-sm text-white/40'>
+				<span className='shrink-0 text-sm text-white/40 tabular-nums'>
 					{currentIndex + 1} / {items.length}
 				</span>
 				<button
-					onClick={onClose}
-					className='rounded-full p-2 text-white/70 hover:text-white hover:bg-white/10 transition-colors'
+					onClick={handleClose}
+					className='shrink-0 rounded-full p-2 text-white/70 hover:text-white hover:bg-white/10 transition-colors'
 					aria-label='Close'
 				>
 					<RiCloseLine className='h-6 w-6' />
@@ -82,7 +125,7 @@ export default function MediaLightbox({
 				{/* Backdrop click to close */}
 				<div
 					className='absolute inset-0'
-					onClick={onClose}
+					onClick={handleClose}
 				/>
 
 				{/* Prev button */}
@@ -92,10 +135,10 @@ export default function MediaLightbox({
 							e.stopPropagation();
 							goPrev();
 						}}
-						className='absolute left-4 z-10 rounded-full bg-black/50 p-3 text-white hover:bg-black/80 transition-colors'
+						className='absolute left-2 sm:left-4 z-10 rounded-full bg-black/50 p-2.5 sm:p-3 text-white hover:bg-black/80 transition-colors'
 						aria-label='Previous'
 					>
-						<RiArrowLeftSLine className='h-7 w-7' />
+						<RiArrowLeftSLine className='h-6 w-6 sm:h-7 sm:w-7' />
 					</button>
 				)}
 
@@ -106,10 +149,10 @@ export default function MediaLightbox({
 							e.stopPropagation();
 							goNext();
 						}}
-						className='absolute right-4 z-10 rounded-full bg-black/50 p-3 text-white hover:bg-black/80 transition-colors'
+						className='absolute right-2 sm:right-4 z-10 rounded-full bg-black/50 p-2.5 sm:p-3 text-white hover:bg-black/80 transition-colors'
 						aria-label='Next'
 					>
-						<RiArrowRightSLine className='h-7 w-7' />
+						<RiArrowRightSLine className='h-6 w-6 sm:h-7 sm:w-7' />
 					</button>
 				)}
 
