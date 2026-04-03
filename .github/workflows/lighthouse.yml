@@ -37,7 +37,7 @@ jobs:
           message: |
             Running Lighthouse audit...
           # Used later to edit the existing comment
-          comment_tag: 'lighthouse_audit'
+          comment_tag: "lighthouse_audit"
 
       - name: Capture Vercel Preview
         uses: patrickedqvist/wait-for-vercel-preview@dca4940010f36d2d44caa487087a09b57939b24a
@@ -46,12 +46,24 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           max_timeout: 300
           check_interval: 10
+          vercel_password: ${{ secrets.VERCEL_BYPASS_TOKEN }}
+
+      - name: Inject Vercel Bypass Header into Lighthouse Config
+        run: |
+          node -e "
+            const fs = require('fs');
+            const config = JSON.parse(fs.readFileSync('.lighthouserc.json', 'utf8'));
+            config.ci.collect.settings.extraHeaders = { 'x-vercel-protection-bypass': process.env.VERCEL_BYPASS_TOKEN };
+            fs.writeFileSync('.lighthouserc.json', JSON.stringify(config, null, 2));
+          "
+        env:
+          VERCEL_BYPASS_TOKEN: ${{ secrets.VERCEL_BYPASS_TOKEN }}
 
       - name: Audit Preview URL with Lighthouse
         uses: treosh/lighthouse-ci-action@v11
         id: lighthouse_audit
         with:
-          configPath: './.lighthouserc.json'
+          configPath: "./.lighthouserc.json"
           urls: |
             ${{ steps.vercel_preview_url.outputs.url }}
             ${{ steps.vercel_preview_url.outputs.url }}/blog
@@ -60,19 +72,20 @@ jobs:
           uploadArtifacts: true # save results as a action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
 
-      - name: Format Lighthouse Score
+      - name:
+          Format Lighthouse Score
           # Transform the audit results into a single, friendlier output
         id: format_lighthouse_score
         uses: actions/github-script@v7
         env:
-        # using env as input to our script
-        # see https://github.com/actions/github-script#use-env-as-input
+          # using env as input to our script
+          # see https://github.com/actions/github-script#use-env-as-input
           LIGHTHOUSE_RESULT: ${{ steps.lighthouse_audit.outputs.manifest }}
           LIGHTHOUSE_LINKS: ${{ steps.lighthouse_audit.outputs.links }}
           VERCEL_PREVIEW_URL: ${{ steps.vercel_preview_url.outputs.url }}
         with:
-            # Run as a separate file so we do not have to inline all of our formatting logic.
-            # See https://github.com/actions/github-script#run-a-separate-file for more info.
+          # Run as a separate file so we do not have to inline all of our formatting logic.
+          # See https://github.com/actions/github-script#run-a-separate-file for more info.
           script: |
             const { formatLighthouseResults } = await import('${{github.workspace}}/src/scripts/lighthouse/index.mjs')
             await formatLighthouseResults({core})
@@ -82,6 +95,6 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           # Reference the previously created comment
-          comment_tag: 'lighthouse_audit'
+          comment_tag: "lighthouse_audit"
           message: |
             ${{ steps.format_lighthouse_score.outputs.comment }}
