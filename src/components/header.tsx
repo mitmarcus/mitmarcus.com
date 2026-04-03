@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { RiGithubFill, RiStarFill } from 'react-icons/ri';
 import useSWR from 'swr';
 
@@ -10,39 +9,19 @@ import MobileNav from '@/components/mobile-nav';
 import Nav from '@/components/nav';
 import Link from '@/components/ui/link';
 import NumberTicker from '@/components/ui/number-ticker';
+import useScrollVisibility from '@/hooks/use-scroll-visibility';
 import { fetcher } from '@/lib/fetcher';
 import { cn } from '@/utils/cn';
 
 const REPO_NAME = 'mitmarcus.com';
 
 const Header = () => {
-	const [isVisible, setIsVisible] = useState(true);
-	const [lastScrollY, setLastScrollY] = useState(0);
+	const isVisible = useScrollVisibility();
 
 	const { data: repo } = useSWR<RepoInfo>(
 		`/api/github?repoName=${REPO_NAME}`,
 		fetcher,
 	);
-
-	useEffect(() => {
-		const handleScroll = () => {
-			if (window.scrollY > 180) {
-				setIsVisible(false);
-			}
-
-			if (window.scrollY < lastScrollY) {
-				setIsVisible(true);
-			}
-
-			setLastScrollY(window.scrollY);
-		};
-
-		window.addEventListener('scroll', handleScroll);
-
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, [lastScrollY]);
 
 	return (
 		<header
