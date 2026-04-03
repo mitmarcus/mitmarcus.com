@@ -1,3 +1,16 @@
 files:
+  # UI translation strings
   - source: /messages/en.json
     translation: /messages/%two_letters_code%.json
+
+  # Blog posts (source: index.en.mdx)
+  - source: /content/blog/**/index.en.mdx
+    translation: /content/blog/**/index.%two_letters_code%.mdx
+
+  # Pages (source: index.en.mdx)
+  - source: /content/pages/**/index.en.mdx
+    translation: /content/pages/**/index.%two_letters_code%.mdx
+
+  # Projects (source: index.mdx, no locale suffix)
+  - source: /content/projects/**/index.mdx
+    translation: /content/projects/**/index.%two_letters_code%.mdx
