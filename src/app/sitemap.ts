@@ -7,8 +7,16 @@ const sitemap = async () => {
 			lastModified: new Date().toISOString().split('T')[0],
 		}));
 
+	const instaRoutes = [
+		{
+			url: siteConfig.instaUrl,
+			lastModified: new Date().toISOString().split('T')[0],
+		},
+	];
+
 	return [
 		...routes,
+		...instaRoutes,
 	];
 };
 

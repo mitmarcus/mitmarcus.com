@@ -40,3 +40,6 @@ next-env.d.ts
 
 # velite
 .velite
+
+# generated
+src/data/insta-manifest.json

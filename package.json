@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "pnpm velite --watch & next dev",
-    "build": "prisma generate && pnpm velite build && next build",
+    "build": "prisma generate && pnpm velite build && pnpm generate:insta && next build",
+    "generate:insta": "tsx src/scripts/generate-insta-manifest.ts",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",

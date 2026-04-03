@@ -4,11 +4,16 @@ const baseUrl = process.env.NODE_ENV === 'production'
 	? 'https://www.mitmarcus.com'
 	: 'http://localhost:3000';
 
+const instaUrl = process.env.NODE_ENV === 'production'
+	? 'https://insta.mitmarcus.com'
+	: 'http://insta.localhost:3000';
+
 export const siteConfig = {
 	name: 'Marcus Mitelea',
 	author: 'Marcus Mitelea',
 	email: 'mitmarcus@proton.me',
 	siteUrl: baseUrl,
+	instaUrl: instaUrl,
 	githubUsername: 'mitmarcus',
 	links: {
 		github: 'https://github.com/mitmarcus',
