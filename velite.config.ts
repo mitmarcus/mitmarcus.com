@@ -29,10 +29,10 @@ const allProjects = defineCollection({
 			slug: s.string(),
 			description: s.string(),
 			imageUrl: s.string(),
-			demoUrl: s.string(),
-			repoUrl: s.string(),
+			demoUrl: s.string().optional(),
+			repoUrl: s.string().optional(),
 			// repoName should be the same as your Github repo name in order to fetch data successfully.
-			repoName: s.string(),
+			repoName: s.string().optional(),
 			language: s.string(),
 			content: s.mdx(),
 		})

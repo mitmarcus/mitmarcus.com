@@ -1,8 +1,8 @@
-import { use } from "react";
 import { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { use } from 'react';
 import { RiArrowLeftLine, RiCodeSSlashLine, RiLinksLine } from 'react-icons/ri';
 
 import MDXContent from '@/components/mdx';
@@ -16,30 +16,28 @@ export const generateStaticParams = async () => {
 	return allProjects.map(({ slug }) => ({ slug }));
 };
 
-export const generateMetadata = async (
-    props: {
-        params: Promise<{ locale: Locale; slug: string }>;
-    }
-): Promise<Metadata | undefined> => {
-    const params = await props.params;
-    const post = getContentWithFallback({
+export const generateMetadata = async (props: {
+	params: Promise<{ locale: Locale; slug: string }>;
+}): Promise<Metadata | undefined> => {
+	const params = await props.params;
+	const post = getContentWithFallback({
 		contentItems: allProjects,
 		slug: params.slug,
 		locale: params.locale,
 	});
 
-    if (!post) {
+	if (!post) {
 		return;
 	}
 
-    const { title, description, slug } = post;
+	const { title, description, slug } = post;
 
-    const url = getLocalizedUrl({
+	const url = getLocalizedUrl({
 		locale: params.locale,
 		slug,
 	});
 
-    return {
+	return {
 		title,
 		description,
 		openGraph: {
@@ -62,21 +60,21 @@ type ProjectLayoutProps = {
 };
 
 const ProjectLayout = (props: ProjectLayoutProps) => {
-    const params = use(props.params);
-    const t = useTranslations('common');
-    const project = getContentWithFallback({
+	const params = use(props.params);
+	const t = useTranslations('common');
+	const project = getContentWithFallback({
 		contentItems: allProjects,
 		slug: params.slug,
 		locale: params.locale,
 	});
 
-    if (!project) {
+	if (!project) {
 		notFound();
 	}
 
-    const { title, imageUrl, demoUrl, repoUrl } = project;
+	const { title, imageUrl, demoUrl, repoUrl } = project;
 
-    return (
+	return (
 		<>
 			<Link
 				variant='block'
@@ -94,21 +92,25 @@ const ProjectLayout = (props: ProjectLayoutProps) => {
 					{title}
 				</GradientText>
 				<div className='flex items-center gap-1 text-sm font-medium'>
-					<Link
-						className='group flex items-center gap-1'
-						href={demoUrl}
-					>
-						<RiLinksLine className='text-foreground/60 transition-colors duration-300 group-hover:text-foreground' />
-						Live Demo
-					</Link>
-					．
-					<Link
-						className='group flex items-center gap-1'
-						href={repoUrl}
-					>
-						<RiCodeSSlashLine className='text-foreground/60 transition-colors duration-300 group-hover:text-foreground' />
-						Source Code
-					</Link>
+					{demoUrl && (
+						<Link
+							className='group flex items-center gap-1'
+							href={demoUrl}
+						>
+							<RiLinksLine className='text-foreground/60 transition-colors duration-300 group-hover:text-foreground' />
+							Live Demo
+						</Link>
+					)}
+					{demoUrl && repoUrl && <>．</>}
+					{repoUrl && (
+						<Link
+							className='group flex items-center gap-1'
+							href={repoUrl}
+						>
+							<RiCodeSSlashLine className='text-foreground/60 transition-colors duration-300 group-hover:text-foreground' />
+							Source Code
+						</Link>
+					)}
 				</div>
 				<Image
 					className='w-full rounded-lg object-cover'

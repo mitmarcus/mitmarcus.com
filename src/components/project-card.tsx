@@ -12,10 +12,10 @@ import { GoRepoForked } from 'react-icons/go';
 import { RiStarLine } from 'react-icons/ri';
 import useSWR from 'swr';
 
-import type { Project } from '@/content';
+import Link from '@/components/ui/link';
 import Loading from '@/components/ui/loading';
 import Metric from '@/components/ui/metric';
-import Link from '@/components/ui/link';
+import type { Project } from '@/content';
 import { fetcher } from '@/lib/fetcher';
 
 type WrapperStyle = MotionStyle & {
@@ -34,7 +34,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 	const { title, description, repoName, permalink } = project;
 
 	const { data: repo, isLoading } = useSWR<RepoInfo>(
-		`/api/github?repoName=${repoName}`,
+		repoName ? `/api/github?repoName=${repoName}` : null,
 		fetcher,
 	);
 
@@ -51,7 +51,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
 	return (
 		<motion.div
-			className='animated-cards relative'
+			className='animated-cards relative h-full'
 			style={
 				{
 					'--x': useMotionTemplate`${mouseX}px`,
@@ -61,7 +61,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 			onMouseMove={handleMouseMove}
 		>
 			<Link
-				className='block cursor-pointer space-y-2 overflow-hidden rounded-lg border border-border bg-card p-6 hover:drop-shadow-[0_0_15px_rgba(39,42,216,0.3)]'
+				className='block h-full cursor-pointer space-y-2 overflow-hidden rounded-lg border border-border bg-card p-6 hover:drop-shadow-[0_0_15px_rgba(39,42,216,0.3)]'
 				href={permalink}
 			>
 				<h2 className='flex items-center gap-2 font-bold tracking-tight'>
@@ -73,16 +73,18 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 				>
 					{description}
 				</p>
-				<div className='flex gap-3 text-sm text-foreground/80'>
-					<span className='flex items-center gap-1'>
-						<RiStarLine className='text-yellow-500' />
-						{isLoading ? <Loading /> : <Metric stat={repo?.stars} />}
-					</span>
-					<span className='flex items-center gap-1'>
-						<GoRepoForked />
-						{isLoading ? <Loading /> : <Metric stat={repo?.forksCount} />}
-					</span>
-				</div>
+				{repoName && (
+					<div className='flex gap-3 text-sm text-foreground/80'>
+						<span className='flex items-center gap-1'>
+							<RiStarLine className='text-yellow-500' />
+							{isLoading ? <Loading /> : <Metric stat={repo?.stars} />}
+						</span>
+						<span className='flex items-center gap-1'>
+							<GoRepoForked />
+							{isLoading ? <Loading /> : <Metric stat={repo?.forksCount} />}
+						</span>
+					</div>
+				)}
 			</Link>
 		</motion.div>
 	);

@@ -1,4 +1,8 @@
-import { RiGithubFill, RiLinkedinBoxFill } from 'react-icons/ri';
+import {
+	RiCameraLensFill,
+	RiGithubFill,
+	RiLinkedinBoxFill,
+} from 'react-icons/ri';
 
 import Link from '@/components/ui/link';
 import { siteConfig } from '@/config/site';
@@ -13,6 +17,12 @@ const Footer = () => {
 					© {currentYear} Marcus Mitelea. All rights reserved.
 				</div>
 				<div className='flex items-center gap-2'>
+					<Link
+						href={siteConfig.instaUrl}
+						aria-label='photos'
+					>
+						<RiCameraLensFill className='size-6 opacity-50' />
+					</Link>
 					<Link
 						href={siteConfig.links.github}
 						aria-label='github'
