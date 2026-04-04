@@ -6,7 +6,6 @@ import { notFound } from 'next/navigation';
 import MDXContent from '@/components/mdx';
 import GradientText from '@/components/ui/gradient-text';
 import { allPages } from '@/content';
-import '@/styles/prose.css';
 import { getLocalizedUrl } from '@/utils/url';
 
 export const generateMetadata = async (props: {

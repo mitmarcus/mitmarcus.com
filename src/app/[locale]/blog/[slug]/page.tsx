@@ -11,7 +11,6 @@ import GradientText from '@/components/ui/gradient-text';
 import Link from '@/components/ui/link';
 import ViewCounter from '@/components/view-counter';
 import { allPosts } from '@/content';
-import '@/styles/prose.css';
 import { getContentWithFallback } from '@/utils/content';
 import { getLocalizedUrl } from '@/utils/url';
 

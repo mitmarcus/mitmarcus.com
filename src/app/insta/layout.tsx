@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 
 import Footer from '@/components/footer';
 import InstaHeader from '@/components/insta/insta-header';
@@ -41,14 +42,13 @@ export default function InstaLayout({ children }: InstaLayoutProps) {
 			className={cn(fontSans.variable, fontNoto.variable)}
 			lang='en'
 		>
-			<head>
-				<script
-					dangerouslySetInnerHTML={{
-						__html: "history.scrollRestoration='manual'",
-					}}
-				/>
-			</head>
 			<body className='min-h-screen'>
+				<Script
+					id='scroll-restoration'
+					strategy='afterInteractive'
+				>
+					{"history.scrollRestoration='manual'"}
+				</Script>
 				<InstaHeader />
 				<main className='mx-auto max-w-6xl mt-16 px-6 min-h-[calc(100vh_-_56px_-_64px)]'>
 					{children}

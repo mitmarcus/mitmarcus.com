@@ -9,7 +9,6 @@ import MDXContent from '@/components/mdx';
 import GradientText from '@/components/ui/gradient-text';
 import Link from '@/components/ui/link';
 import { allProjects } from '@/content';
-import '@/styles/prose.css';
 import { getContentWithFallback } from '@/utils/content';
 import { getLocalizedUrl } from '@/utils/url';
 

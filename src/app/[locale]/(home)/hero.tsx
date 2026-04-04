@@ -46,8 +46,7 @@ const Hero = () => {
 					height={80}
 					priority
 					fetchPriority='high'
-					placeholder='blur'
-					blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg=='
+					unoptimized
 				/>
 				<div className='animate-fade-in animation-delay-1'>
 					<GradientText
