@@ -46,7 +46,7 @@ export default function InstaGallery({ items }: InstaGalleryProps) {
 	return (
 		<>
 			{/* Tabs */}
-			<div className='my-10 flex sm:inline-flex rounded-full border border-border bg-neutral-800/50 p-1'>
+			<div className='mb-10 flex sm:inline-flex rounded-full border border-border bg-neutral-800/50'>
 				{(['posts', 'stories'] as Tab[]).map((t) => (
 					<button
 						key={t}
