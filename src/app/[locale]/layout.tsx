@@ -92,6 +92,14 @@ const RootLayout = async (props: RootLayoutProps) => {
 			className={cn(fontSans.variable, fontNoto.variable)}
 			lang={locale}
 		>
+			<head>
+				<link
+					rel='preload'
+					as='image'
+					href='/_next/image?url=%2Favatar.webp&w=256&q=75'
+					fetchPriority='high'
+				/>
+			</head>
 			<body className='min-h-screen'>
 				<LocaleProvider>
 					<Header />

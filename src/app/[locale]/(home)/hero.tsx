@@ -45,6 +45,7 @@ const Hero = () => {
 					width={80}
 					height={80}
 					priority
+					fetchPriority='high'
 					placeholder='blur'
 					blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg=='
 				/>
