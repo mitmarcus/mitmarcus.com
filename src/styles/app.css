@@ -2,9 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import 'typography.css';
-@import 'rehype.css';
-
 @layer base {
 	:root {
 		--background: 240, 20%, 3%;

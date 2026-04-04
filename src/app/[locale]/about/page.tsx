@@ -6,21 +6,20 @@ import { notFound } from 'next/navigation';
 import MDXContent from '@/components/mdx';
 import GradientText from '@/components/ui/gradient-text';
 import { allPages } from '@/content';
+import '@/styles/prose.css';
 import { getLocalizedUrl } from '@/utils/url';
 
-export const generateMetadata = async (
-    props: {
-        params: Promise<{ locale: Locale }>;
-    }
-): Promise<Metadata> => {
-    const params = await props.params;
-    const t = await getTranslations();
-    const url = getLocalizedUrl({
+export const generateMetadata = async (props: {
+	params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> => {
+	const params = await props.params;
+	const t = await getTranslations();
+	const url = getLocalizedUrl({
 		locale: params.locale,
 		pathname: 'about',
 	});
 
-    return {
+	return {
 		title: t('common.about'),
 		description: t('aboutPage.description'),
 		alternates: {

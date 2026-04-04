@@ -6,6 +6,7 @@ import { RiArrowRightLine } from 'react-icons/ri';
 
 export const metadata: Metadata = {
 	title: '404',
+	description: 'Sorry, the page you are looking for does not exist.',
 };
 
 const NotFoundPage = () => {

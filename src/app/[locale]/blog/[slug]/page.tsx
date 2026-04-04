@@ -1,7 +1,7 @@
-import { use } from "react";
 import { Metadata } from 'next';
 import { useFormatter, useTranslations } from 'next-intl';
 import { notFound } from 'next/navigation';
+import { use } from 'react';
 import { RiArrowLeftLine } from 'react-icons/ri';
 
 import Comment from '@/components/comment';
@@ -11,6 +11,7 @@ import GradientText from '@/components/ui/gradient-text';
 import Link from '@/components/ui/link';
 import ViewCounter from '@/components/view-counter';
 import { allPosts } from '@/content';
+import '@/styles/prose.css';
 import { getContentWithFallback } from '@/utils/content';
 import { getLocalizedUrl } from '@/utils/url';
 
@@ -18,31 +19,29 @@ export const generateStaticParams = async () => {
 	return allPosts.map((post) => ({ slug: post.slug }));
 };
 
-export const generateMetadata = async (
-    props: {
-        params: Promise<{ locale: Locale; slug: string }>;
-    }
-): Promise<Metadata | undefined> => {
-    const params = await props.params;
-    const post = getContentWithFallback({
+export const generateMetadata = async (props: {
+	params: Promise<{ locale: Locale; slug: string }>;
+}): Promise<Metadata | undefined> => {
+	const params = await props.params;
+	const post = getContentWithFallback({
 		contentItems: allPosts,
 		slug: params.slug,
 		locale: params.locale,
 	});
 
-    if (!post) {
+	if (!post) {
 		return;
 	}
 
-    const { title, description, publishedAt, slug } = post;
+	const { title, description, publishedAt, slug } = post;
 
-    const url = getLocalizedUrl({
+	const url = getLocalizedUrl({
 		locale: params.locale,
 		pathname: 'blog',
 		slug,
 	});
 
-    return {
+	return {
 		title,
 		description,
 		openGraph: {
@@ -66,29 +65,29 @@ type BlogPostLayoutProps = {
 };
 
 const BlogPostLayout = (props: BlogPostLayoutProps) => {
-    const params = use(props.params);
-    const t = useTranslations('common');
-    const format = useFormatter();
+	const params = use(props.params);
+	const t = useTranslations('common');
+	const format = useFormatter();
 
-    const post = getContentWithFallback({
+	const post = getContentWithFallback({
 		contentItems: allPosts,
 		slug: params.slug,
 		locale: params.locale,
 	});
 
-    if (!post) {
+	if (!post) {
 		notFound();
 	}
 
-    const { title, language, publishedAt, slug } = post;
+	const { title, language, publishedAt, slug } = post;
 
-    const date = format.dateTime(new Date(publishedAt), {
+	const date = format.dateTime(new Date(publishedAt), {
 		year: 'numeric',
 		month: 'long',
 		day: 'numeric',
 	});
 
-    return (
+	return (
 		<>
 			<Link
 				variant='block'
