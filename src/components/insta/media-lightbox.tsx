@@ -176,7 +176,7 @@ export default function MediaLightbox({
 					}}
 				>
 					{/* Top bar */}
-					<div className='flex items-center gap-3 px-2 sm:px-4 py-2 sm:py-3 bg-black/60 backdrop-blur-sm shrink-0'>
+					<div className='flex items-center gap-3 px-6 sm:px-4 py-4 sm:py-3 bg-black/60 backdrop-blur-sm shrink-0'>
 						<span className='min-w-0 flex-1 truncate text-sm text-white/60 capitalize'>
 							{item.category.replace('_', ' ')}
 							{dateLabel && <> &middot; {dateLabel}</>}
@@ -257,7 +257,7 @@ export default function MediaLightbox({
 					</div>
 
 					{/* Bottom bar – mobile only */}
-					<div className='flex sm:hidden items-center justify-between px-2 py-2 bg-black/60 backdrop-blur-sm shrink-0'>
+					<div className='flex sm:hidden items-center justify-between px-6 py-4 bg-black/60 backdrop-blur-sm shrink-0'>
 						<button
 							onClick={goPrev}
 							disabled={currentIndex === 0}
