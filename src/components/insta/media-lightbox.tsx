@@ -85,106 +85,133 @@ export default function MediaLightbox({
 			: '';
 
 	return createPortal(
-		<div
-			className='fixed inset-0 z-[100] flex flex-col bg-black isolate'
-			style={{
-				backgroundColor: '#000',
-				paddingTop: 'env(safe-area-inset-top, 0px)',
-				paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-			}}
-			onTouchStart={(e) => {
-				touchStartX.current = e.touches[0].clientX;
-			}}
-			onTouchEnd={(e) => {
-				if (touchStartX.current === null) return;
-				const dx = e.changedTouches[0].clientX - touchStartX.current;
-				touchStartX.current = null;
-				if (Math.abs(dx) < 50) return;
-				if (dx < 0) goNext();
-				else goPrev();
-			}}
-		>
-			{/* Top bar */}
-			<div className='flex items-center gap-3 px-4 py-3 bg-black/60 backdrop-blur-sm shrink-0'>
-				<span className='min-w-0 flex-1 truncate text-sm text-white/60 capitalize'>
-					{item.category.replace('_', ' ')}
-					{dateLabel && <> &middot; {dateLabel}</>}
-				</span>
-				<span className='shrink-0 text-sm text-white/40 tabular-nums'>
-					{currentIndex + 1} / {items.length}
-				</span>
-				<button
-					onClick={handleClose}
-					className='shrink-0 rounded-full border border-white/10 bg-white/5 p-2 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-white/10 hover:text-white transition-colors'
-					aria-label='Close'
-				>
-					<RiCloseLine className='h-6 w-6' />
-				</button>
+		<>
+			{/*
+			 * iOS Safari viewport-color trick (discovered from apple.com nav).
+			 * A fixed container with height < 50vh containing a 100vh child forces
+			 * Safari to paint the overscroll / URL-bar region with the child's
+			 * background color, making the lightbox feel truly full-screen.
+			 *
+			 * Absolutely insane that people need to do this for a billion dollar company.
+			 */}
+			<div
+				aria-hidden
+				style={{
+					position: 'fixed',
+					top: 0,
+					left: 0,
+					right: 0,
+					display: 'block',
+					width: '100vw',
+					height: '48px',
+					zIndex: 99,
+					pointerEvents: 'none',
+				}}
+			>
+				<div style={{ backgroundColor: '#000', height: '100vh' }} />
 			</div>
 
-			{/* Media area */}
-			<div className='relative flex-1 flex items-center justify-center overflow-hidden'>
-				{/* Backdrop click to close */}
-				<div
-					className='absolute inset-0'
-					onClick={handleClose}
-				/>
-
-				{/* Prev button */}
-				{currentIndex > 0 && (
+			<div
+				className='fixed inset-0 z-[100] flex flex-col bg-black isolate'
+				style={{
+					backgroundColor: '#000',
+					paddingTop: 'env(safe-area-inset-top, 0px)',
+					paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+				}}
+				onTouchStart={(e) => {
+					touchStartX.current = e.touches[0].clientX;
+				}}
+				onTouchEnd={(e) => {
+					if (touchStartX.current === null) return;
+					const dx = e.changedTouches[0].clientX - touchStartX.current;
+					touchStartX.current = null;
+					if (Math.abs(dx) < 50) return;
+					if (dx < 0) goNext();
+					else goPrev();
+				}}
+			>
+				{/* Top bar */}
+				<div className='flex items-center gap-3 px-4 py-3 bg-black/60 backdrop-blur-sm shrink-0'>
+					<span className='min-w-0 flex-1 truncate text-sm text-white/60 capitalize'>
+						{item.category.replace('_', ' ')}
+						{dateLabel && <> &middot; {dateLabel}</>}
+					</span>
+					<span className='shrink-0 text-sm text-white/40 tabular-nums'>
+						{currentIndex + 1} / {items.length}
+					</span>
 					<button
-						onClick={(e) => {
-							e.stopPropagation();
-							goPrev();
-						}}
-						className='absolute left-2 sm:left-4 z-10 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
-						aria-label='Previous'
+						onClick={handleClose}
+						className='shrink-0 rounded-full border border-white/10 bg-white/5 p-2 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-white/10 hover:text-white transition-colors'
+						aria-label='Close'
 					>
-						<RiArrowLeftSLine className='h-6 w-6 sm:h-7 sm:w-7' />
+						<RiCloseLine className='h-6 w-6' />
 					</button>
-				)}
+				</div>
 
-				{/* Next button */}
-				{currentIndex < items.length - 1 && (
-					<button
-						onClick={(e) => {
-							e.stopPropagation();
-							goNext();
-						}}
-						className='absolute right-2 sm:right-4 z-10 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
-						aria-label='Next'
-					>
-						<RiArrowRightSLine className='h-6 w-6 sm:h-7 sm:w-7' />
-					</button>
-				)}
-
-				{item.type === 'image' ? (
+				{/* Media area */}
+				<div className='relative flex-1 flex items-center justify-center overflow-hidden'>
+					{/* Backdrop click to close */}
 					<div
-						className='relative w-full h-full'
-						onClick={(e) => e.stopPropagation()}
-					>
-						<Image
-							src={item.path}
-							alt=''
-							fill
-							sizes='100vw'
-							className='object-contain'
-							priority
-						/>
-					</div>
-				) : (
-					<video
-						key={item.path}
-						src={item.path}
-						controls
-						autoPlay
-						playsInline
-						className='max-h-full max-w-full object-contain'
-						onClick={(e) => e.stopPropagation()}
+						className='absolute inset-0'
+						onClick={handleClose}
 					/>
-				)}
+
+					{/* Prev button */}
+					{currentIndex > 0 && (
+						<button
+							onClick={(e) => {
+								e.stopPropagation();
+								goPrev();
+							}}
+							className='absolute left-2 sm:left-4 z-10 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
+							aria-label='Previous'
+						>
+							<RiArrowLeftSLine className='h-6 w-6 sm:h-7 sm:w-7' />
+						</button>
+					)}
+
+					{/* Next button */}
+					{currentIndex < items.length - 1 && (
+						<button
+							onClick={(e) => {
+								e.stopPropagation();
+								goNext();
+							}}
+							className='absolute right-2 sm:right-4 z-10 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
+							aria-label='Next'
+						>
+							<RiArrowRightSLine className='h-6 w-6 sm:h-7 sm:w-7' />
+						</button>
+					)}
+
+					{item.type === 'image' ? (
+						<div
+							className='relative w-full h-full'
+							onClick={(e) => e.stopPropagation()}
+						>
+							<Image
+								src={item.path}
+								alt=''
+								fill
+								sizes='100vw'
+								className='object-contain'
+								priority
+							/>
+						</div>
+					) : (
+						<video
+							key={item.path}
+							src={item.path}
+							controls
+							autoPlay
+							playsInline
+							className='max-h-full max-w-full object-contain'
+							onClick={(e) => e.stopPropagation()}
+						/>
+					)}
+				</div>
 			</div>
-		</div>,
+		</>,
 		document.body,
 	);
 }
