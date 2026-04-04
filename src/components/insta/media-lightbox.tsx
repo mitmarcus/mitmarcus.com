@@ -185,31 +185,31 @@ export default function MediaLightbox({
 						onClick={handleClose}
 					/>
 
-					{/* Prev button */}
+					{/* Prev button – desktop only (side) */}
 					{currentIndex > 0 && (
 						<button
 							onClick={(e) => {
 								e.stopPropagation();
 								goPrev();
 							}}
-							className='absolute left-2 sm:left-4 z-10 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
+							className='hidden sm:flex absolute left-4 z-10 rounded-full border border-white/10 bg-black/40 p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
 							aria-label='Previous'
 						>
-							<RiArrowLeftSLine className='h-6 w-6 sm:h-7 sm:w-7' />
+							<RiArrowLeftSLine className='h-7 w-7' />
 						</button>
 					)}
 
-					{/* Next button */}
+					{/* Next button – desktop only (side) */}
 					{currentIndex < items.length - 1 && (
 						<button
 							onClick={(e) => {
 								e.stopPropagation();
 								goNext();
 							}}
-							className='absolute right-2 sm:right-4 z-10 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
+							className='hidden sm:flex absolute right-4 z-10 rounded-full border border-white/10 bg-black/40 p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
 							aria-label='Next'
 						>
-							<RiArrowRightSLine className='h-6 w-6 sm:h-7 sm:w-7' />
+							<RiArrowRightSLine className='h-7 w-7' />
 						</button>
 					)}
 
@@ -238,6 +238,26 @@ export default function MediaLightbox({
 							onClick={(e) => e.stopPropagation()}
 						/>
 					)}
+				</div>
+
+				{/* Bottom bar – mobile only */}
+				<div className='flex sm:hidden items-center justify-between px-2 py-2 bg-black/60 backdrop-blur-sm shrink-0'>
+					<button
+						onClick={goPrev}
+						disabled={currentIndex === 0}
+						className='rounded-full border border-white/10 bg-black/40 p-2.5 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none'
+						aria-label='Previous'
+					>
+						<RiArrowLeftSLine className='h-6 w-6' />
+					</button>
+					<button
+						onClick={goNext}
+						disabled={currentIndex >= items.length - 1}
+						className='rounded-full border border-white/10 bg-black/40 p-2.5 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none'
+						aria-label='Next'
+					>
+						<RiArrowRightSLine className='h-6 w-6' />
+					</button>
 				</div>
 			</div>
 		</>,
