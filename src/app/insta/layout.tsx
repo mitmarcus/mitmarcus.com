@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Metadata, Viewport } from 'next';
 
+import Footer from '@/components/footer';
 import InstaHeader from '@/components/insta/insta-header';
 import ScrollToTop from '@/components/scroll-to-top';
 import { fontNoto, fontSans } from '@/config/fonts';
@@ -45,17 +46,7 @@ export default function InstaLayout({ children }: InstaLayoutProps) {
 				<main className='mx-auto max-w-6xl px-6 min-h-[calc(100vh_-_56px_-_64px)]'>
 					{children}
 				</main>
-				<footer className='mx-auto max-w-6xl px-6 pb-12 pt-24 text-center text-sm text-muted-foreground'>
-					<p>
-						Archived from Instagram ·{' '}
-						<a
-							href={siteConfig.siteUrl}
-							className='underline hover:text-foreground transition-colors'
-						>
-							mitmarcus.com
-						</a>
-					</p>
-				</footer>
+				<Footer />
 				<ScrollToTop />
 				<Analytics />
 				<SpeedInsights />
