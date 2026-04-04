@@ -43,7 +43,7 @@ export default function InstaLayout({ children }: InstaLayoutProps) {
 		>
 			<body className='min-h-screen'>
 				<InstaHeader />
-				<main className='mx-auto max-w-6xl px-6 min-h-[calc(100vh_-_56px_-_64px)]'>
+				<main className='mx-auto max-w-6xl mt-16 px-6 min-h-[calc(100vh_-_56px_-_64px)]'>
 					{children}
 				</main>
 				<Footer />
