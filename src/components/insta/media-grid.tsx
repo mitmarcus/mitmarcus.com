@@ -36,7 +36,17 @@ function LazyMediaCell({
 				<>
 					{item.type === 'image' ? (
 						<Image
-							src={item.path}
+							src={item.thumbPath ?? item.path}
+							alt=''
+							fill
+							sizes='(max-width: 500px) 50vw, (max-width: 768px) 33vw, 25vw'
+							className='object-cover transition-transform duration-300 group-hover:scale-105'
+							loading='lazy'
+							unoptimized
+						/>
+					) : item.thumbPath ? (
+						<Image
+							src={item.thumbPath}
 							alt=''
 							fill
 							sizes='(max-width: 500px) 50vw, (max-width: 768px) 33vw, 25vw'

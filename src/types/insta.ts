@@ -5,6 +5,7 @@ export type InstaMediaType = 'image' | 'video';
 export type InstaMediaItem = {
 	id: string;
 	path: string;
+	thumbPath?: string;
 	category: InstaCategory;
 	date: string; // YYYY-MM format derived from folder name
 	type: InstaMediaType;

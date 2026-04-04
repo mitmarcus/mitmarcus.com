@@ -4,9 +4,12 @@ import * as path from 'path';
 type InstaCategory = 'posts' | 'stories' | 'archived_posts' | 'other';
 type InstaMediaType = 'image' | 'video';
 
+const THUMB_DIR_NAME = 'thumbs';
+
 type InstaMediaItem = {
 	id: string;
 	path: string;
+	thumbPath?: string;
 	category: InstaCategory;
 	date: string;
 	type: InstaMediaType;
@@ -50,9 +53,15 @@ function scanCategory(mediaDir: string, category: InstaCategory): InstaMediaItem
 				if (!mediaType) continue; // skip extensionless/unknown files
 
 				const id = path.basename(file.name, ext);
+				const thumbFile = `${id}.webp`;
+				const thumbOnDisk = path.join(mediaDir, '..', THUMB_DIR_NAME, category, entry.name, thumbFile);
+				const thumbPath = fs.existsSync(thumbOnDisk)
+					? `/insta/${THUMB_DIR_NAME}/${category}/${entry.name}/${thumbFile}`
+					: undefined;
 				items.push({
 					id,
 					path: `/insta/media/${category}/${entry.name}/${file.name}`,
+					thumbPath,
 					category,
 					date,
 					type: mediaType,
