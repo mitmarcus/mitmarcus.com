@@ -116,6 +116,7 @@ const ProjectLayout = (props: ProjectLayoutProps) => {
 					className='w-full rounded-lg object-cover'
 					width={800}
 					height={600}
+					sizes='100vw'
 					src={imageUrl}
 					alt={title}
 				/>
