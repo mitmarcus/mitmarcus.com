@@ -18,7 +18,7 @@ export default function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	// Block direct /insta access — only available via subdomain
+	// Block direct /insta access, only available via subdomain
 	if (request.nextUrl.pathname.startsWith('/insta')) {
 		return NextResponse.redirect(new URL('/', request.url));
 	}

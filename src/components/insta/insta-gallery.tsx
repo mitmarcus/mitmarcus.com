@@ -75,34 +75,34 @@ export default function InstaGallery({ items }: InstaGalleryProps) {
 				))}
 			</div>
 
-			{/* Posts: flat grid */}
-			{tab === 'posts' && (
+			{/* Posts: flat grid, hidden instead of unmounted to preserve loaded images */}
+			<div className={tab !== 'posts' ? 'hidden' : undefined}>
 				<MediaGrid
 					items={posts}
 					onItemClick={(index) => setLightboxIndex(index)}
 				/>
-			)}
+			</div>
 
-			{/* Stories: grouped by year */}
-			{tab === 'stories' && (
-				<div className='space-y-10'>
-					{storiesByYear.map(([year, yearItems]) => {
-						// Offset into the flat stories array for correct lightbox index
-						const offset = stories.indexOf(yearItems[0]);
-						return (
-							<div key={year}>
-								<h2 className='mb-3 text-lg font-bold tracking-tight text-muted-foreground'>
-									{year}
-								</h2>
-								<MediaGrid
-									items={yearItems}
-									onItemClick={(i) => setLightboxIndex(offset + i)}
-								/>
-							</div>
-						);
-					})}
-				</div>
-			)}
+			{/* Stories: grouped by year, hidden instead of unmounted to preserve loaded images */}
+			<div
+				className={cn(tab !== 'stories' ? 'hidden' : undefined, 'space-y-10')}
+			>
+				{storiesByYear.map(([year, yearItems]) => {
+					// Offset into the flat stories array for correct lightbox index
+					const offset = stories.indexOf(yearItems[0]);
+					return (
+						<div key={year}>
+							<h2 className='mb-3 text-lg font-bold tracking-tight text-muted-foreground'>
+								{year}
+							</h2>
+							<MediaGrid
+								items={yearItems}
+								onItemClick={(i) => setLightboxIndex(offset + i)}
+							/>
+						</div>
+					);
+				})}
+			</div>
 
 			{lightboxIndex !== null && (
 				<MediaLightbox
