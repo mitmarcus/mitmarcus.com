@@ -181,7 +181,7 @@ export default function MediaLightbox({
 							{item.category.replace('_', ' ')}
 							{dateLabel && <> &middot; {dateLabel}</>}
 						</span>
-						<span className='shrink-0 text-sm text-white/40 tabular-nums'>
+						<span className='hidden sm:inline shrink-0 text-sm text-white/40 tabular-nums'>
 							{currentIndex + 1} / {items.length}
 						</span>
 						<button
@@ -266,6 +266,9 @@ export default function MediaLightbox({
 						>
 							<RiArrowLeftSLine className='h-6 w-6' />
 						</button>
+						<span className='text-sm text-white/40 tabular-nums'>
+							{currentIndex + 1} / {items.length}
+						</span>
 						<button
 							onClick={goNext}
 							disabled={currentIndex >= items.length - 1}
