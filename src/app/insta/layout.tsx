@@ -41,6 +41,13 @@ export default function InstaLayout({ children }: InstaLayoutProps) {
 			className={cn(fontSans.variable, fontNoto.variable)}
 			lang='en'
 		>
+			<head>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: "history.scrollRestoration='manual'",
+					}}
+				/>
+			</head>
 			<body className='min-h-screen'>
 				<InstaHeader />
 				<main className='mx-auto max-w-6xl mt-16 px-6 min-h-[calc(100vh_-_56px_-_64px)]'>
