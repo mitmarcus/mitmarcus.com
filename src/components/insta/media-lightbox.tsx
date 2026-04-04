@@ -26,6 +26,7 @@ export default function MediaLightbox({
 }: MediaLightboxProps) {
 	const item = items[currentIndex];
 	const touchStartX = useRef<number | null>(null);
+	const touchStartY = useRef<number | null>(null);
 
 	const goPrev = useCallback(() => {
 		if (currentIndex > 0) onNavigate(currentIndex - 1);
@@ -120,18 +121,27 @@ export default function MediaLightbox({
 				}}
 				onTouchStart={(e) => {
 					touchStartX.current = e.touches[0].clientX;
+					touchStartY.current = e.touches[0].clientY;
 				}}
 				onTouchEnd={(e) => {
-					if (touchStartX.current === null) return;
+					if (touchStartX.current === null || touchStartY.current === null)
+						return;
 					const dx = e.changedTouches[0].clientX - touchStartX.current;
+					const dy = e.changedTouches[0].clientY - touchStartY.current;
 					touchStartX.current = null;
+					touchStartY.current = null;
+					// Swipe down to close (vertical dominant gesture)
+					if (dy > 80 && Math.abs(dy) > Math.abs(dx)) {
+						handleClose();
+						return;
+					}
 					if (Math.abs(dx) < 50) return;
 					if (dx < 0) goNext();
 					else goPrev();
 				}}
 			>
 				{/* Top bar */}
-				<div className='flex items-center gap-3 px-4 py-3 bg-black/60 backdrop-blur-sm shrink-0'>
+				<div className='flex items-center gap-3 px-2 sm:px-4 py-2 sm:py-3 bg-black/60 backdrop-blur-sm shrink-0'>
 					<span className='min-w-0 flex-1 truncate text-sm text-white/60 capitalize'>
 						{item.category.replace('_', ' ')}
 						{dateLabel && <> &middot; {dateLabel}</>}
@@ -141,10 +151,10 @@ export default function MediaLightbox({
 					</span>
 					<button
 						onClick={handleClose}
-						className='shrink-0 rounded-full border border-white/10 bg-white/5 p-2 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-white/10 hover:text-white transition-colors'
+						className='shrink-0 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
 						aria-label='Close'
 					>
-						<RiCloseLine className='h-6 w-6' />
+						<RiCloseLine className='h-6 w-6 sm:h-7 sm:w-7' />
 					</button>
 				</div>
 
