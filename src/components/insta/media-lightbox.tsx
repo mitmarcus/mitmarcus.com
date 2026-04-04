@@ -75,6 +75,20 @@ export default function MediaLightbox({
 		};
 	}, [handleClose, goPrev, goNext]);
 
+	useEffect(() => {
+		const update = () =>
+			document.documentElement.style.setProperty(
+				'--outer-height',
+				`${window.outerHeight}px`,
+			);
+		update();
+		window.addEventListener('resize', update);
+		return () => {
+			window.removeEventListener('resize', update);
+			document.documentElement.style.removeProperty('--outer-height');
+		};
+	}, []);
+
 	if (!item) return null;
 
 	const dateLabel =
@@ -109,13 +123,20 @@ export default function MediaLightbox({
 					pointerEvents: 'none',
 				}}
 			>
-				<div style={{ backgroundColor: '#000', height: '100dvh' }} />
+				<div
+					style={{
+						backgroundColor: '#000',
+						height: 'var(--outer-height, 100dvh)',
+					}}
+				/>
 			</div>
 
 			<div
 				className='fixed inset-0 z-[100] flex flex-col bg-black isolate'
 				style={{
 					backgroundColor: '#000',
+					paddingTop: 'env(safe-area-inset-top, 0px)',
+					paddingBottom: 'env(safe-area-inset-bottom, 0px)',
 				}}
 				onTouchStart={(e) => {
 					touchStartX.current = e.touches[0].clientX;
