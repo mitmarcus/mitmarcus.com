@@ -7,40 +7,33 @@ import type { InstaManifest } from '@/types/insta';
 
 const OG_WIDTH = 1200;
 const OG_HEIGHT = 630;
-const IMG_SIZE = 290;
+const IMG_SIZE = 265;
 const GAP = 10;
-const CORNER_RADIUS = 12;
+const CORNER_RADIUS = 15;
 
-// Logo + text branding block (left panel)
 const LOGO_W = 200;
-const LOGO_H = 160;
-const BRAND_GAP = 16;
+const LOGO_H = 180;
 
-function buildBrandSvg(): string {
-	const labelFontSize = 25;
-	const labelHeight = labelFontSize;
+function buildLogoSvg(): string {
+	return `<svg xmlns="http://www.w3.org/2000/svg" width="${LOGO_W}" height="${LOGO_H}" viewBox="${LOGO_VIEWBOX}">
+  <g fill="white" transform="translate(0,12000) scale(1,-1)">
+    ${LOGO_PATHS.map((d) => `<path d="${d}"/>`).join('\n    ')}
+  </g>
+</svg>`;
+}
 
-	const totalHeight = labelHeight + BRAND_GAP + LOGO_H;
-	const totalWidth = 200;
-
-	let y = 0;
-	const labelY = y + labelFontSize;
-	y += labelHeight + BRAND_GAP;
-	const logoY = y;
-
-	return `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${totalHeight}">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&amp;display=swap');
-  </style>
-  <text x="${totalWidth / 2}" y="${labelY}"
-    font-family="Inter, -apple-system, sans-serif" font-weight="300" font-size="${labelFontSize}"
-    fill="rgba(255,255,255,0.5)" text-anchor="middle"
-    letter-spacing="3" text-transform="uppercase">PHOTOS BY</text>
-  <svg x="${(totalWidth - LOGO_W) / 2}" y="${logoY}" width="${LOGO_W}" height="${LOGO_H}" viewBox="${LOGO_VIEWBOX}">
-    <g fill="white" transform="translate(0,12000) scale(1,-1)">
-      ${LOGO_PATHS.map((d) => `<path d="${d}"/>`).join('\n      ')}
-    </g>
-  </svg>
+function buildTextSvg(
+	text: string,
+	width: number,
+	height: number,
+	opacity: number,
+	letterSpacing: number,
+): string {
+	return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+  <text x="${width / 2}" y="${height * 0.78}"
+    font-family="sans-serif" font-weight="300" font-size="${height * 0.6}"
+    fill="rgba(255,255,255,${opacity})" text-anchor="middle"
+    letter-spacing="${letterSpacing}">${text}</text>
 </svg>`;
 }
 
@@ -74,9 +67,11 @@ async function main() {
 		.filter((i) => i.category === 'posts')
 		.slice(0, 4);
 
-	const brandSvg = buildBrandSvg();
+	const TEXT_W = 265;
+	const TEXT_H = 65;
+	const SPACING = 20;
 
-	const [thumbnails, brandPng] = await Promise.all([
+	const [thumbnails, logoPng, textPng] = await Promise.all([
 		Promise.all(
 			posts.map(async (post) => {
 				const filePath = join(process.cwd(), 'public', post.thumbPath!);
@@ -84,21 +79,29 @@ async function main() {
 				return roundCorners(buffer, IMG_SIZE);
 			}),
 		),
-		sharp(Buffer.from(brandSvg)).png().toBuffer(),
+		sharp(Buffer.from(buildLogoSvg())).png().toBuffer(),
+		sharp(Buffer.from(buildTextSvg('PHOTOS BY', TEXT_W, TEXT_H, 0.45, 6)))
+			.png()
+			.toBuffer(),
 	]);
 
 	const gridWidth = IMG_SIZE * 2 + GAP;
 	const gridHeight = IMG_SIZE * 2 + GAP;
-	const offsetX = Math.round((OG_WIDTH - gridWidth) / 2) + 80;
+	// Grid on the right side with comfortable padding
+	const gridPadRight = 40;
+	const offsetX = OG_WIDTH - gridWidth - gridPadRight;
 	const offsetY = Math.round((OG_HEIGHT - gridHeight) / 2);
 
-	// Get brand block dimensions to center it in the left band
-	const brandMeta = await sharp(brandPng).metadata();
-	const brandW = brandMeta.width!;
-	const brandH = brandMeta.height!;
+	// Branding in the left zone 
 	const leftBand = offsetX;
-	const brandLeft = Math.round((leftBand - brandW) / 2);
-	const brandTop = Math.round((OG_HEIGHT - brandH) / 2);
+	const blockH = TEXT_H + SPACING + LOGO_H;
+	const blockTop = Math.round((OG_HEIGHT - blockH) / 2);
+
+	const textLeft = Math.round((leftBand - TEXT_W) / 2);
+	const textTop = blockTop;
+
+	const logoLeft = Math.round((leftBand - LOGO_W) / 2);
+	const logoTop = blockTop + TEXT_H + SPACING;
 
 	const composite = await sharp({
 		create: {
@@ -117,7 +120,8 @@ async function main() {
 				left: offsetX + IMG_SIZE + GAP,
 				top: offsetY + IMG_SIZE + GAP,
 			},
-			{ input: brandPng, left: brandLeft, top: brandTop },
+			{ input: logoPng, left: logoLeft, top: logoTop },
+			{ input: textPng, left: textLeft, top: textTop },
 		])
 		.png()
 		.toBuffer();
