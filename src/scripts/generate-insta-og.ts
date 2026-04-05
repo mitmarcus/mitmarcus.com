@@ -8,7 +8,7 @@ import type { InstaManifest } from '@/types/insta';
 const OG_WIDTH = 1200;
 const OG_HEIGHT = 630;
 const IMG_SIZE = 265;
-const GAP = 10;
+const GAP = 15;
 const CORNER_RADIUS = 15;
 
 const LOGO_W = 200;
@@ -88,11 +88,11 @@ async function main() {
 	const gridWidth = IMG_SIZE * 2 + GAP;
 	const gridHeight = IMG_SIZE * 2 + GAP;
 	// Grid on the right side with comfortable padding
-	const gridPadRight = 40;
+	const gridPadRight = 140;
 	const offsetX = OG_WIDTH - gridWidth - gridPadRight;
 	const offsetY = Math.round((OG_HEIGHT - gridHeight) / 2);
 
-	// Branding in the left zone 
+	// Branding in the left zone
 	const leftBand = offsetX;
 	const blockH = TEXT_H + SPACING + LOGO_H;
 	const blockTop = Math.round((OG_HEIGHT - blockH) / 2);
