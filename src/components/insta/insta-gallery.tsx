@@ -58,7 +58,7 @@ export default function InstaGallery({ items }: InstaGalleryProps) {
 							'relative flex-1 sm:flex-initial rounded-full px-5 py-1.5 text-sm font-medium capitalize transition-all',
 							tab === t
 								? 'bg-neutral-800 text-foreground border border-border'
-								: 'text-foreground/50 hover:text-foreground',
+								: 'text-foreground/50 hover:text-foreground border border-transparent',
 						)}
 					>
 						<span
