@@ -127,7 +127,7 @@ function generateManifest() {
 	const outputPath = path.join(outputDir, 'insta-manifest.json');
 	fs.writeFileSync(outputPath, JSON.stringify(manifest, null, 2));
 
-	console.log(`\nGenerated Instagram manifest: ${allItems.length} items → ${outputPath}`);
+	console.log(`\nGenerated Instagram manifest: ${allItems.length} items -> ${outputPath}`);
 }
 
 generateManifest();

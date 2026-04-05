@@ -7,7 +7,7 @@ const intlMiddleware = createMiddleware(routing);
 export default function middleware(request: NextRequest) {
 	const host = request.headers.get('host') ?? '';
 
-	// Subdomain: insta.mitmarcus.com or insta.localhost:3000 → serve /insta
+	// Subdomain: insta.mitmarcus.com or insta.localhost:3000 -> serve /insta
 	if (host.startsWith('insta.')) {
 		const url = request.nextUrl.clone();
 		// Only rewrite if not already pointing at /insta

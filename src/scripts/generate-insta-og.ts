@@ -12,12 +12,12 @@ const GAP = 10;
 const CORNER_RADIUS = 12;
 
 // Logo + text branding block (left panel)
-const LOGO_W = 100;
-const LOGO_H = 80;
+const LOGO_W = 200;
+const LOGO_H = 160;
 const BRAND_GAP = 16;
 
 function buildBrandSvg(): string {
-	const labelFontSize = 13;
+	const labelFontSize = 25;
 	const labelHeight = labelFontSize;
 
 	const totalHeight = labelHeight + BRAND_GAP + LOGO_H;

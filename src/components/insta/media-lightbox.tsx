@@ -46,7 +46,7 @@ export default function MediaLightbox({
 		}
 	}, []);
 
-	// Push a history entry when the lightbox opens; popstate fires on back → close.
+	// Push a history entry when the lightbox opens; popstate fires on back -> close.
 	useEffect(() => {
 		closedRef.current = false;
 		history.pushState({ lightbox: true }, '');
