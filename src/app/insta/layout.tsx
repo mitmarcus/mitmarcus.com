@@ -19,12 +19,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
 	metadataBase: new URL(siteConfig.instaUrl),
-	title: 'Photos - Marcus Mitelea',
+	title: {
+		default: 'Photos - Marcus Mitelea',
+		template: `%s - ${siteConfig.instaOpenGraph.title}`,
+	},
+	creator: siteConfig.name,
 	description: 'Archived Instagram media',
 	openGraph: {
-		title: 'Photos - Marcus Mitelea',
-		description: 'Archived Instagram media',
-		url: siteConfig.instaUrl,
+		...siteConfig.instaOpenGraph,
 	},
 	robots: {
 		index: false,

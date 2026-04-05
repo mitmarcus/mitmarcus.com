@@ -33,4 +33,19 @@ export const siteConfig = {
 			},
 		],
 	},
+	instaOpenGraph: {
+		type: 'website',
+		title: 'Photos - Marcus Mitelea',
+		siteName: 'Marcus Mitelea',
+		url: instaUrl,
+		description: 'Archived Instagram media',
+		images: [
+			{
+				url: `${instaUrl}/insta-og.png`,
+				width: 1200,
+				height: 630,
+				alt: 'Photos - Marcus Mitelea',
+			},
+		],
+	},
 };
