@@ -18,7 +18,7 @@ export default function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	// Subdomain: apnea.mitmarcus.com or apnea.localhost:3000 -> serve /apnea
+	// Subdomain: apneawip.mitmarcus.com or apneawip.localhost:3000 -> serve /apnea
 	if (host.startsWith('apneawip.')) {
 		const url = request.nextUrl.clone();
 		if (!url.pathname.startsWith('/apnea')) {
