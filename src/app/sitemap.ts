@@ -14,9 +14,17 @@ const sitemap = async () => {
 		},
 	];
 
+	const apneaRoutes = [
+		{
+			url: siteConfig.apneaUrl,
+			lastModified: new Date().toISOString().split('T')[0],
+		},
+	];
+
 	return [
 		...routes,
 		...instaRoutes,
+		...apneaRoutes,
 	];
 };
 

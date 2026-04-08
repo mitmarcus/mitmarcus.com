@@ -8,12 +8,17 @@ const instaUrl = process.env.NODE_ENV === 'production'
 	? 'https://insta.mitmarcus.com'
 	: 'http://insta.localhost:3000';
 
+const apneaUrl = process.env.NODE_ENV === 'production'
+	? 'https://apneawip.mitmarcus.com'
+	: 'http://apneawip.localhost:3000';
+
 export const siteConfig = {
 	name: 'Marcus Mitelea',
 	author: 'Marcus Mitelea',
 	email: 'mitmarcus@proton.me',
 	siteUrl: baseUrl,
 	instaUrl: instaUrl,
+	apneaUrl: apneaUrl,
 	githubUsername: 'mitmarcus',
 	links: {
 		github: 'https://github.com/mitmarcus',
@@ -47,5 +52,12 @@ export const siteConfig = {
 				alt: 'Photos - Marcus Mitelea',
 			},
 		],
+	},
+	apneaOpenGraph: {
+		type: 'website',
+		title: 'WIP Apnea Trainer',
+		siteName: 'Marcus Mitelea',
+		url: apneaUrl,
+		description: 'Freediving apnea breath-hold trainer with CO2 and O2 tables, auto-calculated training plans',
 	},
 };

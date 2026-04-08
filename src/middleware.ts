@@ -18,8 +18,18 @@ export default function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	// Block direct /insta access, only available via subdomain
-	if (request.nextUrl.pathname.startsWith('/insta')) {
+	// Subdomain: apnea.mitmarcus.com or apnea.localhost:3000 -> serve /apnea
+	if (host.startsWith('apneawip.')) {
+		const url = request.nextUrl.clone();
+		if (!url.pathname.startsWith('/apnea')) {
+			url.pathname = `/apnea${url.pathname === '/' ? '' : url.pathname}`;
+			return NextResponse.rewrite(url);
+		}
+		return NextResponse.next();
+	}
+
+	// Block direct /insta and /apnea access, only available via subdomain
+	if (request.nextUrl.pathname.startsWith('/insta') || request.nextUrl.pathname.startsWith('/apnea')) {
 		return NextResponse.redirect(new URL('/', request.url));
 	}
 
