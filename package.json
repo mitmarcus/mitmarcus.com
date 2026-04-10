@@ -41,7 +41,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "next": "^15.5.14",
-    "next-intl": "^3.26.5",
+    "next-intl": "^4.9.1",
     "octokit": "^5.0.5",
     "react": "19.0.0",
     "react-dom": "19.0.0",
