@@ -41,7 +41,6 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "next": "^15.5.14",
-    "next-devtools-mcp": "^0.3.10",
     "next-intl": "^4.9.1",
     "octokit": "^5.0.5",
     "react": "19.2.5",
