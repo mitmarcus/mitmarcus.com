@@ -34,7 +34,7 @@ export const NextIntlClientProvider = ({
 	children: React.ReactNode;
 }) => children;
 
-export const createSharedPathnamesNavigation = () => ({
+export const createNavigation = () => ({
 	Link: Link,
 	redirect: redirect,
 	usePathname: usePathname,

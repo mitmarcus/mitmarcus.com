@@ -3,7 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 //
 import { Metadata, Viewport } from 'next';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 import Footer from '@/components/footer';
@@ -26,11 +26,11 @@ export const viewport: Viewport = {
 export async function generateMetadata({
 	params,
 }: {
-	params: { locale: Locale };
+	params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
 	const { locale } = await params;
 	const t = await getTranslations({ locale, namespace: 'homePage' });
-	const url = getLocalizedUrl({ locale });
+	const url = getLocalizedUrl({ locale: locale as Locale });
 
 	return {
 		metadataBase: new URL(siteConfig.siteUrl),

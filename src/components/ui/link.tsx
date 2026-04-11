@@ -64,7 +64,7 @@ const Link = (props: LinkProps) => {
 		<a
 			className={cn(linkVariants({ variant, className }))}
 			href={href}
-			{...otherProps}
+			{...(otherProps as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
 		>
 			{children}
 			{icon}
