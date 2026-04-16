@@ -17,22 +17,13 @@ const Footer = () => {
 					© {currentYear} Marcus Mitelea. All rights reserved.
 				</div>
 				<div className='flex items-center gap-2'>
-					<Link
-						href={siteConfig.instaUrl}
-						aria-label='photos'
-					>
+					<Link href={siteConfig.instaUrl} aria-label='photos'>
 						<RiCameraLensFill className='size-6 opacity-50' />
 					</Link>
-					<Link
-						href={siteConfig.links.github}
-						aria-label='github'
-					>
+					<Link href={siteConfig.links.github} aria-label='github'>
 						<RiGithubFill className='size-6' />
 					</Link>
-					<Link
-						href={siteConfig.links.linkedin}
-						aria-label='linkedin'
-					>
+					<Link href={siteConfig.links.linkedin} aria-label='linkedin'>
 						<RiLinkedinBoxFill className='size-6' />
 					</Link>
 				</div>

@@ -77,7 +77,7 @@ export default function TrainingTimer({
 						onClick={onStop}
 						className='group relative w-full h-12 rounded-full border border-border bg-neutral-800 font-medium text-sm text-foreground hover:bg-neutral-800/0 transition-all'
 					>
-						<div className='absolute -bottom-px left-1/2 h-px w-14 -translate-x-1/2 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 transition-opacity group-hover:opacity-100' />
+						<div className='absolute -bottom-px left-1/2 h-px w-14 -translate-x-1/2 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 transition-opacity group-hover:opacity-100' />
 						Done
 					</button>
 				</div>
@@ -112,15 +112,8 @@ export default function TrainingTimer({
 			</div>
 
 			{/* Progress ring */}
-			<div
-				className='relative mb-8'
-				style={{ width: size, height: size }}
-			>
-				<svg
-					width={size}
-					height={size}
-					className='transform -rotate-90'
-				>
+			<div className='relative mb-8' style={{ width: size, height: size }}>
+				<svg width={size} height={size} className='transform -rotate-90'>
 					<circle
 						cx={size / 2}
 						cy={size / 2}

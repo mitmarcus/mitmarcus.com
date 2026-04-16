@@ -7,11 +7,13 @@ const STORAGE_KEY = 'apnea-trainer-data';
 export type ApneaData = {
 	pbSeconds: number;
 	customTables: ApneaTable[];
+	isMuted: boolean;
 };
 
 const DEFAULT_DATA: ApneaData = {
 	pbSeconds: 0,
 	customTables: [],
+	isMuted: false,
 };
 
 function loadFromLocalStorage(): ApneaData {
@@ -57,6 +59,11 @@ export default function useApneaStorage() {
 		[update],
 	);
 
+	const setMuted = useCallback(
+		(muted: boolean) => update((prev) => ({ ...prev, isMuted: muted })),
+		[update],
+	);
+
 	const addCustomTable = useCallback(
 		(table: ApneaTable) =>
 			update((prev) => ({
@@ -79,6 +86,7 @@ export default function useApneaStorage() {
 		data,
 		isLoaded,
 		setPB,
+		setMuted,
 		addCustomTable,
 		removeCustomTable,
 	};

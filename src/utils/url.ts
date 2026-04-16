@@ -10,11 +10,10 @@ export function getLocalizedUrl({
 	pathname?: '' | 'blog' | 'about' | 'projects';
 	slug?: string;
 }) {
+	const localPrefix = locale === defaultLocale ? '' : locale;
 
-	let localPrefix = locale === defaultLocale ? '' : locale;
-
-	let url = [siteConfig.siteUrl, localPrefix, pathname, slug]
-		.filter(item => item)
+	const url = [siteConfig.siteUrl, localPrefix, pathname, slug]
+		.filter((item) => item)
 		.join('/');
 
 	return url;

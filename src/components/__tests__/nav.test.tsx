@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import Nav from '@/components/nav';
 import navLinks from '@/config/nav-links';
 
-jest.mock('@/config/nav-links', () => ([
+jest.mock('@/config/nav-links', () => [
 	{
 		title: 'blog',
 		href: '/blog',
@@ -14,7 +14,7 @@ jest.mock('@/config/nav-links', () => ([
 		href: '/projects',
 		icon: <div data-testid='icon' />,
 	},
-]));
+]);
 
 describe('Nav', () => {
 	it('should render navigation', () => {

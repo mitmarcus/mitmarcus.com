@@ -1,7 +1,7 @@
 import { Inter, Noto_Sans_TC } from 'next/font/google';
 
 export const fontSans = Inter({
-	variable: '--font-sans',
+	variable: '--font-inter',
 	adjustFontFallback: true,
 	display: 'optional',
 	subsets: ['latin'],

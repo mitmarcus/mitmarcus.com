@@ -1,4 +1,4 @@
-import { type VariantProps, cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { RiLinkM } from 'react-icons/ri';
 
@@ -6,12 +6,12 @@ import { Link as LocalizedLink } from '@/lib/navigation';
 import { cn } from '@/utils/cn';
 
 const linkVariants = cva(
-	'inline-flex items-center outline-none transition-colors',
+	'inline-flex items-center outline-hidden transition-colors',
 	{
 		variants: {
 			variant: {
 				block:
-					'h-8 rounded-lg bg-foreground/10 p-4 text-sm hover:bg-foreground/[0.15]',
+					'h-8 rounded-lg bg-foreground/10 p-4 text-sm hover:bg-foreground/15',
 			},
 		},
 	},
@@ -30,12 +30,7 @@ const Link = (props: LinkProps) => {
 		children,
 		className,
 		variant,
-		anchorIcon = (
-			<RiLinkM
-				role='img'
-				className='ml-1 text-muted-foreground'
-			/>
-		),
+		anchorIcon = <RiLinkM role='img' className='ml-1 text-muted-foreground' />,
 		showAnchorIcon,
 		...otherProps
 	} = props;

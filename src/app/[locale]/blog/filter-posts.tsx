@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 import { RiSearch2Line } from 'react-icons/ri';
-
-import type { Post } from '@/content';
 import PostCard from '@/components/post-card';
+import type { Post } from '@/content';
 import { getGroupPostsWithYear } from '@/utils/blog';
 
 type FilterPostsProps = {
@@ -26,15 +25,14 @@ const FilterPosts = ({
 			<div className='relative mt-4 animate-fade-in animation-delay-2'>
 				<RiSearch2Line className='absolute left-2 top-2.5 size-5 text-foreground/60' />
 				<input
-					className='w-full rounded-md border border-border bg-input/40 p-2 pl-8 text-sm outline-none ring-blue-500/20 duration-300 placeholder:text-foreground/80 focus:border-primary focus:ring-4 sm:w-[18.75rem]'
+					className='w-full rounded-md border border-border bg-input/40 p-2 pl-8 text-sm outline-hidden ring-blue-500/20 duration-300 placeholder:text-foreground/80 focus:border-primary focus:ring-4 sm:w-75'
 					placeholder={placeholder}
 					onChange={(e) => setQuery(e.target.value)}
 				/>
 			</div>
 			<div className='mt-16 flex animate-fade-in flex-col gap-8 animation-delay-3'>
-				{
-					groupPosts.length > 0
-						? groupPosts.map(({ year, posts }) => {
+				{groupPosts.length > 0
+					? groupPosts.map(({ year, posts }) => {
 							return (
 								<section key={year}>
 									<h2 className='mb-4 flex items-end gap-3 text-lg font-medium tracking-tight'>
@@ -55,7 +53,7 @@ const FilterPosts = ({
 								</section>
 							);
 						})
-						: remindText}
+					: remindText}
 			</div>
 		</>
 	);

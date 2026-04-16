@@ -2,7 +2,7 @@ import { type RefObject, useEffect, useState } from 'react';
 
 const useIntersection = (
 	ref: RefObject<HTMLElement | null>,
-	options: IntersectionObserverInit
+	options: IntersectionObserverInit,
 ): IntersectionObserverEntry | null => {
 	const [intersectionObserverEntry, setIntersectionObserverEntry] =
 		useState<IntersectionObserverEntry | null>(null);
@@ -23,8 +23,14 @@ const useIntersection = (
 			};
 		}
 
-		return () => { };
-	}, [ref.current, options.threshold, options.root, options.rootMargin]);
+		return () => {};
+	}, [
+		ref.current,
+		options.threshold,
+		options.root,
+		options.rootMargin,
+		options,
+	]);
 
 	return intersectionObserverEntry;
 };

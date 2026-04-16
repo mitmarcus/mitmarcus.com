@@ -20,7 +20,8 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 	);
 	const [tableType, setTableType] = useState<TableType>('co2');
 
-	const totalSeconds = parseInt(minutes || '0') * 60 + parseInt(seconds || '0');
+	const totalSeconds =
+		parseInt(minutes || '0', 10) * 60 + parseInt(seconds || '0', 10);
 
 	const handleMinutesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const val = e.target.value.replace(/\D/g, '').slice(0, 2);
@@ -32,7 +33,7 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 
 	const handleSecondsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const val = e.target.value.replace(/\D/g, '').slice(0, 2);
-		if (parseInt(val) <= 59 || val === '') setSeconds(val);
+		if (parseInt(val, 10) <= 59 || val === '') setSeconds(val);
 	};
 
 	const handleBlur = (
@@ -40,7 +41,7 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 		val: string,
 		max: number,
 	) => {
-		const num = Math.min(parseInt(val || '0'), max);
+		const num = Math.min(parseInt(val || '0', 10), max);
 		setter(String(num).padStart(2, '0'));
 	};
 
@@ -51,10 +52,7 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 
 	return (
 		<div className='animate-fade-in'>
-			<form
-				onSubmit={handleSubmit}
-				className='max-w-sm mx-auto px-4'
-			>
+			<form onSubmit={handleSubmit} className='max-w-sm mx-auto px-4'>
 				{/* Time input */}
 				<div className='flex items-center justify-center gap-4 mb-10'>
 					<div className='flex flex-col items-center gap-2'>
@@ -69,7 +67,7 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 							onFocus={(e) => e.target.select()}
 							onBlur={(e) => handleBlur(setMinutes, e.target.value, 15)}
 							placeholder='00'
-							className='w-20 h-16 text-center text-3xl font-bold bg-neutral-800/80 border border-border rounded-xl text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50 transition-colors'
+							className='w-20 h-16 text-center text-3xl font-bold bg-neutral-800/80 border border-border rounded-xl text-foreground focus:border-primary focus:outline-hidden focus:ring-1 focus:ring-primary/50 transition-colors'
 						/>
 					</div>
 					<span className='text-3xl font-bold text-foreground/30 mt-6'>:</span>
@@ -86,7 +84,7 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 							onFocus={(e) => e.target.select()}
 							onBlur={(e) => handleBlur(setSeconds, e.target.value, 59)}
 							placeholder='00'
-							className='w-20 h-16 text-center text-3xl font-bold bg-neutral-800/80 border border-border rounded-xl text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50 transition-colors'
+							className='w-20 h-16 text-center text-3xl font-bold bg-neutral-800/80 border border-border rounded-xl text-foreground focus:border-primary focus:outline-hidden focus:ring-1 focus:ring-primary/50 transition-colors'
 						/>
 					</div>
 				</div>
@@ -101,7 +99,7 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 							className={cn(
 								'flex-1 h-9 rounded-full text-sm font-medium transition-all duration-200',
 								tableType === type
-									? 'bg-neutral-700 text-foreground shadow-sm'
+									? 'bg-neutral-700 text-foreground shadow-xs'
 									: 'text-foreground/40 hover:text-foreground/60',
 							)}
 						>
@@ -116,7 +114,7 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 					className='group relative w-full h-12 rounded-full border border-border bg-neutral-800 font-medium text-sm text-foreground hover:bg-neutral-800/0 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200'
 					id='apnea-generate-tables'
 				>
-					<div className='absolute -bottom-px left-1/2 h-px w-14 -translate-x-1/2 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 transition-opacity group-hover:opacity-100' />
+					<div className='absolute -bottom-px left-1/2 h-px w-14 -translate-x-1/2 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 transition-opacity group-hover:opacity-100' />
 					Start Training
 				</button>
 			</form>

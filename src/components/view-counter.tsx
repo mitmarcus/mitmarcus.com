@@ -26,7 +26,7 @@ const ViewCounter = ({ slug, shouldIncrement = false }: ViewCounterProps) => {
 		if (shouldIncrement) {
 			increment();
 		}
-	}, []);
+	}, [shouldIncrement, increment]);
 
 	return (
 		<span>

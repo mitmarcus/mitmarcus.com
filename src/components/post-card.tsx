@@ -26,10 +26,7 @@ const PostCard = ({ slug, title, publishedAt, permalink }: PostCardProps) => {
 
 	return (
 		<div ref={intersectionRef}>
-			<Link
-				className='font-medium'
-				href={permalink}
-			>
+			<Link className='font-medium' href={permalink}>
 				{title}
 			</Link>
 			<div className='text-sm text-foreground/60'>

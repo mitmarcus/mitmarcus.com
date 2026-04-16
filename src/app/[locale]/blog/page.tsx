@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { useLocale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
@@ -8,19 +8,17 @@ import { getLocalizedUrl } from '@/utils/url';
 
 import FilterPosts from './filter-posts';
 
-export const generateMetadata = async (
-    props: {
-        params: Promise<{ locale: Locale }>;
-    }
-): Promise<Metadata> => {
-    const params = await props.params;
-    const t = await getTranslations();
-    const url = getLocalizedUrl({
+export const generateMetadata = async (props: {
+	params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> => {
+	const params = await props.params;
+	const t = await getTranslations();
+	const url = getLocalizedUrl({
 		locale: params.locale,
 		pathname: 'blog',
 	});
 
-    return {
+	return {
 		title: t('common.blog'),
 		description: t('blogPage.description'),
 		alternates: {

@@ -38,7 +38,7 @@ const DropdownMenuItem = React.forwardRef<
 	<DropdownMenuPrimitive.Item
 		ref={ref}
 		className={cn(
-			'relative flex cursor-pointer select-none items-center text-sm outline-none transition-colors hover:bg-accent/60',
+			'relative flex cursor-pointer select-none items-center text-sm outline-hidden transition-colors hover:bg-accent/60',
 			inset && 'pl-8',
 			className,
 		)}
@@ -81,9 +81,9 @@ DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 
 export {
 	DropdownMenu,
-	DropdownMenuTrigger,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
+	DropdownMenuTrigger,
 };

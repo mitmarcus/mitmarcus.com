@@ -16,26 +16,17 @@ const Projects = () => {
 	return (
 		<section className='animate-fade-in animation-delay-4'>
 			<div className='flex items-center justify-between'>
-				<GradientText
-					as='h2'
-					className='text-xl font-bold tracking-tight'
-				>
+				<GradientText as='h2' className='text-xl font-bold tracking-tight'>
 					{t('projects')}
 				</GradientText>
-				<Link
-					variant='block'
-					href='/projects'
-				>
+				<Link variant='block' href='/projects'>
 					{t('viewMore')}
 					<RiArrowRightSLine />
 				</Link>
 			</div>
 			<div className='mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2'>
 				{projects.map((project) => (
-					<ProjectCard
-						key={project.slug}
-						project={project}
-					/>
+					<ProjectCard key={project.slug} project={project} />
 				))}
 			</div>
 		</section>

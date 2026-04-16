@@ -2,9 +2,9 @@
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 //
-import { Metadata, Viewport } from 'next';
-import { getTranslations } from 'next-intl/server';
+import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 
 import Footer from '@/components/footer';
 import Header from '@/components/header';
@@ -88,14 +88,11 @@ const RootLayout = async (props: RootLayoutProps) => {
 	}
 
 	return (
-		<html
-			className={cn(fontSans.variable, fontNoto.variable)}
-			lang={locale}
-		>
+		<html className={cn(fontSans.variable, fontNoto.variable)} lang={locale}>
 			<body className='min-h-screen'>
 				<LocaleProvider>
 					<Header />
-					<main className='layout mt-16 min-h-[calc(100vh_-_56px_-_196px)]'>
+					<main className='layout mt-16 min-h-[calc(100vh-56px-196px)]'>
 						{children}
 						{/* Vercel */}
 						<Analytics />

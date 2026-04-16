@@ -1,12 +1,13 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import ApneaHeader from '@/components/apnea/apnea-header';
 import SetupForm from '@/components/apnea/setup-form';
 import TrainingTimer from '@/components/apnea/training-timer';
 import useApneaStorage from '@/hooks/use-apnea-storage';
 import useApneaTimer from '@/hooks/use-apnea-timer';
+import useWakeLock from '@/hooks/use-wake-lock';
 import { initAudio } from '@/utils/apnea-audio';
 import type { ApneaTable } from '@/utils/apnea-tables';
 import { generateCO2Table, generateO2Table } from '@/utils/apnea-tables';
@@ -22,8 +23,14 @@ export default function ApneaPage() {
 			? generateCO2Table(storage.data.pbSeconds)
 			: null,
 	);
+	const shouldAutoStartRef = useRef(false);
 
-	const timer = useApneaTimer(activeTable);
+	const timer = useApneaTimer(activeTable, {
+		initialMuted: storage.data.isMuted,
+		onMutedChange: storage.setMuted,
+	});
+
+	useWakeLock(timer.state === 'running');
 
 	const handleSetPB = useCallback(
 		(seconds: number, tableType: 'co2' | 'o2') => {
@@ -34,11 +41,23 @@ export default function ApneaPage() {
 					: generateO2Table(seconds);
 			setActiveTable(table);
 			initAudio();
+			shouldAutoStartRef.current = true;
 			setView('training');
-			setTimeout(() => timer.start(), 0);
 		},
-		[storage, timer],
+		[storage],
 	);
+
+	useEffect(() => {
+		if (
+			shouldAutoStartRef.current &&
+			view === 'training' &&
+			activeTable &&
+			timer.state === 'idle'
+		) {
+			shouldAutoStartRef.current = false;
+			timer.start();
+		}
+	}, [view, activeTable, timer]);
 
 	const handleStopTraining = useCallback(() => {
 		timer.stop();
@@ -51,7 +70,7 @@ export default function ApneaPage() {
 
 			<main
 				className={cn(
-					'layout mx-auto max-w-lg mt-8 min-h-[calc(100vh_-_56px_-_64px)]',
+					'layout mx-auto max-w-lg mt-8 min-h-[calc(100vh-56px-64px)]',
 					'flex items-center justify-center',
 				)}
 			>

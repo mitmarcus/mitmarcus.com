@@ -1,7 +1,6 @@
+import type { JSX } from 'react';
 import Link from '@/components/ui/link';
 import { cn } from '@/utils/cn';
-
-import type { JSX } from "react";
 
 type LinkedHeadingProps = {
 	className?: string;
@@ -25,7 +24,7 @@ const LinkedHeading = ({
 }: LinkedHeadingProps) => {
 	const Component = as;
 
-	let id = idProp || anchorEncode(children as string);
+	const id = idProp || anchorEncode(children as string);
 
 	return (
 		<Component
@@ -34,7 +33,7 @@ const LinkedHeading = ({
 			{...otherProps}
 		>
 			<Link
-				className='bg-gradient-to-b from-foreground from-30% to-foreground/40 bg-clip-text font-bold tracking-tight text-transparent no-underline [&_>_svg]:opacity-0 group-hover:[&_>_svg]:opacity-100'
+				className='bg-linear-to-b from-foreground from-30% to-foreground/40 bg-clip-text font-bold tracking-tight text-transparent no-underline [&_>_svg]:opacity-0 [&_>_svg]:group-hover:opacity-100'
 				href={`#${id}`}
 				showAnchorIcon
 			>

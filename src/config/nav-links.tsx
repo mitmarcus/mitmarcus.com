@@ -1,4 +1,8 @@
-import { RiGitRepositoryFill, RiQuillPenFill, RiUser3Fill } from 'react-icons/ri';
+import {
+	RiGitRepositoryFill,
+	RiQuillPenFill,
+	RiUser3Fill,
+} from 'react-icons/ri';
 
 const navLinks = [
 	{

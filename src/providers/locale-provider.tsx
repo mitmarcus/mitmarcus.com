@@ -9,10 +9,7 @@ const LocaleProvider = ({ children }: LocaleProviderProps) => {
 	const timezone = useTimeZone();
 
 	return (
-		<NextIntlClientProvider
-			messages={messages}
-			timeZone={timezone}
-		>
+		<NextIntlClientProvider messages={messages} timeZone={timezone}>
 			{children}
 		</NextIntlClientProvider>
 	);

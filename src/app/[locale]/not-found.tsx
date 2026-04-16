@@ -1,8 +1,7 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
-
-import Link from '@/components/ui/link';
 import { RiArrowRightLine } from 'react-icons/ri';
+import Link from '@/components/ui/link';
 
 export const metadata: Metadata = {
 	title: '404',

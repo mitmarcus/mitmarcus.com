@@ -1,13 +1,13 @@
 'use client';
 
 import {
-	MotionStyle,
-	MotionValue,
+	type MotionStyle,
+	type MotionValue,
 	motion,
 	useMotionTemplate,
 	useMotionValue,
 } from 'framer-motion';
-import { MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
 import { GoRepoForked } from 'react-icons/go';
 import { RiStarLine } from 'react-icons/ri';
 import useSWR from 'swr';

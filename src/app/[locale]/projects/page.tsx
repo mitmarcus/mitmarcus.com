@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { useLocale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
@@ -7,19 +7,17 @@ import GradientText from '@/components/ui/gradient-text';
 import { allProjects } from '@/content';
 import { getLocalizedUrl } from '@/utils/url';
 
-export const generateMetadata = async (
-    props: {
-        params: Promise<{ locale: Locale }>;
-    }
-): Promise<Metadata> => {
-    const params = await props.params;
-    const t = await getTranslations();
-    const url = getLocalizedUrl({
+export const generateMetadata = async (props: {
+	params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> => {
+	const params = await props.params;
+	const t = await getTranslations();
+	const url = getLocalizedUrl({
 		locale: params.locale,
 		pathname: 'projects',
 	});
 
-    return {
+	return {
 		title: t('common.projects'),
 		description: t('projectsPage.description'),
 		alternates: {
@@ -46,10 +44,7 @@ const ProjectsPage = () => {
 			</p>
 			<div className='mt-4 grid animate-fade-in grid-cols-1 gap-4 animation-delay-2 sm:grid-cols-2'>
 				{projects.map((project) => (
-					<ProjectCard
-						key={project.slug}
-						project={project}
-					/>
+					<ProjectCard key={project.slug} project={project} />
 				))}
 			</div>
 		</>

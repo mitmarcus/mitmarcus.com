@@ -4,7 +4,7 @@ export type Phase = 'breathe' | 'hold';
 
 export type Round = {
 	breathe: number; // seconds
-	hold: number;    // seconds
+	hold: number; // seconds
 };
 
 export type ApneaTable = {

@@ -7,34 +7,19 @@ import LinkedHeading from './linked-heading';
 
 const MdxComponents = {
 	h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-		<LinkedHeading
-			as='h1'
-			{...props}
-		/>
+		<LinkedHeading as='h1' {...props} />
 	),
 	h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-		<LinkedHeading
-			as='h2'
-			{...props}
-		/>
+		<LinkedHeading as='h2' {...props} />
 	),
 	h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-		<LinkedHeading
-			as='h3'
-			{...props}
-		/>
+		<LinkedHeading as='h3' {...props} />
 	),
 	h4: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-		<LinkedHeading
-			as='h4'
-			{...props}
-		/>
+		<LinkedHeading as='h4' {...props} />
 	),
 	h5: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-		<LinkedHeading
-			as='h5'
-			{...props}
-		/>
+		<LinkedHeading as='h5' {...props} />
 	),
 	a: (props: React.HTMLAttributes<HTMLAnchorElement>) => (
 		<Link
@@ -52,10 +37,7 @@ const MdxComponents = {
 		/>
 	),
 	input: (props: React.HTMLAttributes<HTMLInputElement>) => (
-		<input
-			aria-label='todo'
-			{...props}
-		/>
+		<input aria-label='todo' {...props} />
 	),
 };
 

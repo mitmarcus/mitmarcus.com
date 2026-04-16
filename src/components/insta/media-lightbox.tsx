@@ -59,7 +59,7 @@ export default function MediaLightbox({
 			window.removeEventListener('popstate', handlePop);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [onClose]);
 
 	useEffect(() => {
 		const handleKey = (e: KeyboardEvent) => {
@@ -93,7 +93,7 @@ export default function MediaLightbox({
 
 	const dateLabel =
 		item.date !== 'unknown'
-			? new Date(item.date + '-01').toLocaleDateString('en-US', {
+			? new Date(`${item.date}-01`).toLocaleDateString('en-US', {
 					year: 'numeric',
 					month: 'long',
 				})
@@ -138,14 +138,11 @@ export default function MediaLightbox({
 			 * a sticky inner div so the modal content stays in view.
 			 */}
 			<div
-				className='absolute top-0 left-0 w-full z-[100] isolate'
+				className='absolute top-0 left-0 w-full z-100 isolate'
 				style={{ height: document.body.clientHeight }}
 			>
 				{/* Backdrop – absolute so it covers the full page */}
-				<div
-					className='absolute inset-0'
-					style={{ backgroundColor: '#000' }}
-				/>
+				<div className='absolute inset-0' style={{ backgroundColor: '#000' }} />
 
 				{/* Sticky content – pinned to the visual viewport */}
 				<div
@@ -176,7 +173,7 @@ export default function MediaLightbox({
 					}}
 				>
 					{/* Top bar */}
-					<div className='flex items-center gap-3 px-6 sm:px-4 py-4 sm:py-3 bg-black/60 backdrop-blur-sm shrink-0'>
+					<div className='flex items-center gap-3 px-6 sm:px-4 py-4 sm:py-3 bg-black/60 backdrop-blur-xs shrink-0'>
 						<span className='min-w-0 flex-1 truncate text-sm text-white/60 capitalize'>
 							{item.category.replace('_', ' ')}
 							{dateLabel && <> &middot; {dateLabel}</>}
@@ -186,7 +183,7 @@ export default function MediaLightbox({
 						</span>
 						<button
 							onClick={handleClose}
-							className='shrink-0 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
+							className='shrink-0 rounded-full border border-white/10 bg-black/40 p-2.5 sm:p-3 text-white/70 backdrop-blur-xs hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
 							aria-label='Close'
 						>
 							<RiCloseLine className='h-6 w-6 sm:h-7 sm:w-7' />
@@ -196,10 +193,7 @@ export default function MediaLightbox({
 					{/* Media area */}
 					<div className='relative flex-1 flex items-center justify-center overflow-hidden'>
 						{/* Backdrop click to close */}
-						<div
-							className='absolute inset-0'
-							onClick={handleClose}
-						/>
+						<div className='absolute inset-0' onClick={handleClose} />
 
 						{/* Prev button – desktop only (side) */}
 						{currentIndex > 0 && (
@@ -208,7 +202,7 @@ export default function MediaLightbox({
 									e.stopPropagation();
 									goPrev();
 								}}
-								className='hidden sm:flex absolute left-4 z-10 rounded-full border border-white/10 bg-black/40 p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
+								className='hidden sm:flex absolute left-4 z-10 rounded-full border border-white/10 bg-black/40 p-3 text-white/70 backdrop-blur-xs hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
 								aria-label='Previous'
 							>
 								<RiArrowLeftSLine className='h-7 w-7' />
@@ -222,7 +216,7 @@ export default function MediaLightbox({
 									e.stopPropagation();
 									goNext();
 								}}
-								className='hidden sm:flex absolute right-4 z-10 rounded-full border border-white/10 bg-black/40 p-3 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
+								className='hidden sm:flex absolute right-4 z-10 rounded-full border border-white/10 bg-black/40 p-3 text-white/70 backdrop-blur-xs hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors'
 								aria-label='Next'
 							>
 								<RiArrowRightSLine className='h-7 w-7' />
@@ -257,11 +251,11 @@ export default function MediaLightbox({
 					</div>
 
 					{/* Bottom bar – mobile only */}
-					<div className='flex sm:hidden items-center justify-between px-6 py-4 bg-black/60 backdrop-blur-sm shrink-0'>
+					<div className='flex sm:hidden items-center justify-between px-6 py-4 bg-black/60 backdrop-blur-xs shrink-0'>
 						<button
 							onClick={goPrev}
 							disabled={currentIndex === 0}
-							className='rounded-full border border-white/10 bg-black/40 p-2.5 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none'
+							className='rounded-full border border-white/10 bg-black/40 p-2.5 text-white/70 backdrop-blur-xs hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none'
 							aria-label='Previous'
 						>
 							<RiArrowLeftSLine className='h-6 w-6' />
@@ -272,7 +266,7 @@ export default function MediaLightbox({
 						<button
 							onClick={goNext}
 							disabled={currentIndex >= items.length - 1}
-							className='rounded-full border border-white/10 bg-black/40 p-2.5 text-white/70 backdrop-blur-sm hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none'
+							className='rounded-full border border-white/10 bg-black/40 p-2.5 text-white/70 backdrop-blur-xs hover:border-white/20 hover:bg-black/70 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none'
 							aria-label='Next'
 						>
 							<RiArrowRightSLine className='h-6 w-6' />

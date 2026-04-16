@@ -1,4 +1,4 @@
-import { GiscusProps } from '@giscus/react';
+import type { GiscusProps } from '@giscus/react';
 
 export const giscusConfigs: GiscusProps = {
 	repo: 'mitmarcus/mitmarcus.com',
@@ -11,4 +11,3 @@ export const giscusConfigs: GiscusProps = {
 	inputPosition: 'bottom',
 	loading: 'lazy',
 };
-

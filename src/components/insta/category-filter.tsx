@@ -35,7 +35,7 @@ export default function CategoryFilter({
 				>
 					<span
 						className={cn(
-							'absolute -bottom-px left-1/2 h-px w-8 -translate-x-1/2 bg-gradient-to-r from-transparent via-primary to-transparent transition-opacity',
+							'absolute -bottom-px left-1/2 h-px w-8 -translate-x-1/2 bg-linear-to-r from-transparent via-primary to-transparent transition-opacity',
 							selected === option.value
 								? 'opacity-100'
 								: 'opacity-0 group-hover:opacity-40',

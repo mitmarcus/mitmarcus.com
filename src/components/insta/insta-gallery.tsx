@@ -20,7 +20,7 @@ function groupByYear(items: InstaMediaItem[]): [string, InstaMediaItem[]][] {
 			? 'Unknown'
 			: item.date.slice(0, 4);
 		if (!map.has(year)) map.set(year, []);
-		map.get(year)!.push(item);
+		map.get(year)?.push(item);
 	}
 	// Sort years descending
 	return Array.from(map.entries()).sort((a, b) => b[0].localeCompare(a[0]));
@@ -63,7 +63,7 @@ export default function InstaGallery({ items }: InstaGalleryProps) {
 					>
 						<span
 							className={cn(
-								'absolute -bottom-px left-1/2 h-px w-10 -translate-x-1/2 bg-gradient-to-r from-transparent via-primary to-transparent transition-opacity',
+								'absolute -bottom-px left-1/2 h-px w-10 -translate-x-1/2 bg-linear-to-r from-transparent via-primary to-transparent transition-opacity',
 								tab === t ? 'opacity-100' : 'opacity-0',
 							)}
 						/>

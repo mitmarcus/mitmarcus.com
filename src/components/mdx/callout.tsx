@@ -1,4 +1,4 @@
-import { type VariantProps, cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 import {
 	RiErrorWarningLine,
 	RiForbid2Line,
@@ -42,7 +42,7 @@ const Callout = ({ children, variant = 'default' }: CalloutProps) => {
 			<div className='select-none pl-3 pr-2 pt-1 text-xl'>
 				{IconMap[variant!]}
 			</div>
-			<div className='w-full min-w-0 leading-7 [&>p]:m-0 [&_strong]:!text-inherit'>
+			<div className='w-full min-w-0 leading-7 [&>p]:m-0 [&_strong]:text-inherit!'>
 				{children}
 			</div>
 		</div>

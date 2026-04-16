@@ -1,4 +1,4 @@
-import { SVGProps } from 'react';
+import type { SVGProps } from 'react';
 
 type LogoProps = SVGProps<SVGSVGElement>;
 
@@ -18,10 +18,7 @@ const Logo = (props: LogoProps) => {
 			{...props}
 		>
 			{LOGO_PATHS.map((d, i) => (
-				<path
-					key={i}
-					d={d}
-				/>
+				<path key={i} d={d} />
 			))}
 		</svg>
 	);

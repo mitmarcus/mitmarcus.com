@@ -1,6 +1,6 @@
-import { Metadata } from 'next';
-import { useFormatter, useTranslations } from 'next-intl';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { useFormatter, useTranslations } from 'next-intl';
 import { use } from 'react';
 import { RiArrowLeftLine } from 'react-icons/ri';
 
@@ -88,27 +88,17 @@ const BlogPostLayout = (props: BlogPostLayoutProps) => {
 
 	return (
 		<>
-			<Link
-				variant='block'
-				className='animate-fade-in gap-1'
-				href='/blog'
-			>
+			<Link variant='block' className='animate-fade-in gap-1' href='/blog'>
 				<RiArrowLeftLine />
 				<span>{t('backToBlog')}</span>
 			</Link>
 			<div className='mt-8 animate-fade-in animation-delay-1'>
-				<GradientText
-					as='h1'
-					className='text-2xl font-bold'
-				>
+				<GradientText as='h1' className='text-2xl font-bold'>
 					{title}
 				</GradientText>
 				<div className='mt-3 flex justify-between text-sm text-foreground/60'>
 					<time dateTime={publishedAt}>{date}</time>
-					<ViewCounter
-						slug={slug}
-						shouldIncrement
-					/>
+					<ViewCounter slug={slug} shouldIncrement />
 				</div>
 				{language !== params.locale && (
 					<Callout variant='warning'>{t('noSupport')}</Callout>

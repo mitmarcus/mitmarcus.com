@@ -1,5 +1,5 @@
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import {
 	RiGithubFill,
 	RiLinkedinBoxFill,
@@ -50,17 +50,14 @@ const Hero = () => {
 					blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg=='
 				/>
 				<div className='animate-fade-in animation-delay-1'>
-					<GradientText
-						as='h1'
-						className='text-2xl font-bold tracking-tight'
-					>
+					<GradientText as='h1' className='text-2xl font-bold tracking-tight'>
 						Marcus Mitelea
 					</GradientText>
-					<div className='w-fit rounded-lg bg-gradient-to-r from-blue-400 to-teal-400 p-px'>
+					<div className='w-fit rounded-lg bg-linear-to-r from-blue-400 to-teal-400 p-px'>
 						<div className='rounded-lg bg-neutral-950/80 text-sm'>
 							<GradientText
 								as='span'
-								className='flex items-center gap-0.5 bg-gradient-to-r from-blue-400 to-teal-400 px-2 py-px text-sm font-medium'
+								className='flex items-center gap-0.5 bg-linear-to-r from-blue-400 to-teal-400 px-2 py-px text-sm font-medium'
 							>
 								{t('subTitle')}
 							</GradientText>

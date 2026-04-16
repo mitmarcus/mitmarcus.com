@@ -14,7 +14,7 @@ export default function ApneaHeader() {
 				{ '-translate-y-20': !isVisible },
 			)}
 		>
-			<div className='flex h-14 w-3/4 items-center justify-center gap-2 rounded-full border border-border bg-neutral-800/50 px-2 backdrop-blur sm:w-fit'>
+			<div className='flex h-14 w-3/4 items-center justify-center gap-2 rounded-full border border-border bg-neutral-800/50 px-2 backdrop-blur-sm sm:w-fit'>
 				<a
 					href='https://www.mitmarcus.com'
 					aria-label='Home'

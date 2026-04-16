@@ -1,6 +1,6 @@
-import { type DateTimeFormatOptions } from 'next-intl';
 import Link from 'next/link';
 import { redirect, usePathname, useRouter } from 'next/navigation';
+import type { DateTimeFormatOptions } from 'next-intl';
 
 export const useMessages = () => ({});
 
@@ -11,11 +11,14 @@ export const useTimeZone = () => 'CET';
 export const useLocale = () => 'da';
 
 export const useFormatter = () => {
-	const formatter = (format: DateTimeFormatOptions) => new Intl.DateTimeFormat('da', format);
+	const formatter = (format: DateTimeFormatOptions) =>
+		new Intl.DateTimeFormat('da', format);
 
 	return {
-		date: (date: Date, format: DateTimeFormatOptions) => formatter(format).format(date),
-		dateTime: (date: Date, format: DateTimeFormatOptions) => formatter(format).format(date),
+		date: (date: Date, format: DateTimeFormatOptions) =>
+			formatter(format).format(date),
+		dateTime: (date: Date, format: DateTimeFormatOptions) =>
+			formatter(format).format(date),
 	};
 };
 
@@ -33,6 +36,8 @@ export const NextIntlClientProvider = ({
 }: {
 	children: React.ReactNode;
 }) => children;
+
+export const defineRouting = (config: Record<string, unknown>) => config;
 
 export const createNavigation = () => ({
 	Link: Link,

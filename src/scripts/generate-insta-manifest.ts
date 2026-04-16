@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 type InstaCategory = 'posts' | 'stories' | 'archived_posts' | 'other';
 type InstaMediaType = 'image' | 'video';
@@ -18,7 +18,7 @@ type InstaMediaItem = {
 
 const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif']);
 const VIDEO_EXTENSIONS = new Set(['.mp4', '.mov', '.avi', '.webm']);
-const CATEGORIES: InstaCategory[] = ['posts', 'stories']
+const CATEGORIES: InstaCategory[] = ['posts', 'stories'];
 function getMediaType(ext: string): InstaMediaType | null {
 	if (IMAGE_EXTENSIONS.has(ext)) return 'image';
 	if (VIDEO_EXTENSIONS.has(ext)) return 'video';
@@ -32,7 +32,10 @@ function parseDateFromFolder(folderName: string): string {
 	return 'unknown';
 }
 
-function scanCategory(mediaDir: string, category: InstaCategory): InstaMediaItem[] {
+function scanCategory(
+	mediaDir: string,
+	category: InstaCategory,
+): InstaMediaItem[] {
 	const categoryDir = path.join(mediaDir, category);
 	if (!fs.existsSync(categoryDir)) return [];
 
@@ -54,7 +57,14 @@ function scanCategory(mediaDir: string, category: InstaCategory): InstaMediaItem
 
 				const id = path.basename(file.name, ext);
 				const thumbFile = `${id}.webp`;
-				const thumbOnDisk = path.join(mediaDir, '..', THUMB_DIR_NAME, category, entry.name, thumbFile);
+				const thumbOnDisk = path.join(
+					mediaDir,
+					'..',
+					THUMB_DIR_NAME,
+					category,
+					entry.name,
+					thumbFile,
+				);
 				const thumbPath = fs.existsSync(thumbOnDisk)
 					? `/insta/${THUMB_DIR_NAME}/${category}/${entry.name}/${thumbFile}`
 					: undefined;
@@ -127,7 +137,9 @@ function generateManifest() {
 	const outputPath = path.join(outputDir, 'insta-manifest.json');
 	fs.writeFileSync(outputPath, JSON.stringify(manifest, null, 2));
 
-	console.log(`\nGenerated Instagram manifest: ${allItems.length} items -> ${outputPath}`);
+	console.log(
+		`\nGenerated Instagram manifest: ${allItems.length} items -> ${outputPath}`,
+	);
 }
 
 generateManifest();

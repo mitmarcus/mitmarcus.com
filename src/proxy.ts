@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
 	const host = request.headers.get('host') ?? '';
 
 	// Subdomain: insta.mitmarcus.com or insta.localhost:3000 -> serve /insta
@@ -29,7 +29,10 @@ export default function middleware(request: NextRequest) {
 	}
 
 	// Block direct /insta and /apnea access, only available via subdomain
-	if (request.nextUrl.pathname.startsWith('/insta') || request.nextUrl.pathname.startsWith('/apnea')) {
+	if (
+		request.nextUrl.pathname.startsWith('/insta') ||
+		request.nextUrl.pathname.startsWith('/apnea')
+	) {
 		return NextResponse.redirect(new URL('/', request.url));
 	}
 

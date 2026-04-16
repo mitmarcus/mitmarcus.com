@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Metadata, Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 import Footer from '@/components/footer';
 import ScrollToTop from '@/components/scroll-to-top';
@@ -43,10 +43,7 @@ type ApneaLayoutProps = {
 
 export default function ApneaLayout({ children }: ApneaLayoutProps) {
 	return (
-		<html
-			className={cn(fontSans.variable, fontNoto.variable)}
-			lang='en'
-		>
+		<html className={cn(fontSans.variable, fontNoto.variable)} lang='en'>
 			<body className='min-h-screen'>
 				{children}
 				<Footer />

@@ -1,6 +1,5 @@
+import type { JSX } from 'react';
 import { cn } from '@/utils/cn';
-
-import type { JSX } from "react";
 
 type GradientTextProps = {
 	className?: string;
@@ -14,7 +13,7 @@ const GradientText = ({ className, as, children }: GradientTextProps) => {
 	return (
 		<Component
 			className={cn(
-				'w-fit bg-gradient-to-b from-foreground from-30% to-foreground/40 bg-clip-text text-transparent',
+				'w-fit bg-linear-to-b from-foreground from-30% to-foreground/40 bg-clip-text text-transparent',
 				className,
 			)}
 		>

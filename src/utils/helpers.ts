@@ -1,6 +1,6 @@
 export const groupBy = <T>(
 	list: T[],
-	getKey: (item: T) => any
+	getKey: (item: T) => any,
 ): Record<string, T[]> => {
 	return list.reduce<Record<string, T[]>>((prev, curr) => {
 		const groupKey = getKey(curr);
@@ -12,10 +12,13 @@ export const groupBy = <T>(
 	}, {});
 };
 
-export const pick = <T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K> => {
+export const pick = <T, K extends keyof T>(
+	obj: T,
+	...keys: K[]
+): Pick<T, K> => {
 	const ret: any = {};
 
-	keys.forEach(key => {
+	keys.forEach((key) => {
 		ret[key] = obj[key];
 	});
 

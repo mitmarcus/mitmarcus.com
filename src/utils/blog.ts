@@ -7,13 +7,13 @@ export const getGroupPostsWithYear = (posts: Post[], query: string) => {
 	const filteredPosts = !query
 		? posts
 		: posts.filter(({ title, description }) => {
-			const isTitleMatch = title.toLowerCase().includes(query.toLowerCase());
-			const isDescriptionMatch = description
-				.toLowerCase()
-				.includes(query.toLowerCase());
+				const isTitleMatch = title.toLowerCase().includes(query.toLowerCase());
+				const isDescriptionMatch = description
+					.toLowerCase()
+					.includes(query.toLowerCase());
 
-			return isTitleMatch || isDescriptionMatch;
-		});
+				return isTitleMatch || isDescriptionMatch;
+			});
 
 	const groups = groupBy(filteredPosts, (post) => post.year);
 

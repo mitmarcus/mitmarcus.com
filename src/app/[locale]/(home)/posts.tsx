@@ -17,16 +17,10 @@ const Posts = () => {
 	return (
 		<section className='animate-fade-in animation-delay-5'>
 			<div className='flex justify-between'>
-				<GradientText
-					as='h2'
-					className='text-xl font-bold tracking-tight'
-				>
+				<GradientText as='h2' className='text-xl font-bold tracking-tight'>
 					{t('latestPosts')}
 				</GradientText>
-				<Link
-					variant='block'
-					href='/blog'
-				>
+				<Link variant='block' href='/blog'>
 					{t('viewMore')}
 					<RiArrowRightSLine />
 				</Link>
@@ -44,16 +38,10 @@ const Posts = () => {
 							key={slug}
 							className='flex flex-col-reverse sm:flex-row sm:gap-8'
 						>
-							<time
-								className='text-foreground/60'
-								dateTime={publishedAt}
-							>
+							<time className='text-foreground/60' dateTime={publishedAt}>
 								{date}
 							</time>
-							<Link
-								className='font-medium'
-								href={permalink}
-							>
+							<Link className='font-medium' href={permalink}>
 								{title}
 							</Link>
 						</div>

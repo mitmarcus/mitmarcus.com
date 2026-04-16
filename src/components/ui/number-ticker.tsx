@@ -1,7 +1,8 @@
 'use client';
 
 import { useInView, useMotionValue, useSpring } from 'framer-motion';
-import React, { useEffect, useRef } from 'react';
+import type React from 'react';
+import { useEffect, useRef } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -47,10 +48,7 @@ const NumberTicker: React.FC<NumberTickerProps> = ({
 	}, [springValue]);
 
 	return (
-		<span
-			ref={ref}
-			className={cn('inline-block tabular-nums', className)}
-		/>
+		<span ref={ref} className={cn('inline-block tabular-nums', className)} />
 	);
 };
 

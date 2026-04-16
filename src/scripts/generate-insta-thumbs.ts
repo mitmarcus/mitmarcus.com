@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { execFile } from 'child_process';
-import { promisify } from 'util';
+import { execFile } from 'node:child_process';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { promisify } from 'node:util';
 import sharp from 'sharp';
 
 const execFileAsync = promisify(execFile);
@@ -24,18 +24,21 @@ async function generateVideoThumb(src: string, dest: string) {
 	const tmpPng = dest.replace(/\.webp$/, '.tmp.png');
 	try {
 		await execFileAsync('ffmpeg', [
-			'-i', src,
-			'-ss', '0.5',
-			'-frames:v', '1',
-			'-vf', `scale=${THUMB_SIZE}:${THUMB_SIZE}:force_original_aspect_ratio=increase,crop=${THUMB_SIZE}:${THUMB_SIZE}`,
+			'-i',
+			src,
+			'-ss',
+			'0.5',
+			'-frames:v',
+			'1',
+			'-vf',
+			`scale=${THUMB_SIZE}:${THUMB_SIZE}:force_original_aspect_ratio=increase,crop=${THUMB_SIZE}:${THUMB_SIZE}`,
 			'-y',
-			'-loglevel', 'error',
+			'-loglevel',
+			'error',
 			tmpPng,
 		]);
 
-		await sharp(tmpPng)
-			.webp({ quality: THUMB_QUALITY })
-			.toFile(dest);
+		await sharp(tmpPng).webp({ quality: THUMB_QUALITY }).toFile(dest);
 	} finally {
 		if (fs.existsSync(tmpPng)) fs.unlinkSync(tmpPng);
 	}
@@ -98,9 +101,7 @@ async function generateThumbnails() {
 		}
 	}
 
-	console.log(
-		`Thumbnails: ${generated} generated, ${skipped} already existed`,
-	);
+	console.log(`Thumbnails: ${generated} generated, ${skipped} already existed`);
 }
 
 generateThumbnails().catch((err) => {

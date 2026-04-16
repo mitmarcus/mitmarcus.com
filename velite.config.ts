@@ -1,5 +1,5 @@
-import { defineCollection, defineConfig, s } from 'velite';
 import rehypePrettyCode from 'rehype-pretty-code';
+import { defineCollection, defineConfig, s } from 'velite';
 
 const allPosts = defineCollection({
 	name: 'Post',
@@ -13,7 +13,7 @@ const allPosts = defineCollection({
 			language: s.string(),
 			content: s.mdx(),
 		})
-		.transform(data => ({
+		.transform((data) => ({
 			...data,
 			year: new Date(data.publishedAt).getFullYear(),
 			permalink: `/blog/${data.slug}`,
@@ -36,7 +36,7 @@ const allProjects = defineCollection({
 			language: s.string(),
 			content: s.mdx(),
 		})
-		.transform(data => ({
+		.transform((data) => ({
 			...data,
 			permalink: `/projects/${data.slug}`,
 		})),
@@ -51,7 +51,7 @@ const allPages = defineCollection({
 			language: s.string(),
 			content: s.mdx(),
 		})
-		.transform(data => ({
+		.transform((data) => ({
 			...data,
 			permalink: `/${data.slug}`,
 		})),
@@ -61,10 +61,13 @@ export default defineConfig({
 	collections: { allPosts, allProjects, allPages },
 	mdx: {
 		rehypePlugins: [
-			[rehypePrettyCode, {
-				keepBackground: false,
-				theme: 'github-dark',
-			}],
+			[
+				rehypePrettyCode,
+				{
+					keepBackground: false,
+					theme: 'github-dark',
+				},
+			],
 		],
 	},
 });

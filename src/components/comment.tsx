@@ -9,13 +9,7 @@ type CommentProps = {
 };
 
 const Comment = ({ locale = 'en' }: CommentProps) => {
-	return (
-		<Giscus
-			theme='dark'
-			lang={locale}
-			{...giscusConfigs}
-		/>
-	);
+	return <Giscus theme='dark' lang={locale} {...giscusConfigs} />;
 };
 
 export default Comment;

@@ -9,28 +9,20 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-	defaultLocale,
-	locales,
-	usePathname,
-	useRouter,
-} from '@/lib/navigation';
+import { locales, usePathname, useRouter } from '@/lib/navigation';
 
 const LanguageDropdown = () => {
 	const t = useTranslations('common');
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className='hidden rounded p-2 text-foreground/70 outline-none transition-colors hover:bg-accent/60 hover:text-foreground sm:block'>
+			<DropdownMenuTrigger className='hidden rounded p-2 text-foreground/70 outline-hidden transition-colors hover:bg-accent/60 hover:text-foreground sm:block'>
 				<span className='sr-only'>{t('chooseLanguage')}</span>
 				<RiTranslate2 className='size-4' />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end'>
 				{locales.map((locale) => (
-					<LanguageMenuItem
-						key={locale}
-						locale={locale}
-					/>
+					<LanguageMenuItem key={locale} locale={locale} />
 				))}
 			</DropdownMenuContent>
 		</DropdownMenu>

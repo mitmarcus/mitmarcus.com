@@ -10,7 +10,11 @@ export function getContentWithFallback<T extends Post | Project>({
 	slug: string;
 	locale: Locale;
 }): T | undefined {
-	const item = contentItems.find(item => item.slug === slug && (item.language === locale || item.language === defaultLocale));
+	const item = contentItems.find(
+		(item) =>
+			item.slug === slug &&
+			(item.language === locale || item.language === defaultLocale),
+	);
 
 	return item;
 }

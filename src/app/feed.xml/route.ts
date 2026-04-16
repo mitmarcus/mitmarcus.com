@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import RSS from 'rss';
-
-import { allPosts } from '@/content';
 import { siteConfig } from '@/config/site';
+import { allPosts } from '@/content';
 import { defaultLocale } from '@/lib/navigation';
 
 // Supports default locale language only
@@ -20,7 +19,7 @@ export const GET = () => {
 
 	allPosts
 		.filter((post) => post.language === defaultLocale)
-		.map(post => {
+		.forEach((post) => {
 			feed.item({
 				title: post.title,
 				description: post.description,

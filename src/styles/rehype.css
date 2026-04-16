@@ -20,6 +20,6 @@
 	}
 }
 
-[data-highlighted-line]{
+[data-highlighted-line] {
 	@apply bg-foreground/40 border-emerald-500;
 }
