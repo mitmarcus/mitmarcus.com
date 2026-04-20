@@ -5,24 +5,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import ApneaHeader from '@/components/apnea/apnea-header';
 import SetupForm from '@/components/apnea/setup-form';
 import TrainingTimer from '@/components/apnea/training-timer';
-import useApneaStorage from '@/hooks/use-apnea-storage';
-import useApneaTimer from '@/hooks/use-apnea-timer';
+import useApneaStorage from '@/hooks/apnea/use-apnea-storage';
+import useApneaTimer from '@/hooks/apnea/use-apnea-timer';
 import useWakeLock from '@/hooks/use-wake-lock';
-import { initAudio } from '@/utils/apnea-audio';
-import type { ApneaTable } from '@/utils/apnea-tables';
-import { generateCO2Table, generateO2Table } from '@/utils/apnea-tables';
+import { initAudio } from '@/utils/apnea/apnea-audio';
+import type { ApneaTable } from '@/utils/apnea/apnea-tables';
+import { generateCO2Table, generateO2Table } from '@/utils/apnea/apnea-tables';
 import { cn } from '@/utils/cn';
 
 export default function ApneaPage() {
 	const storage = useApneaStorage();
-	const [view, setView] = useState<'setup' | 'training'>(
-		storage.data.pbSeconds > 0 ? 'training' : 'setup',
-	);
-	const [activeTable, setActiveTable] = useState<ApneaTable | null>(() =>
-		storage.data.pbSeconds > 0
-			? generateCO2Table(storage.data.pbSeconds)
-			: null,
-	);
+	const [view, setView] = useState<'setup' | 'training'>('setup');
+	const [activeTable, setActiveTable] = useState<ApneaTable | null>(null);
 	const shouldAutoStartRef = useRef(false);
 
 	const timer = useApneaTimer(activeTable, {
@@ -74,7 +68,7 @@ export default function ApneaPage() {
 					'flex items-center justify-center',
 				)}
 			>
-				{view === 'setup' && (
+				{view === 'setup' && storage.isLoaded && (
 					<SetupForm
 						currentPB={storage.data.pbSeconds}
 						onSubmit={handleSetPB}

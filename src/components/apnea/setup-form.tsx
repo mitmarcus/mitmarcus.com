@@ -1,112 +1,122 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import { RiRepeatLine, RiTimeLine } from 'react-icons/ri';
 
-import { cn } from '@/utils/cn';
-
-type TableType = 'co2' | 'o2';
+import TableTypeToggle, {
+	type TableType,
+} from '@/components/apnea/table-type-toggle';
+import TimeDigitInput from '@/components/apnea/time-digit-input';
+import {
+	formatTime,
+	generateCO2Table,
+	generateO2Table,
+	totalTableTime,
+} from '@/utils/apnea/apnea-tables';
 
 type SetupFormProps = {
 	currentPB: number;
 	onSubmit: (pbSeconds: number, tableType: TableType) => void;
 };
 
+const MAX_MINUTES = 15;
+const MAX_SECONDS = 59;
+const DIGITS = 2;
+
+const pad = (n: number) => String(n).padStart(DIGITS, '0');
+
 export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
-	const [minutes, setMinutes] = useState(
-		String(Math.floor(currentPB / 60)).padStart(2, '0'),
-	);
-	const [seconds, setSeconds] = useState(
-		String(currentPB % 60).padStart(2, '0'),
-	);
+	const [minutes, setMinutes] = useState(pad(Math.floor(currentPB / 60)));
+	const [seconds, setSeconds] = useState(pad(currentPB % 60));
 	const [tableType, setTableType] = useState<TableType>('co2');
+	const secondsRef = useRef<HTMLInputElement>(null);
 
 	const totalSeconds =
 		parseInt(minutes || '0', 10) * 60 + parseInt(seconds || '0', 10);
 
-	const handleMinutesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const val = e.target.value.replace(/\D/g, '').slice(0, 2);
+	const preview = useMemo(() => {
+		if (totalSeconds <= 0) return null;
+		const table =
+			tableType === 'co2'
+				? generateCO2Table(totalSeconds)
+				: generateO2Table(totalSeconds);
+		return {
+			rounds: table.rounds.length,
+			duration: totalTableTime(table),
+		};
+	}, [totalSeconds, tableType]);
+
+	const handleMinutesChange = (val: string) => {
 		setMinutes(val);
-		if (val.length === 2) {
-			document.getElementById('apnea-pb-seconds')?.focus();
-		}
+		if (val.length === DIGITS) secondsRef.current?.focus();
 	};
 
-	const handleSecondsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const val = e.target.value.replace(/\D/g, '').slice(0, 2);
-		if (parseInt(val, 10) <= 59 || val === '') setSeconds(val);
-	};
+	const clampBlur =
+		(setter: (v: string) => void, max: number) => (val: string) => {
+			const num = Math.min(parseInt(val || '0', 10), max);
+			setter(pad(num));
+		};
 
-	const handleBlur = (
-		setter: (v: string) => void,
-		val: string,
-		max: number,
-	) => {
-		const num = Math.min(parseInt(val || '0', 10), max);
-		setter(String(num).padStart(2, '0'));
-	};
-
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
 		if (totalSeconds > 0) onSubmit(totalSeconds, tableType);
 	};
 
 	return (
 		<div className='animate-fade-in'>
-			<form onSubmit={handleSubmit} className='max-w-sm mx-auto px-4'>
-				{/* Time input */}
-				<div className='flex items-center justify-center gap-4 mb-10'>
-					<div className='flex flex-col items-center gap-2'>
-						<label className='text-xs text-foreground/40 uppercase tracking-wider'>
-							Min
-						</label>
-						<input
-							type='text'
-							inputMode='numeric'
-							value={minutes}
-							onChange={handleMinutesChange}
-							onFocus={(e) => e.target.select()}
-							onBlur={(e) => handleBlur(setMinutes, e.target.value, 15)}
-							placeholder='00'
-							className='w-20 h-16 text-center text-3xl font-bold bg-neutral-800/80 border border-border rounded-xl text-foreground focus:border-primary focus:outline-hidden focus:ring-1 focus:ring-primary/50 transition-colors'
-						/>
-					</div>
+			<form
+				onSubmit={handleSubmit}
+				className='max-w-sm mx-auto'
+			>
+				<div className='flex items-center justify-center gap-4 mb-4'>
+					<TimeDigitInput
+						id='apnea-pb-minutes'
+						label='Min'
+						value={minutes}
+						max={MAX_MINUTES}
+						onChange={handleMinutesChange}
+						onBlur={clampBlur(setMinutes, MAX_MINUTES)}
+					/>
 					<span className='text-3xl font-bold text-foreground/30 mt-6'>:</span>
-					<div className='flex flex-col items-center gap-2'>
-						<label className='text-xs text-foreground/40 uppercase tracking-wider'>
-							Sec
-						</label>
-						<input
-							type='text'
-							inputMode='numeric'
-							id='apnea-pb-seconds'
-							value={seconds}
-							onChange={handleSecondsChange}
-							onFocus={(e) => e.target.select()}
-							onBlur={(e) => handleBlur(setSeconds, e.target.value, 59)}
-							placeholder='00'
-							className='w-20 h-16 text-center text-3xl font-bold bg-neutral-800/80 border border-border rounded-xl text-foreground focus:border-primary focus:outline-hidden focus:ring-1 focus:ring-primary/50 transition-colors'
-						/>
-					</div>
+					<TimeDigitInput
+						id='apnea-pb-seconds'
+						label='Sec'
+						value={seconds}
+						max={MAX_SECONDS}
+						onChange={setSeconds}
+						onBlur={clampBlur(setSeconds, MAX_SECONDS)}
+						clampOnInput
+						inputRef={secondsRef}
+					/>
 				</div>
 
-				{/* Table type toggle */}
-				<div className='flex rounded-full border border-border bg-neutral-800/50 p-1 mb-4'>
-					{(['co2', 'o2'] as TableType[]).map((type) => (
-						<button
-							key={type}
-							type='button'
-							onClick={() => setTableType(type)}
-							className={cn(
-								'flex-1 h-9 rounded-full text-sm font-medium transition-all duration-200',
-								tableType === type
-									? 'bg-neutral-700 text-foreground shadow-xs'
-									: 'text-foreground/40 hover:text-foreground/60',
-							)}
-						>
-							{type === 'co2' ? 'CO₂ Table' : 'O₂ Table'}
-						</button>
-					))}
+				<div className='flex items-center justify-center gap-4 mb-4 h-5 text-xs text-foreground/40'>
+					{preview ? (
+						<>
+							<span className='w-20 flex items-center justify-center gap-1.5'>
+								<RiRepeatLine className='size-3.5' />
+								{preview.rounds} rounds
+							</span>
+							<span
+								aria-hidden
+								className='text-3xl font-bold text-transparent leading-none'
+							>
+								:
+							</span>
+							<span className='w-20 flex items-center justify-center gap-1.5'>
+								<RiTimeLine className='size-3.5' />
+								{formatTime(preview.duration)}
+							</span>
+						</>
+					) : (
+						<span className='text-foreground/20'>Enter your PB</span>
+					)}
 				</div>
+
+				<TableTypeToggle
+					value={tableType}
+					onChange={setTableType}
+				/>
 
 				<button
 					type='submit'

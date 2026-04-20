@@ -63,14 +63,14 @@ export function playCountdownTick(): void {
 	vibrate(50);
 }
 
-/** Phase transition — breathe phase starts */
+/** Phase transition - breathe phase starts */
 export function playBreatheStart(): void {
 	beep({ frequency: 523, duration: 300, volume: 0.3 });
 	setTimeout(() => beep({ frequency: 659, duration: 200, volume: 0.2 }), 200);
 	vibrate([100, 50, 100]);
 }
 
-/** Phase transition — hold phase starts */
+/** Phase transition - hold phase starts */
 export function playHoldStart(): void {
 	beep({ frequency: 440, duration: 400, volume: 0.35 });
 	vibrate(200);

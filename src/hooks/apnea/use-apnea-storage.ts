@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import type { ApneaTable } from '@/utils/apnea-tables';
+import type { ApneaTable } from '@/utils/apnea/apnea-tables';
 
 const STORAGE_KEY = 'apnea-trainer-data';
 

@@ -12,8 +12,8 @@ const instaUrl =
 
 const apneaUrl =
 	process.env.NODE_ENV === 'production'
-		? 'https://apneawip.mitmarcus.com'
-		: 'http://apneawip.localhost:3000';
+		? 'https://apnea.mitmarcus.com'
+		: 'http://apnea.localhost:3000';
 
 export const siteConfig = {
 	name: 'Marcus Mitelea',

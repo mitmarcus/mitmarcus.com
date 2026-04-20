@@ -18,8 +18,8 @@ export default function proxy(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	// Subdomain: apneawip.mitmarcus.com or apneawip.localhost:3000 -> serve /apnea
-	if (host.startsWith('apneawip.')) {
+	// Subdomain: apnea.mitmarcus.com or apnea.localhost:3000 -> serve /apnea
+	if (host.startsWith('apnea.')) {
 		const url = request.nextUrl.clone();
 		if (!url.pathname.startsWith('/apnea')) {
 			url.pathname = `/apnea${url.pathname === '/' ? '' : url.pathname}`;

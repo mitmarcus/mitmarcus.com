@@ -6,8 +6,8 @@ import {
 	playHoldStart,
 	playSessionComplete,
 	playWarningBeep,
-} from '@/utils/apnea-audio';
-import type { ApneaTable, Phase } from '@/utils/apnea-tables';
+} from '@/utils/apnea/apnea-audio';
+import type { ApneaTable, Phase } from '@/utils/apnea/apnea-tables';
 
 export type TimerState = 'idle' | 'running' | 'paused' | 'finished';
 
@@ -198,7 +198,7 @@ export default function useApneaTimer(
 
 	const skipPhase = useCallback(() => {
 		if (state !== 'running' && state !== 'paused') return;
-		// Advance phase info. If paused, remain paused — goToPhase refreshes
+		// Advance phase info. If paused, remain paused - goToPhase refreshes
 		// remainingRef and the running effect will re-anchor on resume.
 		nextPhase();
 	}, [state, nextPhase]);
