@@ -70,7 +70,7 @@ export default function ApneaPage() {
 
 			<main
 				className={cn(
-					'layout mx-auto max-w-lg mt-8 min-h-[calc(100vh-56px-64px)]',
+					'layout my-8 min-h-[calc(100vh-56px-64px)]',
 					'flex items-center justify-center',
 				)}
 			>
