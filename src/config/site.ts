@@ -58,10 +58,18 @@ export const siteConfig = {
 	},
 	apneaOpenGraph: {
 		type: 'website',
-		title: 'WIP Apnea Trainer',
+		title: 'Apnea Trainer',
 		siteName: 'Marcus Mitelea',
 		url: apneaUrl,
 		description:
 			'Freediving apnea breath-hold trainer with CO2 and O2 tables, auto-calculated training plans',
+		images: [
+			{
+				url: `${apneaUrl}/apnea-og.png`,
+				width: 1200,
+				height: 630,
+				alt: 'Apnea Trainer - Marcus Mitelea',
+			},
+		],
 	},
 };
