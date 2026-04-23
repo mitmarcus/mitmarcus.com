@@ -22,14 +22,17 @@ export default async function OpengraphImage() {
 				fontFamily: 'sans-serif',
 			}}
 		>
-			<Logo width={360} height={360} />
+			<Logo
+				width={450}
+				height={360}
+			/>
 			<div
 				style={{
-					fontSize: 28,
-					fontWeight: 300,
-					letterSpacing: 8,
+					fontSize: 35,
+					letterSpacing: 9,
+					paddingLeft: 18,
 					opacity: 0.5,
-					marginTop: 48,
+					marginTop: 12,
 				}}
 			>
 				APNEA TRAINER
