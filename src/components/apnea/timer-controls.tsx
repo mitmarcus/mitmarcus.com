@@ -3,6 +3,8 @@
 import {
 	RiAddLine,
 	RiPauseFill,
+	RiPictureInPictureExitFill,
+	RiPictureInPictureFill,
 	RiPlayFill,
 	RiSkipForwardFill,
 	RiStopFill,
@@ -17,24 +19,30 @@ type TimerControlsProps = {
 	timerState: TimerState;
 	isHold: boolean;
 	isMuted: boolean;
+	pipSupported: boolean;
+	pipActive: boolean;
 	onPause: () => void;
 	onResume: () => void;
 	onStop: () => void;
 	onSkip: () => void;
 	onAddTime: () => void;
 	onToggleMute: () => void;
+	onTogglePip: () => void;
 };
 
 export default function TimerControls({
 	timerState,
 	isHold,
 	isMuted,
+	pipSupported,
+	pipActive,
 	onPause,
 	onResume,
 	onStop,
 	onSkip,
 	onAddTime,
 	onToggleMute,
+	onTogglePip,
 }: TimerControlsProps) {
 	const primaryBg = isHold
 		? 'bg-amber-400/10 border-amber-400/40 text-amber-300 hover:bg-amber-400/20 hover:border-amber-400/60'
@@ -113,6 +121,21 @@ export default function TimerControls({
 						<RiVolumeUpFill className='size-3.5' />
 					)}
 				</button>
+
+				{pipSupported && (
+					<button
+						onClick={onTogglePip}
+						className='flex items-center justify-center size-9 rounded-full border border-border bg-transparent text-foreground/40 hover:text-foreground/70 hover:bg-neutral-800/50 transition-all'
+						title={pipActive ? 'Exit Picture-in-Picture' : 'Picture-in-Picture'}
+						id='apnea-toggle-pip'
+					>
+						{pipActive ? (
+							<RiPictureInPictureExitFill className='size-3.5' />
+						) : (
+							<RiPictureInPictureFill className='size-3.5' />
+						)}
+					</button>
+				)}
 			</div>
 		</div>
 	);

@@ -30,15 +30,8 @@ export default function ProgressRing({
 	const phaseTextColor = isHold ? 'text-amber-400' : 'text-blue-400';
 
 	return (
-		<div
-			className='relative mb-8'
-			style={{ width: SIZE, height: SIZE }}
-		>
-			<svg
-				width={SIZE}
-				height={SIZE}
-				className='transform -rotate-90'
-			>
+		<div className='relative mb-8' style={{ width: SIZE, height: SIZE }}>
+			<svg width={SIZE} height={SIZE} className='transform -rotate-90'>
 				<circle
 					cx={SIZE / 2}
 					cy={SIZE / 2}

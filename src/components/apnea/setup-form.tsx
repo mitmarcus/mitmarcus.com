@@ -64,10 +64,7 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 
 	return (
 		<div className='animate-fade-in'>
-			<form
-				onSubmit={handleSubmit}
-				className='max-w-sm mx-auto'
-			>
+			<form onSubmit={handleSubmit} className='max-w-sm mx-auto'>
 				<div className='flex items-center justify-center gap-4 mb-4'>
 					<TimeDigitInput
 						id='apnea-pb-minutes'
@@ -113,10 +110,7 @@ export default function SetupForm({ currentPB, onSubmit }: SetupFormProps) {
 					)}
 				</div>
 
-				<TableTypeToggle
-					value={tableType}
-					onChange={setTableType}
-				/>
+				<TableTypeToggle value={tableType} onChange={setTableType} />
 
 				<button
 					type='submit'

@@ -1,10 +1,13 @@
 'use client';
 
+import { useEffect, useMemo, useState } from 'react';
+
 import CompletionScreen from '@/components/apnea/completion-screen';
 import ProgressRing from '@/components/apnea/progress-ring';
 import RoundPills from '@/components/apnea/round-pills';
 import TimerControls from '@/components/apnea/timer-controls';
 import type { TimerState } from '@/hooks/apnea/use-apnea-timer';
+import { isPipSupported, usePipTimer } from '@/hooks/apnea/use-pip-timer';
 import type { ApneaTable, Phase } from '@/utils/apnea/apnea-tables';
 
 type TrainingTimerProps = {
@@ -43,6 +46,42 @@ export default function TrainingTimer({
 	onAddTime,
 	onToggleMute,
 }: TrainingTimerProps) {
+	const [pipSupported, setPipSupported] = useState(false);
+
+	useEffect(() => {
+		setPipSupported(isPipSupported());
+	}, []);
+
+	const pipState = useMemo(
+		() => ({
+			phase: currentPhase,
+			timeRemaining,
+			phaseDuration,
+			progress,
+			currentRound,
+			totalRounds,
+			tableName: table.name,
+		}),
+		[
+			currentPhase,
+			timeRemaining,
+			phaseDuration,
+			progress,
+			currentRound,
+			totalRounds,
+			table.name,
+		],
+	);
+
+	const {
+		canvasRef,
+		videoRef,
+		isActive: pipActive,
+		enter,
+		exit,
+		canvasSize,
+	} = usePipTimer(pipState);
+
 	if (timerState === 'finished') {
 		return (
 			<CompletionScreen
@@ -54,6 +93,11 @@ export default function TrainingTimer({
 	}
 
 	const isHold = currentPhase === 'hold';
+
+	const onTogglePip = () => {
+		if (pipActive) exit();
+		else enter();
+	};
 
 	return (
 		<div className='flex flex-col items-center animate-fade-in'>
@@ -82,13 +126,25 @@ export default function TrainingTimer({
 				timerState={timerState}
 				isHold={isHold}
 				isMuted={isMuted}
+				pipSupported={pipSupported}
+				pipActive={pipActive}
 				onPause={onPause}
 				onResume={onResume}
 				onStop={onStop}
 				onSkip={onSkip}
 				onAddTime={onAddTime}
 				onToggleMute={onToggleMute}
+				onTogglePip={onTogglePip}
 			/>
+
+			<canvas
+				ref={canvasRef}
+				width={canvasSize}
+				height={canvasSize}
+				className='hidden'
+				aria-hidden
+			/>
+			<video ref={videoRef} muted playsInline className='hidden' aria-hidden />
 		</div>
 	);
 }
