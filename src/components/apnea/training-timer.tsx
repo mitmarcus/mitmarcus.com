@@ -58,19 +58,8 @@ export default function TrainingTimer({
 			timeRemaining,
 			phaseDuration,
 			progress,
-			currentRound,
-			totalRounds,
-			tableName: table.name,
 		}),
-		[
-			currentPhase,
-			timeRemaining,
-			phaseDuration,
-			progress,
-			currentRound,
-			totalRounds,
-			table.name,
-		],
+		[currentPhase, timeRemaining, phaseDuration, progress],
 	);
 
 	const {

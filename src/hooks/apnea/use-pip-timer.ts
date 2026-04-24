@@ -10,9 +10,6 @@ type PipState = {
 	timeRemaining: number;
 	phaseDuration: number;
 	progress: number;
-	currentRound: number;
-	totalRounds: number;
-	tableName: string;
 };
 
 type WebkitVideoElement = HTMLVideoElement & {
@@ -21,62 +18,25 @@ type WebkitVideoElement = HTMLVideoElement & {
 	webkitPresentationMode?: string;
 };
 
-const CANVAS_SIZE = 400;
+type WakeLockSentinel = {
+	released: boolean;
+	release: () => Promise<void>;
+	addEventListener: (type: 'release', listener: () => void) => void;
+};
+
+type WakeLockNavigator = Navigator & {
+	wakeLock?: {
+		request: (type: 'screen') => Promise<WakeLockSentinel>;
+	};
+};
+
+const CANVAS_SIZE = 300;
 const CENTER = CANVAS_SIZE / 2;
 const RING_SIZE = 260;
 const RING_STROKE = 6;
 const RING_RADIUS = (RING_SIZE - RING_STROKE) / 2;
-const RING_CY = 200;
 const FONT_STACK =
 	'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
-
-function drawPills(
-	ctx: CanvasRenderingContext2D,
-	s: PipState,
-	phaseColor: string,
-	cy: number,
-) {
-	const pillHeight = 6;
-	const smallW = 6;
-	const currentW = 24;
-	const gap = 6;
-
-	const widths = Array.from({ length: s.totalRounds }, (_, i) =>
-		i === s.currentRound ? currentW : smallW,
-	);
-	const totalW =
-		widths.reduce((sum, w) => sum + w, 0) + gap * (s.totalRounds - 1);
-	let x = CENTER - totalW / 2;
-
-	for (let i = 0; i < s.totalRounds; i++) {
-		const w = widths[i];
-		const completed = i < s.currentRound;
-		const current = i === s.currentRound;
-
-		ctx.beginPath();
-		const r = pillHeight / 2;
-		ctx.moveTo(x + r, cy - r);
-		ctx.lineTo(x + w - r, cy - r);
-		ctx.arc(x + w - r, cy, r, -Math.PI / 2, Math.PI / 2);
-		ctx.lineTo(x + r, cy + r);
-		ctx.arc(x + r, cy, r, Math.PI / 2, -Math.PI / 2);
-		ctx.closePath();
-
-		if (completed) {
-			ctx.strokeStyle = 'hsl(220, 8%, 14%)';
-			ctx.lineWidth = 1;
-			ctx.stroke();
-		} else if (current) {
-			ctx.fillStyle = phaseColor;
-			ctx.fill();
-		} else {
-			ctx.fillStyle = '#404040';
-			ctx.fill();
-		}
-
-		x += w + gap;
-	}
-}
 
 function draw(ctx: CanvasRenderingContext2D, s: PipState) {
 	const isHold = s.phase === 'hold';
@@ -88,16 +48,9 @@ function draw(ctx: CanvasRenderingContext2D, s: PipState) {
 
 	ctx.textAlign = 'center';
 	ctx.textBaseline = 'middle';
-	ctx.fillStyle = 'rgba(250, 250, 250, 0.4)';
-	ctx.font = `400 14px ${FONT_STACK}`;
-	ctx.fillText(
-		`${s.tableName}   ·   Round ${s.currentRound + 1} / ${s.totalRounds}`,
-		CENTER,
-		48,
-	);
 
 	ctx.beginPath();
-	ctx.arc(CENTER, RING_CY, RING_RADIUS, 0, Math.PI * 2);
+	ctx.arc(CENTER, CENTER, RING_RADIUS, 0, Math.PI * 2);
 	ctx.strokeStyle = 'rgba(38, 38, 38, 0.5)';
 	ctx.lineWidth = RING_STROKE;
 	ctx.stroke();
@@ -105,7 +58,7 @@ function draw(ctx: CanvasRenderingContext2D, s: PipState) {
 	const start = -Math.PI / 2;
 	const end = start + Math.PI * 2 * s.progress;
 	ctx.beginPath();
-	ctx.arc(CENTER, RING_CY, RING_RADIUS, start, end);
+	ctx.arc(CENTER, CENTER, RING_RADIUS, start, end);
 	ctx.strokeStyle = phaseColor;
 	ctx.lineWidth = RING_STROKE;
 	ctx.lineCap = 'round';
@@ -118,19 +71,17 @@ function draw(ctx: CanvasRenderingContext2D, s: PipState) {
 	ctx.font = `500 12px ${FONT_STACK}`;
 	(ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing =
 		'1.5px';
-	ctx.fillText(phaseLabel, CENTER, RING_CY - 34);
+	ctx.fillText(phaseLabel, CENTER, CENTER - 34);
 	(ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing =
 		'0px';
 
 	ctx.fillStyle = '#fafafa';
 	ctx.font = `700 48px ${FONT_STACK}`;
-	ctx.fillText(formatTime(s.timeRemaining), CENTER, RING_CY + 4);
+	ctx.fillText(formatTime(s.timeRemaining), CENTER, CENTER + 4);
 
 	ctx.fillStyle = 'rgba(250, 250, 250, 0.3)';
 	ctx.font = `400 14px ${FONT_STACK}`;
-	ctx.fillText(`of ${formatTime(s.phaseDuration)}`, CENTER, RING_CY + 40);
-
-	drawPills(ctx, s, phaseColor, 362);
+	ctx.fillText(`of ${formatTime(s.phaseDuration)}`, CENTER, CENTER + 40);
 }
 
 export function isPipSupported(): boolean {
@@ -145,25 +96,109 @@ export function usePipTimer(state: PipState) {
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const stateRef = useRef(state);
 	const rafRef = useRef<number | null>(null);
+	const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+	const streamRef = useRef<MediaStream | null>(null);
+	const audioCtxRef = useRef<AudioContext | null>(null);
+	const wakeLockRef = useRef<WakeLockSentinel | null>(null);
 	const [isActive, setIsActive] = useState(false);
 
 	stateRef.current = state;
 
-	const renderLoop = useCallback(() => {
+	const drawFrame = useCallback(() => {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
 		const ctx = canvas.getContext('2d');
 		if (!ctx) return;
 		draw(ctx, stateRef.current);
-		rafRef.current = requestAnimationFrame(renderLoop);
 	}, []);
+
+	const renderLoop = useCallback(() => {
+		drawFrame();
+		rafRef.current = requestAnimationFrame(renderLoop);
+	}, [drawFrame]);
+
+	const startLoop = useCallback(() => {
+		if (rafRef.current === null) renderLoop();
+		if (intervalRef.current === null) {
+			intervalRef.current = setInterval(drawFrame, 500);
+		}
+	}, [renderLoop, drawFrame]);
 
 	const stopLoop = useCallback(() => {
 		if (rafRef.current !== null) {
 			cancelAnimationFrame(rafRef.current);
 			rafRef.current = null;
 		}
+		if (intervalRef.current !== null) {
+			clearInterval(intervalRef.current);
+			intervalRef.current = null;
+		}
 	}, []);
+
+	const releaseWakeLock = useCallback(async () => {
+		const lock = wakeLockRef.current;
+		wakeLockRef.current = null;
+		if (lock && !lock.released) {
+			try {
+				await lock.release();
+			} catch {
+				// ignore
+			}
+		}
+	}, []);
+
+	const requestWakeLock = useCallback(async () => {
+		const nav = navigator as WakeLockNavigator;
+		if (!nav.wakeLock) return;
+		try {
+			wakeLockRef.current = await nav.wakeLock.request('screen');
+		} catch {
+			// ignore — user may have denied or page not visible
+		}
+	}, []);
+
+	const stopSilentAudio = useCallback(() => {
+		const ctx = audioCtxRef.current;
+		audioCtxRef.current = null;
+		if (ctx) {
+			ctx.close().catch(() => {});
+		}
+	}, []);
+
+	const addSilentAudioTrack = useCallback((stream: MediaStream) => {
+		try {
+			const AudioCtor =
+				window.AudioContext ||
+				(window as unknown as { webkitAudioContext: typeof AudioContext })
+					.webkitAudioContext;
+			const ctx = new AudioCtor();
+			audioCtxRef.current = ctx;
+			const osc = ctx.createOscillator();
+			const gain = ctx.createGain();
+			gain.gain.value = 0.0001;
+			const dest = ctx.createMediaStreamDestination();
+			osc.connect(gain).connect(dest);
+			osc.start();
+			for (const track of dest.stream.getAudioTracks()) {
+				stream.addTrack(track);
+			}
+		} catch {
+			// ignore — video-only stream still works
+		}
+	}, []);
+
+	const cleanupMedia = useCallback(() => {
+		stopLoop();
+		stopSilentAudio();
+		releaseWakeLock();
+		const stream = streamRef.current;
+		streamRef.current = null;
+		if (stream) {
+			for (const track of stream.getTracks()) track.stop();
+		}
+		const video = videoRef.current;
+		if (video) video.srcObject = null;
+	}, [stopLoop, stopSilentAudio, releaseWakeLock]);
 
 	const exit = useCallback(async () => {
 		const video = videoRef.current as WebkitVideoElement | null;
@@ -183,10 +218,13 @@ export function usePipTimer(state: PipState) {
 		const video = videoRef.current as WebkitVideoElement | null;
 		if (!canvas || !video) return;
 
-		if (!rafRef.current) renderLoop();
+		drawFrame();
+		startLoop();
 
-		if (!video.srcObject) {
+		if (!streamRef.current) {
 			const stream = canvas.captureStream(30);
+			addSilentAudioTrack(stream);
+			streamRef.current = stream;
 			video.srcObject = stream;
 			video.muted = true;
 			(video as HTMLVideoElement & { playsInline: boolean }).playsInline = true;
@@ -204,10 +242,17 @@ export function usePipTimer(state: PipState) {
 			} else if (video.webkitSupportsPresentationMode?.('picture-in-picture')) {
 				video.webkitSetPresentationMode?.('picture-in-picture');
 			}
+			await requestWakeLock();
 		} catch {
-			stopLoop();
+			cleanupMedia();
 		}
-	}, [renderLoop, stopLoop]);
+	}, [
+		drawFrame,
+		startLoop,
+		addSilentAudioTrack,
+		requestWakeLock,
+		cleanupMedia,
+	]);
 
 	useEffect(() => {
 		const video = videoRef.current as WebkitVideoElement | null;
@@ -216,12 +261,20 @@ export function usePipTimer(state: PipState) {
 		const onEnter = () => setIsActive(true);
 		const onLeave = () => {
 			setIsActive(false);
-			stopLoop();
+			cleanupMedia();
 		};
 		const onWebkitChange = () => {
 			const active = video.webkitPresentationMode === 'picture-in-picture';
 			setIsActive(active);
-			if (!active) stopLoop();
+			if (!active) cleanupMedia();
+		};
+		const onVisibilityChange = () => {
+			if (document.visibilityState === 'visible' && isActive) {
+				requestWakeLock();
+			}
+		};
+		const onPageHide = () => {
+			cleanupMedia();
 		};
 
 		video.addEventListener('enterpictureinpicture', onEnter);
@@ -230,6 +283,8 @@ export function usePipTimer(state: PipState) {
 			'webkitpresentationmodechanged',
 			onWebkitChange as EventListener,
 		);
+		document.addEventListener('visibilitychange', onVisibilityChange);
+		window.addEventListener('pagehide', onPageHide);
 
 		return () => {
 			video.removeEventListener('enterpictureinpicture', onEnter);
@@ -238,9 +293,11 @@ export function usePipTimer(state: PipState) {
 				'webkitpresentationmodechanged',
 				onWebkitChange as EventListener,
 			);
-			stopLoop();
+			document.removeEventListener('visibilitychange', onVisibilityChange);
+			window.removeEventListener('pagehide', onPageHide);
+			cleanupMedia();
 		};
-	}, [stopLoop]);
+	}, [cleanupMedia, requestWakeLock, isActive]);
 
 	return {
 		canvasRef,
