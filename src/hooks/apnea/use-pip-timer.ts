@@ -43,7 +43,7 @@ function draw(ctx: CanvasRenderingContext2D, s: PipState) {
 	const phaseColor = isHold ? '#fbbf24' : '#60a5fa';
 	const phaseLabel = isHold ? 'HOLD' : 'BREATHE';
 
-	ctx.fillStyle = '#0a0a0a';
+	ctx.fillStyle = '#000000';
 	ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
 	ctx.textAlign = 'center';
@@ -101,8 +101,10 @@ export function usePipTimer(state: PipState) {
 	const audioCtxRef = useRef<AudioContext | null>(null);
 	const wakeLockRef = useRef<WakeLockSentinel | null>(null);
 	const [isActive, setIsActive] = useState(false);
+	const isActiveRef = useRef(false);
 
 	stateRef.current = state;
+	isActiveRef.current = isActive;
 
 	const drawFrame = useCallback(() => {
 		const canvas = canvasRef.current;
@@ -269,7 +271,7 @@ export function usePipTimer(state: PipState) {
 			if (!active) cleanupMedia();
 		};
 		const onVisibilityChange = () => {
-			if (document.visibilityState === 'visible' && isActive) {
+			if (document.visibilityState === 'visible' && isActiveRef.current) {
 				requestWakeLock();
 			}
 		};
@@ -297,7 +299,7 @@ export function usePipTimer(state: PipState) {
 			window.removeEventListener('pagehide', onPageHide);
 			cleanupMedia();
 		};
-	}, [cleanupMedia, requestWakeLock, isActive]);
+	}, [cleanupMedia, requestWakeLock]);
 
 	return {
 		canvasRef,
