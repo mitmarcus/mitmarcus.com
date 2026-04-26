@@ -244,7 +244,7 @@ export default function MediaLightbox({
 								controls
 								autoPlay
 								playsInline
-								className='max-h-full max-w-full object-contain'
+								className='relative z-10 max-h-full max-w-full object-contain'
 								onClick={(e) => e.stopPropagation()}
 							/>
 						)}
