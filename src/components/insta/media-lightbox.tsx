@@ -241,8 +241,8 @@ export default function MediaLightbox({
 							<video
 								key={item.path}
 								src={item.path}
-								controls
 								autoPlay
+								loop
 								playsInline
 								className='relative z-10 max-h-full max-w-full object-contain'
 								onClick={(e) => e.stopPropagation()}
