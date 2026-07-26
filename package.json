@@ -64,7 +64,7 @@
 		"@types/rss": "^0.0.32",
 		"jest": "^30.3.0",
 		"jest-environment-jsdom": "^30.3.0",
-		"postcss": "^8.5.10",
+		"postcss": "^8.5.18",
 		"prettier": "^3.8.1",
 		"prisma": "^5.22.0",
 		"tailwind-merge": "^2.6.1",
