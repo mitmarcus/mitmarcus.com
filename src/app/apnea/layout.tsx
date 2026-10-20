@@ -1,5 +1,4 @@
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 
 import Footer from '@/components/footer';
@@ -49,7 +48,6 @@ export default function ApneaLayout({ children }: ApneaLayoutProps) {
 				<Footer />
 				<ScrollToTop />
 				<Analytics />
-				<SpeedInsights />
 			</body>
 		</html>
 	);

@@ -1,5 +1,4 @@
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
@@ -52,7 +51,6 @@ export default function InstaLayout({ children }: InstaLayoutProps) {
 				<Footer />
 				<ScrollToTop />
 				<Analytics />
-				<SpeedInsights />
 			</body>
 		</html>
 	);

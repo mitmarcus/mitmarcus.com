@@ -1,6 +1,5 @@
 // Vercel Analytics
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 //
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
@@ -100,7 +99,6 @@ const RootLayout = async (props: RootLayoutProps) => {
 					<Footer />
 					<ScrollToTop />
 				</LocaleProvider>
-				<SpeedInsights />
 			</body>
 		</html>
 	);
