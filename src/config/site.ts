@@ -18,7 +18,7 @@ const apneaUrl =
 export const siteConfig = {
 	name: 'Marcus Mitelea',
 	author: 'Marcus Mitelea',
-	email: 'mitmarcus@proton.me',
+	email: 'mail@mitmarcus.com',
 	siteUrl: baseUrl,
 	instaUrl: instaUrl,
 	apneaUrl: apneaUrl,
