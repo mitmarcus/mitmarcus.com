@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 
 import PostCard from '@/components/post-card';
-import useIntersection from '@/hooks/use-intersection';
+import useHasBeenVisible from '@/hooks/use-has-been-visible';
 
-jest.mock('@/hooks/use-intersection', () => jest.fn());
+jest.mock('@/hooks/use-has-been-visible', () => jest.fn());
 jest.mock('@/components/view-counter', () => {
 	const ViewCounter = () => <div data-testid='view-counter' />;
 
@@ -19,9 +19,7 @@ describe('PostCard', () => {
 	};
 
 	beforeEach(() => {
-		(useIntersection as jest.Mock).mockReturnValue({
-			isIntersecting: false,
-		});
+		(useHasBeenVisible as jest.Mock).mockReturnValue(false);
 	});
 
 	it('should render the post title and link ', () => {
@@ -51,9 +49,7 @@ describe('PostCard', () => {
 	});
 
 	it('should render ViewCounter when enabled is true', () => {
-		(useIntersection as jest.Mock).mockReturnValue({
-			isIntersecting: true,
-		});
+		(useHasBeenVisible as jest.Mock).mockReturnValue(true);
 		render(<PostCard {...post} />);
 
 		const viewCounter = screen.getByTestId('view-counter');
