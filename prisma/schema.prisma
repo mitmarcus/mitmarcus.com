@@ -7,6 +7,6 @@ datasource db {
 }
 
 model Post {
-  slug  String @unique
+  slug  String @id
   views Int    @default(0)
 }
