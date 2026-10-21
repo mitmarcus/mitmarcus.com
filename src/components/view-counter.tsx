@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import { useEffect, useEffectEvent } from 'react';
 
 import Loading from '@/components/ui/loading';
 import Metric from '@/components/ui/metric';
@@ -22,11 +22,16 @@ const ViewCounter = ({ slug, shouldIncrement = false }: ViewCounterProps) => {
 		increment,
 	} = usePostViews(slug);
 
+	const onView = useEffectEvent(() => {
+		increment();
+	});
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: count once per slug
 	useEffect(() => {
 		if (shouldIncrement) {
-			increment();
+			onView();
 		}
-	}, [shouldIncrement, increment]);
+	}, [slug, shouldIncrement]);
 
 	return (
 		<span>
