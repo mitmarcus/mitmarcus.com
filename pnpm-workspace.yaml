@@ -18,7 +18,7 @@ overrides:
 
 permissions:
   prisma:
-    skills: true
+    skills: false
 
 supportedArchitectures:
   os:

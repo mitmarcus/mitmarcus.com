@@ -3,9 +3,9 @@
 import { RiCalendarLine, RiCheckLine, RiTimeLine } from 'react-icons/ri';
 
 import {
-	type SessionType,
 	buildProgramPlan,
 	downloadProgramIcs,
+	type SessionType,
 } from '@/utils/apnea/apnea-calendar';
 import type { ApneaTable } from '@/utils/apnea/apnea-tables';
 import { formatTime, totalTableTime } from '@/utils/apnea/apnea-tables';
