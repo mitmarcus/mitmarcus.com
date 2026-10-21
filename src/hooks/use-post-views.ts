@@ -1,4 +1,4 @@
-import useSWR, { type SWRConfiguration } from 'swr';
+import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
 
 const API_URL = '/api/views';
@@ -27,19 +27,15 @@ const updatePostViews = async ([url, slug]: ViewsKey): Promise<number> => {
 	return res.json();
 };
 
-const usePostViews = (slug: string, config?: SWRConfiguration) => {
+const usePostViews = (slug: string) => {
 	const key: ViewsKey = [API_URL, slug];
 
 	const {
 		data: views,
 		error,
 		isLoading,
-	} = useSWR<number, Error, ViewsKey>(key, getPostViews, {
-		dedupingInterval: 60000,
-		...config,
-	});
+	} = useSWR(key, getPostViews, { dedupingInterval: 60000 });
 
-	// POST response is the new count, so write it to the cache instead of refetching
 	const { trigger: increment } = useSWRMutation(key, updatePostViews, {
 		populateCache: true,
 		revalidate: false,

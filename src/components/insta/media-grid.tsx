@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { RiPlayFill } from 'react-icons/ri';
 
-import useIntersection from '@/hooks/use-intersection';
+import useHasBeenVisible from '@/hooks/use-has-been-visible';
 import type { InstaMediaItem } from '@/types/insta';
 
 type MediaGridProps = {
@@ -20,11 +20,7 @@ function LazyMediaCell({
 	onClick: () => void;
 }) {
 	const ref = useRef<HTMLDivElement>(null);
-	const entry = useIntersection(ref, { rootMargin: '200px' });
-	const [hasIntersected, setHasIntersected] = useState(false);
-
-	if (entry?.isIntersecting && !hasIntersected) setHasIntersected(true);
-	const isVisible = hasIntersected;
+	const isVisible = useHasBeenVisible(ref, '200px');
 
 	return (
 		<div

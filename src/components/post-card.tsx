@@ -5,7 +5,7 @@ import { useRef } from 'react';
 
 import Link from '@/components/ui/link';
 import ViewCounter from '@/components/view-counter';
-import useIntersection from '@/hooks/use-intersection';
+import useHasBeenVisible from '@/hooks/use-has-been-visible';
 
 type PostCardProps = {
 	slug: string;
@@ -15,8 +15,8 @@ type PostCardProps = {
 };
 
 const PostCard = ({ slug, title, publishedAt, permalink }: PostCardProps) => {
-	const intersectionRef = useRef(null);
-	const intersection = useIntersection(intersectionRef, {});
+	const ref = useRef<HTMLDivElement>(null);
+	const hasBeenVisible = useHasBeenVisible(ref);
 	const format = useFormatter();
 
 	const date = format.dateTime(new Date(publishedAt), {
@@ -25,13 +25,13 @@ const PostCard = ({ slug, title, publishedAt, permalink }: PostCardProps) => {
 	});
 
 	return (
-		<div ref={intersectionRef}>
+		<div ref={ref}>
 			<Link className='font-medium' href={permalink}>
 				{title}
 			</Link>
 			<div className='text-sm text-foreground/60'>
 				<time dateTime={publishedAt}>{date}</time>．
-				{intersection?.isIntersecting && <ViewCounter slug={slug} />}
+				{hasBeenVisible && <ViewCounter slug={slug} />}
 			</div>
 		</div>
 	);

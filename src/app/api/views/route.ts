@@ -20,11 +20,7 @@ export const GET = async (req: NextRequest) => {
 			where: { slug },
 		});
 
-		if (!post) {
-			return NextResponse.json({ error: 'Post not found' }, { status: 404 });
-		}
-
-		const data = post.views;
+		const data = post?.views ?? 0;
 
 		return NextResponse.json(data);
 	}
@@ -42,7 +38,7 @@ export const POST = async (req: NextRequest) => {
 
 	const post = await prisma.post.upsert({
 		where: { slug },
-		create: { slug },
+		create: { slug, views: 1 },
 		update: { views: { increment: 1 } },
 	});
 
