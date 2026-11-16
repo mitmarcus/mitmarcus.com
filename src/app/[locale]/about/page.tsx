@@ -53,7 +53,7 @@ const AboutPage = () => {
 			previousLabel={t('experience.previous')}
 			nextLabel={t('experience.next')}
 		>
-			<section className='prose bg-card/40 p-5'>
+			<section className='no-scrollbar prose overflow-y-auto bg-card/40 p-5'>
 				<MDXContent code={page.content} />
 			</section>
 			<CareerJourney />

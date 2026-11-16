@@ -56,13 +56,11 @@
 			},
 			"tutor": {
 				"title": "Tutor",
-				"org": "VIA University College",
-				"short": "VIA"
+				"org": "VIA University College"
 			},
 			"mainai": {
 				"title": "Software Engineer Intern",
 				"org": "MainAI",
-				"short": "MainAI",
 				"meta": "Internship · Denmark · On-site",
 				"points": [
 					"Designed and built the mainai.dk landing page from scratch",
@@ -76,7 +74,6 @@
 			"claviate": {
 				"title": "Junior Software Engineer",
 				"org": "Claviate",
-				"short": "Claviate",
 				"meta": "Part-time · Aarhus, Denmark",
 				"points": [
 					"Maintained internal tools and built new features in Django",
@@ -92,7 +89,6 @@
 			"stibo": {
 				"title": "Bachelor Project Collaboration",
 				"org": "Stibo Systems Accelerator",
-				"short": "Stibo",
 				"meta": "Contract · Aarhus, Denmark · Topic: Agentic AI · Grade: 12",
 				"points": [
 					"Designed and built an AI-powered IT helpdesk agent",
@@ -107,7 +103,6 @@
 			"callifyx": {
 				"title": "Chief Technology Officer",
 				"org": "Callifyx",
-				"short": "Callifyx",
 				"meta": "Self-employed",
 				"points": [
 					"Was approached for the position",
@@ -116,15 +111,18 @@
 					"The law on AI transparency changed while I was building it, so the project was scrapped. Lesson learned."
 				]
 			},
+			"athme": {
+				"title": "Padel host",
+				"org": "athme",
+				"meta": "Side project · Copenhagen"
+			},
 			"stibo-systems": {
 				"title": "TODO",
-				"org": "Stibo Systems",
-				"short": "Stibo"
+				"org": "Stibo Systems"
 			},
 			"lego": {
 				"title": "TODO",
-				"org": "LEGO",
-				"short": "LEGO"
+				"org": "LEGO"
 			}
 		}
 	}

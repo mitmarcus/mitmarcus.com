@@ -5,7 +5,6 @@ import type { Entry } from '@/config/career';
 export type EntryText = {
 	title: string;
 	org: string;
-	short?: string;
 	meta?: string;
 	points?: string[];
 	skills?: string;

@@ -56,13 +56,11 @@
 			},
 			"tutor": {
 				"title": "Тьютор",
-				"org": "VIA University College",
-				"short": "VIA"
+				"org": "VIA University College"
 			},
 			"mainai": {
 				"title": "Стажёр-программист",
 				"org": "MainAI",
-				"short": "MainAI",
 				"meta": "Стажировка · Дания · В офисе",
 				"points": [
 					"Спроектировал и с нуля создал лендинг mainai.dk",
@@ -76,7 +74,6 @@
 			"claviate": {
 				"title": "Младший инженер-программист",
 				"org": "Claviate",
-				"short": "Claviate",
 				"meta": "Неполный день · Орхус, Дания",
 				"points": [
 					"Поддерживал внутренние инструменты и разрабатывал новые функции на Django",
@@ -92,7 +89,6 @@
 			"stibo": {
 				"title": "Сотрудничество по бакалаврскому проекту",
 				"org": "Stibo Systems Accelerator",
-				"short": "Stibo",
 				"meta": "Контракт · Орхус, Дания · Тема: агентный AI · Оценка: 12",
 				"points": [
 					"Спроектировал и создал AI-агента для IT-поддержки",
@@ -107,7 +103,6 @@
 			"callifyx": {
 				"title": "Технический директор (CTO)",
 				"org": "Callifyx",
-				"short": "Callifyx",
 				"meta": "Самозанятый",
 				"points": [
 					"Мне предложили эту должность",
@@ -116,15 +111,18 @@
 					"Пока я его создавал, изменился закон о прозрачности AI, поэтому проект закрыли. Урок усвоен."
 				]
 			},
+			"athme": {
+				"title": "Организатор игр в падел",
+				"org": "athme",
+				"meta": "Сторонний проект · Копенгаген"
+			},
 			"stibo-systems": {
 				"title": "TODO",
-				"org": "Stibo Systems",
-				"short": "Stibo"
+				"org": "Stibo Systems"
 			},
 			"lego": {
 				"title": "TODO",
-				"org": "LEGO",
-				"short": "LEGO"
+				"org": "LEGO"
 			}
 		}
 	}

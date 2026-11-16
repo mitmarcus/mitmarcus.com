@@ -35,10 +35,10 @@ const Panels = ({ title, children, previousLabel, nextLabel }: PanelsProps) => {
 	};
 
 	const button =
-		'flex h-9 w-12 items-center justify-center rounded-lg border border-border bg-card text-lg transition-colors hover:bg-accent disabled:opacity-40';
+		'flex h-9 w-12 items-center justify-center rounded-lg border border-border bg-card text-lg transition hover:bg-accent active:scale-[0.97] disabled:opacity-40';
 
 	return (
-		<>
+		<div className='md:mx-[calc(50%-min(34rem,50vw-1.5rem))]'>
 			<div className='flex items-center justify-between'>
 				{title}
 				<div className='flex gap-2 md:hidden'>
@@ -65,11 +65,11 @@ const Panels = ({ title, children, previousLabel, nextLabel }: PanelsProps) => {
 			<div
 				ref={ref}
 				onScroll={onScroll}
-				className='no-scrollbar -mx-6 mt-5 flex animate-fade-in snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 *:w-[calc(100vw-4.5rem)] *:shrink-0 *:snap-start *:rounded-2xl *:border *:border-border md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:*:w-auto animation-delay-1'
+				className='no-scrollbar -mx-6 mt-5 flex animate-fade-in snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 *:w-[calc(100vw-4.5rem)] *:shrink-0 max-md:*:h-[calc(100dvh-12rem)] *:snap-start *:rounded-2xl *:border *:border-border md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:*:w-auto animation-delay-1'
 			>
 				{children}
 			</div>
-		</>
+		</div>
 	);
 };
 

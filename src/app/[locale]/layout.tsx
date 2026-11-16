@@ -91,7 +91,7 @@ const RootLayout = async (props: RootLayoutProps) => {
 			<body className='min-h-screen'>
 				<LocaleProvider>
 					<Header />
-					<main className='layout mt-16 min-h-[calc(100vh-56px-196px)]'>
+					<main className='layout mt-16 min-h-dvh'>
 						{children}
 						{/* Vercel */}
 						<Analytics />

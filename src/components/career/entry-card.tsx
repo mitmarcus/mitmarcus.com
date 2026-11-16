@@ -1,13 +1,6 @@
 import Logo from '@/components/career/logo';
 import useEntryText from '@/hooks/career/use-entry-text';
-import { isLong, type PlacedEntry, position } from '@/utils/career/timeline';
-import { cn } from '@/utils/cn';
-
-const shape = {
-	strip: 'flex-col items-center py-2',
-	tall: 'flex-col items-start justify-between px-2 py-2',
-	short: 'items-center',
-};
+import { type PlacedEntry, position } from '@/utils/career/timeline';
 
 type EntryCardProps = {
 	entry: PlacedEntry;
@@ -15,9 +8,8 @@ type EntryCardProps = {
 };
 
 const EntryCard = ({ entry, onOpen }: EntryCardProps) => {
-	const { text, dates } = useEntryText();
-	const { title, org, short } = text(entry);
-	const variant = entry.strip ? 'strip' : isLong(entry) ? 'tall' : 'short';
+	const { text } = useEntryText();
+	const { title, org } = text(entry);
 
 	return (
 		<button
@@ -25,36 +17,21 @@ const EntryCard = ({ entry, onOpen }: EntryCardProps) => {
 			title={`${title} · ${org}`}
 			aria-label={`${title} · ${org}`}
 			onClick={onOpen}
-			style={position(entry)}
-			className={cn(
-				'@container absolute bottom-(--x) left-(--left) flex h-[calc(var(--size)-3px)] w-(--width) cursor-pointer gap-1.5 overflow-hidden rounded-xl border border-border bg-card px-1.5 text-left text-xs shadow-sm transition-colors hover:border-primary/40 hover:bg-accent',
-				shape[variant],
-			)}
+			style={{ ...position(entry), backgroundColor: entry.color }}
+			className='absolute bottom-(--x) left-(--left) flex h-[calc(var(--size)-3px)] w-(--width) cursor-pointer items-center justify-center rounded-xl border border-white/10 shadow-sm transition hover:brightness-125 active:scale-[0.97]'
 		>
-			<Logo entry={entry} />
-			{variant === 'strip' ? (
-				<span className='min-h-0 flex-1 rotate-180 truncate [writing-mode:vertical-rl]'>
-					{short}
+			{entry.accent ? (
+				<span
+					style={{ color: entry.accent }}
+					className='text-sm font-bold'
+				>
+					{entry.initials}
 				</span>
 			) : (
-				<span
-					className={cn(
-						'w-full min-w-0',
-						variant === 'tall'
-							? 'flex flex-col gap-1'
-							: 'hidden items-center gap-2 @[3.5rem]:flex',
-					)}
-				>
-					<span className='truncate'>{short}</span>
-					<span
-						className={cn(
-							'truncate font-mono text-[10px] text-muted-foreground uppercase',
-							variant === 'short' && 'ml-auto hidden shrink-0 @[10rem]:inline',
-						)}
-					>
-						{dates(entry)}
-					</span>
-				</span>
+				<Logo
+					entry={entry}
+					className='size-6'
+				/>
 			)}
 		</button>
 	);

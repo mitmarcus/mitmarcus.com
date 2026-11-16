@@ -12,7 +12,7 @@ const sectionHeading =
 	'mt-8 mb-3 flex items-center gap-3 font-mono text-xs font-medium tracking-wider text-muted-foreground uppercase after:flex-1 after:border-t after:border-dotted after:border-border';
 
 const pillButton =
-	'flex h-8 items-center justify-center rounded-full border border-border bg-card transition-colors hover:bg-accent';
+	'flex h-8 items-center justify-center rounded-full border border-border bg-card transition hover:bg-accent active:scale-[0.97]';
 
 const alwaysScrollable =
 	'after:pointer-events-none after:absolute after:inset-x-0 after:top-0 after:h-[calc(100%+1px)]';
@@ -66,7 +66,7 @@ const EntrySheet = ({
 						alwaysScrollable,
 					)}
 				>
-					<div className='mx-auto my-3 h-1 w-10 shrink-0 rounded-full bg-muted-foreground/40' />
+					<div className='mx-auto box-content h-1 w-10 shrink-0 cursor-grab rounded-full bg-muted-foreground/40 bg-clip-content p-3 active:cursor-grabbing' />
 					<div
 						key={entry.id}
 						className='no-scrollbar flex-1 overflow-y-auto px-5 pt-3 pb-24'

@@ -3,7 +3,6 @@ import type { CSSProperties } from 'react';
 import { type Entry, entries } from '@/config/career';
 
 export type PlacedEntry = Entry & {
-	strip: boolean;
 	left: string;
 	width: string;
 };
@@ -20,8 +19,6 @@ const endOf = (entry: Entry) =>
 
 const months = (entry: Entry) =>
 	Math.round((toYears(endOf(entry)) - toYears(entry.start)) * 12) + 1;
-
-export const isLong = (entry: Entry) => months(entry) >= 10;
 
 export const firstYear = Math.floor(
 	Math.min(...entries.map((entry) => toYears(entry.start))),
@@ -59,30 +56,27 @@ const assignLanes = (list: Entry[]) => {
 	return { lanes, count: laneEnds.length };
 };
 
+const sideWidth = '2rem';
+
 export const layout = (kind: Entry['kind']): PlacedEntry[] =>
 	overlapGroups(entries.filter((entry) => entry.kind === kind)).flatMap(
 		(group) => {
-			const strips = group.some((entry) => !isLong(entry))
-				? group.filter(isLong)
-				: [];
-			const cards = group.filter((entry) => !strips.includes(entry));
-			const stripLanes = assignLanes(strips);
-			const cardLanes = assignLanes(cards);
-			const stripsWidth = `${stripLanes.count * 3}rem`;
-			const cardWidth = `(100% - ${stripsWidth}) / ${cardLanes.count}`;
+			const main = group.filter((entry) => !entry.side);
+			const side = group.filter((entry) => entry.side);
+			const mainLanes = assignLanes(main);
+			const sideLanes = assignLanes(side);
+			const width = `(100% - ${sideLanes.count} * ${sideWidth}) / ${mainLanes.count}`;
 
 			return [
-				...strips.map((entry, i) => ({
+				...main.map((entry, i) => ({
 					...entry,
-					strip: true,
-					left: `${stripLanes.lanes[i] * 3}rem`,
-					width: '2.75rem',
+					left: `calc(${mainLanes.lanes[i]} * ${width})`,
+					width: `calc(${width} - 4px)`,
 				})),
-				...cards.map((entry, i) => ({
+				...side.map((entry, i) => ({
 					...entry,
-					strip: false,
-					left: `calc(${stripsWidth} + ${cardLanes.lanes[i]} * ${cardWidth})`,
-					width: `calc(${cardWidth} - 4px)`,
+					left: `calc(100% - ${sideLanes.lanes[i] + 1} * ${sideWidth})`,
+					width: `calc(${sideWidth} - 4px)`,
 				})),
 			];
 		},

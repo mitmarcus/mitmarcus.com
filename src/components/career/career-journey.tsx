@@ -17,7 +17,6 @@ import {
 	span,
 	years,
 } from '@/utils/career/timeline';
-import { cn } from '@/utils/cn';
 
 const ease = 'cubic-bezier(0.32, 0.72, 0, 1)';
 
@@ -30,7 +29,7 @@ const stackedBehindSheet = (
 	borderRadius: `${16 + 8 * progress}px`,
 	transition: dragging
 		? 'none'
-		: `transform 0.5s ${ease}, opacity 0.5s ${ease}, border-radius 0.5s ease, background-color 0.5s ease`,
+		: `transform 0.5s ${ease}, opacity 0.5s ${ease}, border-radius 0.5s ease`,
 });
 
 const CareerJourney = () => {
@@ -52,7 +51,10 @@ const CareerJourney = () => {
 	const open = (entry: Entry) => {
 		setSelected(entry);
 		setIsOpen(true);
-		panel?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+		panel?.scrollIntoView({
+			block: panel.offsetHeight > window.innerHeight ? 'end' : 'nearest',
+			behavior: 'smooth',
+		});
 	};
 
 	const step = (direction: number) => {
@@ -64,13 +66,13 @@ const CareerJourney = () => {
 	const progress = dragProgress ?? (isOpen ? 1 : 0);
 
 	return (
-		<section ref={setPanel} className='relative overflow-hidden bg-black'>
+		<section
+			ref={setPanel}
+			className='relative overflow-hidden bg-black'
+		>
 			<div
 				style={stackedBehindSheet(progress, dragProgress !== null)}
-				className={cn(
-					'flex h-full origin-top flex-col p-5 will-change-transform',
-					isOpen ? 'bg-card' : 'bg-card/40',
-				)}
+				className='flex h-full origin-top flex-col bg-zinc-900 p-5 will-change-transform'
 			>
 				<h2 className='text-xs font-medium tracking-wider text-muted-foreground uppercase'>
 					{t('title')}
@@ -100,9 +102,9 @@ const CareerJourney = () => {
 									type='button'
 									onClick={() => open(entry)}
 									style={position(entry)}
-									className='absolute bottom-(--x) left-(--left) flex h-[calc(var(--size)-3px)] w-(--width) cursor-pointer flex-col justify-center rounded-md border border-primary/30 bg-primary/10 bg-[repeating-linear-gradient(315deg,color-mix(in_oklab,var(--color-primary)_25%,transparent)_0_1px,transparent_0_50%)] bg-size-[10px_10px] text-xs font-medium whitespace-nowrap transition-colors hover:bg-primary/20'
+									className='absolute bottom-(--x) left-(--left) flex h-[calc(var(--size)-3px)] w-(--width) cursor-pointer flex-col justify-center rounded-md border border-primary/30 bg-primary/10 bg-[repeating-linear-gradient(315deg,color-mix(in_oklab,var(--color-primary)_25%,transparent)_0_1px,transparent_0_50%)] bg-size-[10px_10px] text-xs font-medium whitespace-nowrap transition hover:bg-primary/20 active:scale-[0.97]'
 								>
-									<span className='sticky top-6 bottom-6 rotate-180 [writing-mode:vertical-rl]'>
+									<span className='rotate-180 [writing-mode:vertical-rl]'>
 										{text(entry).org}
 									</span>
 								</button>

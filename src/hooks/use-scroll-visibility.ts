@@ -1,19 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const useScrollVisibility = (hideThreshold = 180) => {
+const useScrollVisibility = (hideThreshold = 180, delta = 40) => {
 	const [isVisible, setIsVisible] = useState(true);
-	const [lastScrollY, setLastScrollY] = useState(0);
+	const anchor = useRef(0);
 
 	useEffect(() => {
 		const handleScroll = () => {
-			if (window.scrollY > hideThreshold) setIsVisible(false);
-			if (window.scrollY < lastScrollY) setIsVisible(true);
-			setLastScrollY(window.scrollY);
+			const y = window.scrollY;
+			const diff = y - anchor.current;
+
+			if (y <= hideThreshold) setIsVisible(true);
+			else if (diff > delta) setIsVisible(false);
+			else if (diff < -delta) setIsVisible(true);
+			else return;
+
+			anchor.current = y;
 		};
 
-		window.addEventListener('scroll', handleScroll);
+		window.addEventListener('scroll', handleScroll, { passive: true });
 		return () => window.removeEventListener('scroll', handleScroll);
-	}, [lastScrollY, hideThreshold]);
+	}, [hideThreshold, delta]);
 
 	return isVisible;
 };

@@ -56,13 +56,11 @@
 			},
 			"tutor": {
 				"title": "Tutore",
-				"org": "VIA University College",
-				"short": "VIA"
+				"org": "VIA University College"
 			},
 			"mainai": {
 				"title": "Inginer software stagiar",
 				"org": "MainAI",
-				"short": "MainAI",
 				"meta": "Stagiu · Danemarca · La birou",
 				"points": [
 					"Am proiectat și construit de la zero pagina de prezentare mainai.dk",
@@ -76,7 +74,6 @@
 			"claviate": {
 				"title": "Inginer software junior",
 				"org": "Claviate",
-				"short": "Claviate",
 				"meta": "Part-time · Aarhus, Danemarca",
 				"points": [
 					"Am întreținut instrumente interne și am construit funcționalități noi în Django",
@@ -92,7 +89,6 @@
 			"stibo": {
 				"title": "Colaborare pentru proiectul de licență",
 				"org": "Stibo Systems Accelerator",
-				"short": "Stibo",
 				"meta": "Contract · Aarhus, Danemarca · Temă: AI agentic · Notă: 12",
 				"points": [
 					"Am proiectat și construit un agent de helpdesk IT bazat pe AI",
@@ -107,7 +103,6 @@
 			"callifyx": {
 				"title": "Director tehnic (CTO)",
 				"org": "Callifyx",
-				"short": "Callifyx",
 				"meta": "Independent",
 				"points": [
 					"Am fost abordat pentru această poziție",
@@ -116,15 +111,18 @@
 					"Legea privind transparența AI s-a schimbat în timp ce îl construiam, așa că proiectul a fost abandonat. Lecție învățată."
 				]
 			},
+			"athme": {
+				"title": "Gazdă de padel",
+				"org": "athme",
+				"meta": "Proiect secundar · Copenhaga"
+			},
 			"stibo-systems": {
 				"title": "TODO",
-				"org": "Stibo Systems",
-				"short": "Stibo"
+				"org": "Stibo Systems"
 			},
 			"lego": {
 				"title": "TODO",
-				"org": "LEGO",
-				"short": "LEGO"
+				"org": "LEGO"
 			}
 		}
 	}
