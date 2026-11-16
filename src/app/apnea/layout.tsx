@@ -2,7 +2,6 @@ import { Analytics } from '@vercel/analytics/react';
 import type { Metadata, Viewport } from 'next';
 
 import Footer from '@/components/footer';
-import ScrollToTop from '@/components/scroll-to-top';
 import { fontNoto, fontSans } from '@/config/fonts';
 import { siteConfig } from '@/config/site';
 import '@/styles/app.css';
@@ -46,7 +45,6 @@ export default function ApneaLayout({ children }: ApneaLayoutProps) {
 			<body className='min-h-screen'>
 				{children}
 				<Footer />
-				<ScrollToTop />
 				<Analytics />
 			</body>
 		</html>

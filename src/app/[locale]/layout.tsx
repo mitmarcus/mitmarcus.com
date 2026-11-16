@@ -7,7 +7,6 @@ import { getTranslations } from 'next-intl/server';
 
 import Footer from '@/components/footer';
 import Header from '@/components/header';
-import ScrollToTop from '@/components/scroll-to-top';
 import { fontNoto, fontSans } from '@/config/fonts';
 import { siteConfig } from '@/config/site';
 import { locales } from '@/lib/navigation';
@@ -97,7 +96,6 @@ const RootLayout = async (props: RootLayoutProps) => {
 						<Analytics />
 					</main>
 					<Footer />
-					<ScrollToTop />
 				</LocaleProvider>
 			</body>
 		</html>

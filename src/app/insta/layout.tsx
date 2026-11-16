@@ -4,7 +4,6 @@ import Script from 'next/script';
 
 import Footer from '@/components/footer';
 import InstaHeader from '@/components/insta/insta-header';
-import ScrollToTop from '@/components/scroll-to-top';
 import { fontNoto, fontSans } from '@/config/fonts';
 import { siteConfig } from '@/config/site';
 import '@/styles/app.css';
@@ -49,7 +48,6 @@ export default function InstaLayout({ children }: InstaLayoutProps) {
 					{children}
 				</main>
 				<Footer />
-				<ScrollToTop />
 				<Analytics />
 			</body>
 		</html>
