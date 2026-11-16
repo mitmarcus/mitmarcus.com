@@ -32,5 +32,100 @@
 	},
 	"aboutPage": {
 		"description": "About my work experience, learning record, etc..."
+	},
+	"experience": {
+		"title": "Career journey",
+		"previous": "Previous",
+		"next": "Next",
+		"close": "Close",
+		"workedOn": "What I did",
+		"stack": "Stack",
+		"present": "Present",
+		"items": {
+			"au": {
+				"title": "Master's degree, Computer Engineering",
+				"org": "Aarhus University",
+				"meta": "Specialisation: Cybersecurity",
+				"points": ["Student ambassador"]
+			},
+			"via": {
+				"title": "Bachelor's degree, Software Technology Engineering",
+				"org": "VIA University College",
+				"meta": "Grade: 12",
+				"points": ["Student ambassador"]
+			},
+			"tutor": {
+				"title": "Tutor",
+				"org": "VIA University College",
+				"short": "VIA"
+			},
+			"mainai": {
+				"title": "Software Engineer Intern",
+				"org": "MainAI",
+				"short": "MainAI",
+				"meta": "Internship · Denmark · On-site",
+				"points": [
+					"Designed and built the mainai.dk landing page from scratch",
+					"AI system for Danish tax law interpretation",
+					"Legal PDF document management",
+					"Linux system administration",
+					"Containerization and DevOps"
+				],
+				"skills": "React · Docker · Linux"
+			},
+			"claviate": {
+				"title": "Junior Software Engineer",
+				"org": "Claviate",
+				"short": "Claviate",
+				"meta": "Part-time · Aarhus, Denmark",
+				"points": [
+					"Maintained internal tools and built new features in Django",
+					"UI/UX improvements for internal tooling",
+					"Gave cybersecurity awareness presentations",
+					"Built an internal physical node testing platform on Arduino",
+					"Worked with high-current electrical circuits",
+					"Assembled and programmed a dynamic PPS on ESP32",
+					"Ran internal pentests with notable vulnerability finds"
+				],
+				"skills": "Django · Python · Arduino · ESP32"
+			},
+			"stibo": {
+				"title": "Bachelor Project Collaboration",
+				"org": "Stibo Systems Accelerator",
+				"short": "Stibo",
+				"meta": "Contract · Aarhus, Denmark · Topic: Agentic AI · Grade: 12",
+				"points": [
+					"Designed and built an AI-powered IT helpdesk agent",
+					"RAG pipeline with ChromaDB",
+					"Conversational memory with session management and Langfuse tracing across multi-turn conversations",
+					"Full-stack app with a Next.js frontend, Python backend, real-time chat and Docker deployment",
+					"Query expansion, document reranking, PII redaction and step-by-step troubleshooting workflows",
+					"Intent-based routing, retry handling, network status checks and ticket escalation that keeps context"
+				],
+				"skills": "Python · Docker · Next.js · ChromaDB · Langfuse"
+			},
+			"callifyx": {
+				"title": "Chief Technology Officer",
+				"org": "Callifyx",
+				"short": "Callifyx",
+				"meta": "Self-employed",
+				"points": [
+					"Was approached for the position",
+					"Built the MVP",
+					"Investors showed strong interest",
+					"The law on AI transparency changed while I was building it, so the project was scrapped. Lesson learned."
+				]
+			},
+			"stibo-systems": {
+				"title": "TODO",
+				"org": "Stibo Systems",
+				"short": "Stibo"
+			},
+			"lego": {
+				"title": "TODO",
+				"org": "LEGO",
+				"short": "LEGO"
+			}
+		}
 	}
 }

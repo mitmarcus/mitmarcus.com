@@ -32,5 +32,100 @@
 	},
 	"aboutPage": {
 		"description": "Despre experiența mea de muncă, înregistrările de învățare, etc..."
+	},
+	"experience": {
+		"title": "Parcurs profesional",
+		"previous": "Înapoi",
+		"next": "Înainte",
+		"close": "Închide",
+		"workedOn": "Ce am făcut",
+		"stack": "Tehnologii",
+		"present": "Prezent",
+		"items": {
+			"au": {
+				"title": "Master, Inginerie Calculatoare",
+				"org": "Universitatea din Aarhus",
+				"meta": "Specializare: Securitate cibernetică",
+				"points": ["Ambasador studențesc"]
+			},
+			"via": {
+				"title": "Licență, Software Technology Engineering",
+				"org": "VIA University College",
+				"meta": "Notă: 12",
+				"points": ["Ambasador studențesc"]
+			},
+			"tutor": {
+				"title": "Tutore",
+				"org": "VIA University College",
+				"short": "VIA"
+			},
+			"mainai": {
+				"title": "Inginer software stagiar",
+				"org": "MainAI",
+				"short": "MainAI",
+				"meta": "Stagiu · Danemarca · La birou",
+				"points": [
+					"Am proiectat și construit de la zero pagina de prezentare mainai.dk",
+					"Sistem AI pentru interpretarea legislației fiscale daneze",
+					"Gestionarea documentelor juridice PDF",
+					"Administrare de sisteme Linux",
+					"Containerizare și DevOps"
+				],
+				"skills": "React · Docker · Linux"
+			},
+			"claviate": {
+				"title": "Inginer software junior",
+				"org": "Claviate",
+				"short": "Claviate",
+				"meta": "Part-time · Aarhus, Danemarca",
+				"points": [
+					"Am întreținut instrumente interne și am construit funcționalități noi în Django",
+					"Îmbunătățiri UI/UX pentru instrumentele interne",
+					"Am susținut prezentări de conștientizare în securitate cibernetică",
+					"Am construit o platformă internă fizică de testare a nodurilor pe Arduino",
+					"Am lucrat cu circuite electrice de curent mare",
+					"Am asamblat și programat un PPS dinamic pe ESP32",
+					"Am efectuat pentesturi interne cu vulnerabilități notabile descoperite"
+				],
+				"skills": "Django · Python · Arduino · ESP32"
+			},
+			"stibo": {
+				"title": "Colaborare pentru proiectul de licență",
+				"org": "Stibo Systems Accelerator",
+				"short": "Stibo",
+				"meta": "Contract · Aarhus, Danemarca · Temă: AI agentic · Notă: 12",
+				"points": [
+					"Am proiectat și construit un agent de helpdesk IT bazat pe AI",
+					"Pipeline RAG cu ChromaDB",
+					"Memorie conversațională cu gestionarea sesiunilor și tracing Langfuse în conversații cu mai multe replici",
+					"Aplicație full-stack cu frontend Next.js, backend Python, chat în timp real și deploy cu Docker",
+					"Expandarea interogărilor, reordonarea documentelor, redactarea datelor personale și fluxuri de depanare pas cu pas",
+					"Rutare pe baza intenției, reîncercări, verificarea stării rețelei și escaladarea tichetelor cu păstrarea contextului"
+				],
+				"skills": "Python · Docker · Next.js · ChromaDB · Langfuse"
+			},
+			"callifyx": {
+				"title": "Director tehnic (CTO)",
+				"org": "Callifyx",
+				"short": "Callifyx",
+				"meta": "Independent",
+				"points": [
+					"Am fost abordat pentru această poziție",
+					"Am construit MVP-ul",
+					"Investitorii au arătat un interes mare",
+					"Legea privind transparența AI s-a schimbat în timp ce îl construiam, așa că proiectul a fost abandonat. Lecție învățată."
+				]
+			},
+			"stibo-systems": {
+				"title": "TODO",
+				"org": "Stibo Systems",
+				"short": "Stibo"
+			},
+			"lego": {
+				"title": "TODO",
+				"org": "LEGO",
+				"short": "LEGO"
+			}
+		}
 	}
 }

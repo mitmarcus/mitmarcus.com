@@ -93,6 +93,13 @@
 	}
 }
 
+@utility no-scrollbar {
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
 @utility layout {
 	@apply mx-auto max-w-3xl px-6;
 }

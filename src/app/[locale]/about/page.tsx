@@ -3,7 +3,9 @@ import { notFound } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
+import CareerJourney from '@/components/career/career-journey';
 import MDXContent from '@/components/mdx';
+import Panels from '@/components/panels';
 import GradientText from '@/components/ui/gradient-text';
 import { allPages } from '@/content';
 import { getLocalizedUrl } from '@/utils/url';
@@ -28,7 +30,7 @@ export const generateMetadata = async (props: {
 };
 
 const AboutPage = () => {
-	const t = useTranslations('common');
+	const t = useTranslations();
 	const locale = useLocale() as Locale;
 	const page = allPages.find(
 		(page) => page.slug === 'about' && page.language === locale,
@@ -39,17 +41,23 @@ const AboutPage = () => {
 	}
 
 	return (
-		<>
-			<GradientText
-				as='h1'
-				className='animate-fade-in text-2xl font-bold tracking-tight'
-			>
-				{t('about')}
-			</GradientText>
-			<div className='prose mt-5 animate-fade-in animation-delay-1'>
+		<Panels
+			title={
+				<GradientText
+					as='h1'
+					className='animate-fade-in text-2xl font-bold tracking-tight'
+				>
+					{t('common.about')}
+				</GradientText>
+			}
+			previousLabel={t('experience.previous')}
+			nextLabel={t('experience.next')}
+		>
+			<section className='prose bg-card/40 p-5'>
 				<MDXContent code={page.content} />
-			</div>
-		</>
+			</section>
+			<CareerJourney />
+		</Panels>
 	);
 };
 
